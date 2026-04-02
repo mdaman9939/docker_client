@@ -8,7 +8,7 @@
     --card-bg: #ffffff;
     --text-dark: #2b2d42;
     --text-light: #8d99ae;
-    --sidebar-width: 260px;
+    --sidebar-width: 264px;
     --border-radius: 12px;
     --shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
 }
@@ -27,6 +27,7 @@ body {
     display: flex;
     min-height: 100vh;
     overflow: hidden;  /* Body ka scroll band */
+    margin-top: 0%;
 }
 
 /* Sidebar Styles - FINAL VERSION */
@@ -38,11 +39,25 @@ body {
     position: fixed;
     left: 0;
     top: 0;
-    padding: 25px 0;
+    padding: 0;
     box-shadow: var(--shadow);
-    z-index: 1000;
-    
-    /* Scrollbar hide - SIRF YAHI EK JAGAH */
+    z-index: 1100;
+    display: flex;
+    flex-direction: column;
+    transform: translateX(-100%);
+    transition: transform 0.3s ease;
+
+    /* Allow toggle button to overflow */
+    overflow: visible;
+}
+
+.sidebar.active {
+    transform: translateX(0);
+}
+
+/* Scrollable inner wrapper */
+.sidebar-inner {
+    height: 100%;
     overflow-y: auto;
     overflow-x: hidden;
     scrollbar-width: none;  /* Firefox */
@@ -51,8 +66,7 @@ body {
     -webkit-overflow-scrolling: touch;
 }
 
-/* Chrome/Safari/Edge ke liye */
-.sidebar::-webkit-scrollbar {
+.sidebar-inner::-webkit-scrollbar {
     display: none;
     width: 0;
     height: 0;
@@ -194,14 +208,24 @@ body {
   /* Main Content */
 .main-content {
     flex: 1;
-    margin-left: var(--sidebar-width);
-    padding: 30px;
+    margin-left: 0;
+    padding: 0 30px 0 30px;
     height: 100vh;
     overflow-y: auto;
-    
+    display: flex;
+    flex-direction: column;
+    transition: margin-left 0.3s ease;
+
     /* Main content ka scrollbar bhi hide */
     scrollbar-width: none;
     -ms-overflow-style: none;
+}
+
+/* Desktop: shift main content when sidebar is open */
+@media (min-width: 993px) {
+    body.sidebar-open .main-content {
+        margin-left: var(--sidebar-width);
+    }
 }
 
 .main-content::-webkit-scrollbar {
@@ -212,7 +236,7 @@ body {
             display: flex;
             justify-content: space-between;
             align-items: center;
-            margin-bottom: 30px;
+            margin-bottom: 20px;
         }
 
         .page-title h2 {
@@ -533,43 +557,37 @@ body {
         /* Mobile Responsive */
         @media (max-width: 992px) {
             .sidebar {
-                transform: translateX(-100%);
-                transition: transform 0.3s ease;
-                width: 280px;
-                -webkit-overflow-scrolling: touch;
+                width: 280px !important;
             }
-            
-            .sidebar.active {
-                transform: translateX(0);
-            }
-            
-            .main-content {
-                margin-left: 0;
-            }
-            
-            .menu-toggle {
-                display: block !important;
-            }
-            
+
             .stats-container {
                 grid-template-columns: repeat(2, 1fr);
+            }
+
+            /* Disable stagger animations on mobile to prevent jank */
+            .sidebar .menu-item {
+                animation: none !important;
             }
         }
 
         @media (max-width: 768px) {
+            .main-content {
+                padding: 0 16px 0 16px;
+            }
+
             .stats-container {
                 grid-template-columns: 1fr;
             }
-            
+
             .header {
-                flex-direction: column;
-                align-items: flex-start;
-                gap: 20px;
+                flex-direction: row;
+                align-items: center;
+                gap: 0;
             }
-            
+
             .header-actions {
-                width: 100%;
-                justify-content: space-between;
+                width: auto;
+                justify-content: flex-end;
             }
         }
 
@@ -589,7 +607,8 @@ body {
             color: var(--text-light);
             font-size: 14px;
             border-top: 1px solid #eaeaea;
-            margin-top: 40px;
+            margin-top: auto;
+            flex-shrink: 0;
         }
     /* User Dropdown Styles */
 .dropdown-menu {
@@ -647,23 +666,4 @@ body {
     }
 }
 
-/* Active menu item styling */
-.menu-item.active {
-    background: linear-gradient(135deg, #4361ee 0%, #3a56d4 100%);
-    color: white;
-    border-radius: 12px;
-    margin: 5px 10px;
-}
-
-.menu-item.active a {
-    color: white;
-}
-
-.menu-item.active .menu-icon i {
-    color: white;
-}
-
-.menu-item.active .menu-badge {
-    background: white;
-    color: #4361ee;
-}
+/* Active menu item styling — now in sidebar.css */

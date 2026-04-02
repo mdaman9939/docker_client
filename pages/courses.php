@@ -1,56 +1,60 @@
 <!-- Courses Section -->
 <div id="courses-section" class="content-section" style="display: none;">
-    <div class="courses-header">
-        <div>
-            <h3>My Books Library</h3>
-            <p>Read, Learn and Ask Questions from your books</p>
+
+    <!-- List View (hidden when a book is open) -->
+    <div id="courses-list-view">
+        <!-- Hero Banner with Study Progress -->
+        <div class="courses-hero-banner">
+            <div class="courses-hero-top">
+                <div class="courses-hero-left">
+                    <div class="courses-hero-icon">
+                        <i class="fas fa-book-open"></i>
+                    </div>
+                    <div class="courses-hero-text">
+                        <h2>My Books Library</h2>
+                        <p>Read, learn, and ask AI-powered questions from your books</p>
+                    </div>
+                </div>
+                <div class="courses-search">
+                    <i class="fas fa-search"></i>
+                    <input type="text" id="book-search" placeholder="Search books by title, subject...">
+                </div>
+            </div>
+
+            <!-- Study Progress Summary (inside hero banner) -->
+            <div class="courses-hero-stats" id="study-summary-card" style="display: none;">
+                <div class="courses-hero-stats-inner" id="study-summary-content"></div>
+            </div>
         </div>
-        <div class="courses-search">
-            <i class="fas fa-search"></i>
-            <input type="text" id="book-search" placeholder="Search books by title, subject...">
+
+        <!-- Loading Spinner -->
+        <div id="courses-loading" class="loading-spinner-container" style="display: none;">
+            <div class="spinner"></div>
+            <p>Loading your books...</p>
         </div>
-    </div>
-  
-    <hr class="divider">
-  
-    <!-- Loading Spinner -->
-    <div id="courses-loading" class="loading-spinner-container" style="display: none;">
-        <div class="spinner"></div>
-        <p>Loading your books...</p>
-    </div>
-    
-    <!-- Error Message -->
-    <div id="courses-error" class="error-message" style="display: none;"></div>
-    
-    <!-- Success Message -->
-    <div id="courses-success" class="success-message" style="display: none;"></div>
-    
-    <!-- Study Progress Summary -->
-    <div id="study-summary-card" class="study-summary-card" style="display: none;">
-        <div class="study-summary-header">
-            <h4><i class="fas fa-chart-line"></i> Your Study Progress</h4>
-            <button class="close-summary-btn" id="close-study-summary">&times;</button>
+
+        <!-- Error Message -->
+        <div id="courses-error" class="error-message" style="display: none;"></div>
+
+        <!-- Success Message -->
+        <div id="courses-success" class="success-message" style="display: none;"></div>
+
+        <!-- Subject Filters -->
+        <div class="subject-filters">
+            <button class="subject-filter-btn active" data-subject="all">All Books</button>
+            <button class="subject-filter-btn" data-subject="mathematics">📐 Mathematics</button>
+            <button class="subject-filter-btn" data-subject="science">🔬 Science</button>
+            <button class="subject-filter-btn" data-subject="hindi">📗 Hindi</button>
+            <button class="subject-filter-btn" data-subject="english">📘 English</button>
+            <button class="subject-filter-btn" data-subject="social">🌍 Social Studies</button>
+            <button class="subject-filter-btn" data-subject="sanskrit">🕉️ Sanskrit</button>
+            <button class="subject-filter-btn" data-subject="computer">💻 Computer</button>
         </div>
-        <div class="study-summary-content" id="study-summary-content">
-            <!-- Study summary will be loaded here -->
+
+        <!-- Books Grid -->
+        <div class="books-grid" id="books-grid">
+            <!-- Books will be loaded here dynamically -->
         </div>
-    </div>
-    
-    <!-- Subject Filters -->
-    <div class="subject-filters">
-        <button class="subject-filter-btn active" data-subject="all">All Books</button>
-        <button class="subject-filter-btn" data-subject="mathematics">📐 Mathematics</button>
-        <button class="subject-filter-btn" data-subject="science">🔬 Science</button>
-        <button class="subject-filter-btn" data-subject="hindi">📗 Hindi</button>
-        <button class="subject-filter-btn" data-subject="english">📘 English</button>
-        <button class="subject-filter-btn" data-subject="social">🌍 Social Studies</button>
-        <button class="subject-filter-btn" data-subject="sanskrit">🕉️ Sanskrit</button>
-        <button class="subject-filter-btn" data-subject="computer">💻 Computer</button>
-    </div>
-    
-    <!-- Books Grid -->
-    <div class="books-grid" id="books-grid">
-        <!-- Books will be loaded here dynamically -->
     </div>
     
     <!-- Book Reader Container (Hidden by default) -->
@@ -123,13 +127,14 @@
         <!-- Book Chat Container (Hidden by default) -->
         <div id="book-chat-container" style="display: none;">
             <div class="chat-header">
-                <h4><i class="fas fa-robot"></i> Ask about this book</h4>
-                <div class="chat-header-actions">
+<h4 style="color: white;">
+    <i class="fas fa-robot" style="color: white;"></i> Ask about this book
+</h4>                <div class="chat-header-actions">
                     <button class="practice-questions-btn" id="show-practice-questions">
                         <i class="fas fa-question-circle"></i> Practice
                     </button>
                     <button class="close-chat-btn" id="close-book-chat-btn">
-                        <i class="fas fa-chevron-left"></i> Back to Reading
+                        <i class="fas fa-chevron-left"></i> 
                     </button>
                 </div>
             </div>
@@ -189,7 +194,7 @@
     width: 60px;
     height: 60px;
     border-radius: 50%;
-    background: linear-gradient(135deg, #4361ee, #06d6a0);
+    background: linear-gradient(135deg, #3f66e6, #0ed3a2);
     border: none;
     color: white;
     font-size: 24px;
@@ -258,7 +263,7 @@
 }
 
 .mini-chatbot-header {
-    background: linear-gradient(135deg, #4361ee, #3a56d4);
+    background: linear-gradient(135deg, #3f66e6, #129695);
     color: white;
     padding: 15px 20px;
     display: flex;
@@ -314,14 +319,14 @@
 
 .mini-chatbot-input-area textarea:focus {
     outline: none;
-    border-color: #4361ee;
+    border-color: #3f66e6;
 }
 
 .mini-chatbot-input-area button {
     width: 45px;
     height: 45px;
     border: none;
-    background: linear-gradient(135deg, #4361ee, #3a56d4);
+    background: linear-gradient(135deg, #3f66e6, #129695);
     color: white;
     border-radius: 50%;
     cursor: pointer;
@@ -365,7 +370,7 @@
 }
 
 .mini-user-message .mini-message-content {
-    background: linear-gradient(135deg, #4361ee, #3a56d4);
+    background: linear-gradient(135deg, #3f66e6, #129695);
     color: white;
     border-radius: 15px 15px 5px 15px;
 }
@@ -398,151 +403,197 @@
 }
 
 /* ==================== COURSES/BOOKS CORE STYLES ==================== */
-.courses-header {
+
+/* Remove padding from section when reader is open */
+#courses-section:has(#book-reader-container[style*="block"]) {
+    padding: 0 !important;
+}
+#courses-section:has(#book-reader-container:not([style*="none"])) {
+    padding: 0 !important;
+}
+
+#courses-list-view {
+    padding: 20px 0 30px;
+}
+
+/* Hero Banner */
+.courses-hero-banner {
+    display: flex;
+    flex-direction: column;
+    background: linear-gradient(135deg, #3f66e6 0%, #129695 50%, #0ed3a2 100%);
+    border-radius: 16px;
+    padding: 22px 28px;
+    margin-bottom: 22px;
+    gap: 0;
+    color: white;
+}
+
+.courses-hero-top {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    margin-bottom: 20px;
     flex-wrap: wrap;
-    gap: 15px;
+    gap: 16px;
 }
-.courses-header h3 {
-    font-size: 28px;
-    color: #333;
-    margin: 0 0 5px 0;
+
+.courses-hero-left {
+    display: flex;
+    align-items: center;
+    gap: 20px;
 }
-.courses-header p {
-    color: #666;
+
+.courses-hero-icon {
+    width: 50px;
+    height: 50px;
+    background: rgba(255, 255, 255, 0.18);
+    border-radius: 14px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 22px;
+    flex-shrink: 0;
+}
+
+.courses-hero-text h2 {
+    font-size: 20px;
+    font-weight: 700;
+    margin: 0 0 4px 0;
+    color: white;
+}
+
+.courses-hero-text p {
+    font-size: 13px;
     margin: 0;
-    font-size: 16px;
+    opacity: 0.85;
 }
+
 .courses-search {
     position: relative;
     min-width: 300px;
 }
 .courses-search i {
     position: absolute;
-    left: 15px;
+    left: 16px;
     top: 50%;
     transform: translateY(-50%);
-    color: #999;
+    color: rgba(255, 255, 255, 0.7);
+    font-size: 15px;
 }
 .courses-search input {
     width: 100%;
-    padding: 12px 15px 12px 45px;
-    border: 2px solid #e0e0e0;
+    padding: 12px 18px 12px 46px;
+    border: 2px solid rgba(255, 255, 255, 0.3);
     border-radius: 30px;
-    font-size: 16px;
+    font-size: 15px;
     transition: all 0.3s;
     box-sizing: border-box;
+    background: rgba(255, 255, 255, 0.15);
+    color: white;
+    backdrop-filter: blur(4px);
+}
+.courses-search input::placeholder {
+    color: rgba(255, 255, 255, 0.65);
 }
 .courses-search input:focus {
     outline: none;
-    border-color: #4361ee;
-    box-shadow: 0 0 0 3px rgba(67,97,238,0.1);
+    border-color: rgba(255, 255, 255, 0.7);
+    background: rgba(255, 255, 255, 0.25);
+    box-shadow: 0 0 0 3px rgba(255, 255, 255, 0.15);
 }
 
-/* Study Summary Card */
-.study-summary-card {
-    background: white;
-    border-radius: 20px;
-    padding: 20px;
-    margin-bottom: 25px;
-    box-shadow: 0 10px 30px rgba(0,0,0,0.1);
-    border-left: 5px solid #06d6a0;
+@media (max-width: 768px) {
+    .courses-hero-banner {
+        padding: 20px 22px;
+    }
+    .courses-search {
+        min-width: 100%;
+    }
+}
+
+/* Study Stats inside Hero Banner */
+.courses-hero-stats {
+    margin-top: 18px;
+    padding-top: 18px;
+    border-top: 1px solid rgba(255,255,255,0.15);
     animation: slideDown 0.3s ease;
 }
 
 @keyframes slideDown {
-    from {
-        opacity: 0;
-        transform: translateY(-20px);
-    }
-    to {
-        opacity: 1;
-        transform: translateY(0);
-    }
+    from { opacity: 0; transform: translateY(-10px); }
+    to { opacity: 1; transform: translateY(0); }
 }
 
-.study-summary-header {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    margin-bottom: 15px;
+.courses-hero-stats-inner {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 12px;
 }
 
-.study-summary-header h4 {
-    margin: 0;
-    color: #333;
-    font-size: 18px;
-}
-
-.close-summary-btn {
-    background: none;
-    border: none;
-    font-size: 24px;
-    cursor: pointer;
-    color: #666;
-}
-
-.study-summary-content {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 20px;
-}
-
-.stat-item {
-    flex: 1;
-    min-width: 120px;
+.hero-stat-item {
     text-align: center;
-    padding: 10px;
-    background: #f8f9ff;
+    padding: 14px 10px;
+    background: rgba(255,255,255,0.12);
     border-radius: 12px;
+    backdrop-filter: blur(4px);
+    transition: background 0.2s;
+}
+.hero-stat-item:hover {
+    background: rgba(255,255,255,0.2);
 }
 
-.stat-value {
-    font-size: 28px;
-    font-weight: 700;
-    color: #4361ee;
-    line-height: 1.2;
+.hero-stat-value {
+    font-size: 26px;
+    font-weight: 800;
+    color: #fff;
+    line-height: 1.1;
+    margin-bottom: 4px;
 }
 
-.stat-label {
-    font-size: 12px;
-    color: #666;
+.hero-stat-label {
+    font-size: 11px;
+    color: rgba(255,255,255,0.75);
     text-transform: uppercase;
     letter-spacing: 0.5px;
+    font-weight: 500;
+}
+
+@media (max-width: 600px) {
+    .courses-hero-stats-inner {
+        grid-template-columns: repeat(2, 1fr);
+    }
 }
 
 /* Subject Filters */
 .subject-filters {
     display: flex;
-    gap: 10px;
-    margin-bottom: 30px;
+    gap: 8px;
+    margin-bottom: 24px;
     flex-wrap: wrap;
-    background: white;
-    padding: 15px 20px;
-    border-radius: 50px;
-    box-shadow: 0 5px 20px rgba(0,0,0,0.05);
+    background: transparent;
+    padding: 0;
+    border-radius: 0;
+    box-shadow: none;
 }
 .subject-filter-btn {
-    padding: 10px 20px;
-    border: none;
-    background: transparent;
-    border-radius: 30px;
+    padding: 8px 18px;
+    border: 1.5px solid #e0e4ea;
+    background: #fff;
+    border-radius: 20px;
     cursor: pointer;
-    font-weight: 500;
-    transition: all 0.3s;
-    color: #666;
-    font-size: 15px;
+    font-weight: 600;
+    transition: all 0.15s;
+    color: var(--text-dark, #2b2d42);
+    font-size: 12px;
+    font-family: 'Poppins', sans-serif;
 }
 .subject-filter-btn:hover {
-    background: #f0f4ff;
-    color: #4361ee;
+    border-color: var(--primary-blue, #3f66e6);
+    color: var(--primary-blue, #3f66e6);
 }
 .subject-filter-btn.active {
-    background: linear-gradient(135deg, #4361ee, #06d6a0);
+    background: var(--primary-blue, #3f66e6);
     color: white;
+    border-color: var(--primary-blue, #3f66e6);
 }
 
 /* Books Grid */
@@ -556,21 +607,23 @@
 /* Book Card */
 .book-card {
     background: white;
-    border-radius: 20px;
+    border-radius: 16px;
     overflow: hidden;
-    box-shadow: 0 10px 30px rgba(0,0,0,0.1);
-    transition: all 0.3s;
+    box-shadow: 0 4px 20px rgba(0,0,0,0.06);
+    transition: transform 0.25s, box-shadow 0.25s;
     cursor: pointer;
     position: relative;
     display: flex;
     flex-direction: column;
+    border: 1.5px solid transparent;
 }
 .book-card:hover {
-    transform: translateY(-10px);
-    box-shadow: 0 20px 40px rgba(67,97,238,0.15);
+    transform: translateY(-5px);
+    box-shadow: 0 10px 30px rgba(67,97,238,0.12);
+    border-color: rgba(67,97,238,0.15);
 }
 .book-cover {
-    height: 200px;
+    height: 180px;
     background-size: cover;
     background-position: center;
     position: relative;
@@ -596,7 +649,7 @@
 }
 .read-book-btn {
     background: white;
-    color: #4361ee;
+    color: #3f66e6;
     border: none;
     padding: 10px 20px;
     border-radius: 30px;
@@ -610,52 +663,62 @@
 }
 .book-subject-badge {
     position: absolute;
-    top: 15px;
-    right: 15px;
-    background: rgba(255,255,255,0.9);
-    padding: 5px 12px;
-    border-radius: 20px;
-    font-size: 12px;
+    top: 12px;
+    right: 12px;
+    background: rgba(255,255,255,0.92);
+    backdrop-filter: blur(4px);
+    padding: 4px 12px;
+    border-radius: 8px;
+    font-size: 11px;
     font-weight: 600;
-    color: #4361ee;
+    color: #3f66e6;
+    display: flex;
+    align-items: center;
+    gap: 5px;
 }
 .book-class-badge {
     position: absolute;
-    bottom: 15px;
-    left: 15px;
-    background: rgba(67,97,238,0.9);
+    bottom: 12px;
+    left: 12px;
+    background: rgba(67,97,238,0.85);
+    backdrop-filter: blur(4px);
     color: white;
-    padding: 5px 12px;
-    border-radius: 20px;
-    font-size: 12px;
+    padding: 4px 12px;
+    border-radius: 8px;
+    font-size: 11px;
+    font-weight: 600;
     display: flex;
     align-items: center;
     gap: 5px;
 }
 .book-info {
-    padding: 20px;
+    padding: 16px 18px;
     flex: 1;
 }
 .book-title {
-    font-size: 18px;
-    font-weight: 600;
-    color: #333;
-    margin: 0 0 8px 0;
-    line-height: 1.4;
+    font-size: 15px;
+    font-weight: 700;
+    color: var(--text-dark, #2b2d42);
+    margin: 0 0 6px 0;
+    line-height: 1.35;
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
 }
 .book-author {
-    color: #666;
-    font-size: 14px;
-    margin: 0 0 10px 0;
+    color: var(--text-light, #8d99ae);
+    font-size: 12px;
+    margin: 0 0 8px 0;
     display: flex;
     align-items: center;
     gap: 5px;
 }
 .book-description {
-    color: #888;
-    font-size: 13px;
+    color: var(--text-light, #8d99ae);
+    font-size: 12px;
     line-height: 1.5;
-    margin: 0 0 15px 0;
+    margin: 0 0 12px 0;
     display: -webkit-box;
     -webkit-line-clamp: 2;
     -webkit-box-orient: vertical;
@@ -663,65 +726,109 @@
 }
 .book-meta {
     display: flex;
-    gap: 15px;
-    font-size: 12px;
-    color: #999;
+    gap: 14px;
+    font-size: 11px;
+    color: var(--text-light, #8d99ae);
 }
 .book-meta span {
     display: flex;
     align-items: center;
-    gap: 5px;
+    gap: 4px;
 }
 .book-progress {
-    padding: 15px 20px;
-    background: #f8f9fa;
-    border-top: 1px solid #eee;
+    padding: 12px 18px;
+    background: #f8f9fb;
+    border-top: 1px solid #f0f1f5;
 }
 .progress-bar {
-    height: 6px;
-    background: #e0e0e0;
-    border-radius: 10px;
+    height: 5px;
+    background: #eef0f4;
+    border-radius: 3px;
     overflow: hidden;
-    margin-bottom: 5px;
+    margin-bottom: 6px;
 }
 .progress-fill {
     height: 100%;
-    background: linear-gradient(90deg, #4361ee, #06d6a0);
-    border-radius: 10px;
-    transition: width 0.3s;
+    background: linear-gradient(90deg, #3f66e6, #0ed3a2);
+    border-radius: 3px;
+    transition: width 0.5s ease;
 }
 .progress-text {
-    font-size: 12px;
-    color: #666;
+    font-size: 11px;
+    color: var(--text-light, #8d99ae);
     display: flex;
     justify-content: space-between;
 }
 
-/* Book Reader Container */
-#book-reader-container {
-    margin-top: 30px;
+/* Book cover emoji placeholder */
+.book-cover-emoji {
+    font-size: 56px;
+    filter: drop-shadow(0 4px 12px rgba(0,0,0,0.25));
+    z-index: 1;
+    pointer-events: none;
+}
+
+/* Empty state */
+.empty-books {
+    grid-column: 1 / -1;
+    text-align: center;
+    padding: 64px 20px;
     background: white;
     border-radius: 20px;
-    box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+    box-shadow: 0 4px 20px rgba(0,0,0,0.06);
+}
+.empty-books-icon {
+    width: 80px;
+    height: 80px;
+    background: linear-gradient(135deg, #e8edff, #dff5ef);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0 auto 20px;
+    font-size: 34px;
+    color: #3f66e6;
+}
+.empty-books h3 {
+    font-size: 20px;
+    color: #333;
+    margin-bottom: 8px;
+}
+.empty-books p {
+    color: #888;
+    font-size: 14px;
+    margin: 4px 0;
+}
+
+/* Book Reader Container */
+#book-reader-container {
+    margin: 0;
+    background: white;
+    border-radius: 0;
+    box-shadow: none;
     overflow: hidden;
     position: relative;
     width: 100%;
+    display: flex;
+    flex-direction: column;
+    height: calc(100vh - 80px);
 }
 .book-reader-header {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    padding: 20px 25px;
-    background: linear-gradient(135deg, #4361ee, #3a56d4);
+    padding: 14px 20px;
+    background: linear-gradient(135deg, #3f66e6, #129695);
     color: white;
+    flex-shrink: 0;
 }
 .book-reader-header h3 {
-    margin: 0 0 5px 0;
-    font-size: 24px;
+    margin: 0 0 3px 0;
+    font-size: 18px;
 }
 .book-reader-header p {
     margin: 0;
-    font-size: 14px;
+    font-size: 12px;
     opacity: 0.9;
 }
 .reader-actions {
@@ -730,42 +837,52 @@
     gap: 15px;
 }
 .study-stats-btn, .ask-book-btn {
-    background: white;
-    color: #4361ee;
-    border: none;
-    padding: 10px 20px;
-    border-radius: 30px;
-    font-size: 15px;
+    background: rgba(255,255,255,0.15);
+    color: #fff;
+    border: 1.5px solid rgba(255,255,255,0.35);
+    padding: 8px 16px;
+    border-radius: 10px;
+    font-size: 12px;
     font-weight: 600;
     cursor: pointer;
     display: inline-flex;
+    backdrop-filter: blur(4px);
     align-items: center;
     gap: 8px;
     transition: all 0.3s;
 }
 .study-stats-btn:hover, .ask-book-btn:hover {
-    transform: translateY(-2px);
-    box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+    background: rgba(255,255,255,0.25);
+    transform: translateY(-1px);
 }
 .close-reader-btn {
-    background: none;
+    background: rgba(255,255,255,0.1);
     border: none;
     color: white;
-    font-size: 32px;
+    font-size: 20px;
     cursor: pointer;
     line-height: 1;
-    padding: 0 10px;
+    width: 34px;
+    height: 34px;
+    border-radius: 8px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: background 0.15s;
 }
 .close-reader-btn:hover {
-    opacity: 0.8;
+    background: rgba(255,255,255,0.25);
 }
 
 /* Study Stats Panel */
 #study-stats-panel {
-    background: #f8f9ff;
-    border-bottom: 1px solid #e0e0e0;
-    padding: 20px;
+    background: #f8f9fb;
+    border-bottom: 1px solid #f0f1f5;
+    padding: 18px 20px;
     animation: slideDown 0.3s ease;
+    flex-shrink: 0;
+    max-height: 260px;
+    overflow-y: auto;
 }
 
 .stats-panel-header {
@@ -814,7 +931,7 @@
 .stats-number {
     font-size: 32px;
     font-weight: 700;
-    color: #4361ee;
+    color: #3f66e6;
 }
 
 .topic-tags {
@@ -825,7 +942,7 @@
 
 .topic-tag {
     background: #e6e9ff;
-    color: #4361ee;
+    color: #3f66e6;
     padding: 4px 10px;
     border-radius: 15px;
     font-size: 12px;
@@ -855,9 +972,10 @@
 #pdf-reader-section {
     display: flex;
     flex-direction: column;
-    background: #f5f5f5;
+    background: #f0f1f5;
     overflow: hidden;
-    min-height: 500px;
+    flex: 1;
+    min-height: 0;
     width: 100%;
     position: relative;
     z-index: 1;
@@ -865,48 +983,60 @@
 .pdf-toolbar {
     display: flex;
     align-items: center;
-    gap: 10px;
-    padding: 10px 15px;
-    background: white;
-    border-bottom: 1px solid #eee;
+    justify-content: center;
+    gap: 8px;
+    padding: 8px 14px;
+    background: #fff;
+    border-bottom: 1px solid #eef0f4;
     flex-shrink: 0;
     flex-wrap: wrap;
+    font-size: 13px;
 }
 .pdf-toolbar button {
     background: none;
-    border: none;
-    padding: 8px 12px;
-    border-radius: 5px;
+    border: 1.5px solid #e0e4ea;
+    padding: 6px 12px;
+    border-radius: 8px;
     cursor: pointer;
-    color: #666;
-    transition: all 0.3s;
-    font-size: 14px;
+    color: var(--text-dark, #2b2d42);
+    transition: all 0.15s;
+    font-size: 13px;
+    font-family: 'Poppins', sans-serif;
 }
 .pdf-toolbar button:hover:not(:disabled) {
-    background: #f0f4ff;
-    color: #4361ee;
+    background: #eef2ff;
+    color: #3f66e6;
+    border-color: #3f66e6;
 }
 .pdf-toolbar button:disabled {
     opacity: 0.3;
     cursor: not-allowed;
 }
-#page-num {
-    margin: 0 10px;
-    color: #333;
+.pdf-toolbar span {
+    font-size: 13px;
+    color: var(--text-dark, #2b2d42);
     font-weight: 500;
+}
+#page-num {
+    margin: 0 6px;
+    color: #333;
+    font-weight: 600;
 }
 .pdf-viewer {
     flex: 1;
-    overflow: auto;
+    overflow-y: auto;
+    overflow-x: hidden;
     display: flex;
     justify-content: center;
-    padding: 20px;
-    background: #e5e5e5;
-    min-height: 500px;
+    align-items: flex-start;
+    padding: 0;
+    background: #e8eaef;
+    min-height: 0;
 }
 #pdf-canvas {
-    box-shadow: 0 5px 20px rgba(0,0,0,0.2);
+    box-shadow: none;
     background: white;
+    width: 100%;
     max-width: 100%;
     height: auto;
     display: block;
@@ -915,78 +1045,89 @@
 /* Book Chat Container */
 #book-chat-container {
     display: none;
-    height: 70vh;
+    flex: 1;
+    min-height: 0;
     background: white;
     flex-direction: column;
     width: 100%;
     position: relative;
     z-index: 9999;
-    border-top: 1px solid #eee;
+    border-top: none;
 }
 .chat-header {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    padding: 15px 20px;
-    background: #f8f9fa;
-    border-bottom: 1px solid #eee;
+    padding: 12px 20px;
+    background: linear-gradient(135deg, #3f66e6, #129695);
+    border-bottom: none;
+    flex-shrink: 0;
 }
 .chat-header h4 {
     margin: 0;
-    color: #333;
-    font-size: 18px;
+    color: #fff;
+    font-size: 15px;
 }
 .chat-header-actions {
     display: flex;
     gap: 10px;
 }
 .practice-questions-btn {
-    background: linear-gradient(135deg, #06d6a0, #4361ee);
-    color: white;
-    border: none;
-    padding: 8px 15px;
-    border-radius: 20px;
-    font-size: 14px;
+    background: rgba(255,255,255,0.15);
+    color: #fff;
+    border: 1.5px solid rgba(255,255,255,0.3);
+    padding: 7px 14px;
+    border-radius: 8px;
+    font-size: 12px;
+    font-weight: 600;
     cursor: pointer;
     display: flex;
     align-items: center;
     gap: 5px;
+    backdrop-filter: blur(4px);
+    transition: background 0.15s;
 }
+.practice-questions-btn:hover { background: rgba(255,255,255,0.25); }
 .close-chat-btn {
-    background: none;
+    background: rgba(255,255,255,0.1);
     border: none;
-    color: #4361ee;
+    color: #fff;
     font-size: 14px;
     cursor: pointer;
-    padding: 5px 10px;
-    border-radius: 5px;
-    transition: all 0.3s;
+    padding: 6px 10px;
+    border-radius: 8px;
+    transition: background 0.15s;
 }
 .close-chat-btn:hover {
-    background: #e0e0e0;
+    background: rgba(255,255,255,0.2);
 }
 
 /* Practice Questions Panel */
 #practice-questions-panel {
-    max-height: 450px;
+    flex: 1;
+    min-height: 0;
     overflow-y: auto;
-    background: white;
-    border-bottom: 1px solid #eee;
-    padding: 15px;
+    background: #f8f9fb;
+    border-bottom: none;
+    padding: 20px 24px;
     animation: slideDown 0.3s ease;
+    display: flex;
+    flex-direction: column;
 }
 
 .practice-header {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    margin-bottom: 15px;
+    margin-bottom: 16px;
+    flex-shrink: 0;
 }
 
 .practice-header h5 {
     margin: 0;
-    color: #333;
-    font-size: 16px;
+    color: var(--text-dark, #2b2d42);
+    font-size: 17px;
+    font-weight: 700;
 }
 
 .close-practice-btn {
@@ -994,83 +1135,120 @@
     border: none;
     font-size: 20px;
     cursor: pointer;
-    color: #666;
+    color: var(--text-light, #8d99ae);
+    transition: color 0.15s;
 }
+.close-practice-btn:hover { color: var(--accent-red, #ef476f); }
 
 .practice-controls {
     display: flex;
     gap: 10px;
-    margin-bottom: 15px;
+    margin-bottom: 18px;
     flex-wrap: wrap;
+    flex-shrink: 0;
 }
 
 .practice-controls select, .practice-controls button {
-    padding: 8px 12px;
-    border: 1px solid #e0e0e0;
-    border-radius: 8px;
-    font-size: 14px;
+    padding: 9px 14px;
+    border: 1.5px solid #e0e4ea;
+    border-radius: 10px;
+    font-size: 13px;
+    font-family: 'Poppins', sans-serif;
 }
+.practice-controls select:focus { border-color: var(--primary-blue, #3f66e6); outline: none; }
 
 .practice-controls select {
     flex: 1;
-    min-width: 150px;
+    min-width: 140px;
+    background: #fff;
+    color: var(--text-dark, #2b2d42);
+    cursor: pointer;
 }
 
 .generate-btn {
-    background: linear-gradient(135deg, #4361ee, #06d6a0);
+    background: linear-gradient(135deg, #3f66e6, #129695);
     color: white;
-    border: none;
+    border: none !important;
     cursor: pointer;
     display: flex;
     align-items: center;
-    gap: 5px;
+    gap: 6px;
+    font-weight: 600;
+    transition: transform 0.15s, box-shadow 0.15s;
 }
+.generate-btn:hover { transform: translateY(-1px); box-shadow: 0 4px 14px rgba(67,97,238,0.3); }
 
 .practice-questions-container {
-    max-height: 350px;
+    flex: 1;
     overflow-y: auto;
+    min-height: 0;
 }
 
 .practice-question-card {
-    background: #f8f9fa;
-    border-radius: 10px;
-    padding: 15px;
-    margin-bottom: 10px;
+    background: #fff;
+    border-radius: 12px;
+    padding: 18px 20px;
+    margin-bottom: 12px;
+    box-shadow: 0 2px 10px rgba(0,0,0,0.04);
+    border: 1px solid #f0f1f5;
 }
 
 .question-text {
     font-weight: 600;
-    margin-bottom: 10px;
-    color: #333;
+    margin-bottom: 12px;
+    color: var(--text-dark, #2b2d42);
+    font-size: 14px;
+    line-height: 1.5;
 }
 
 .question-options {
     margin: 10px 0;
-    padding-left: 20px;
+    padding-left: 10px;
 }
 
 .question-option {
-    margin-bottom: 5px;
-    color: #666;
+    margin-bottom: 8px;
+    color: var(--text-dark, #2b2d42);
+    font-size: 13px;
+    padding: 10px 14px;
+    border-radius: 8px;
+    background: #f8f9fb;
+    cursor: pointer;
+    transition: all 0.2s;
+    border: 2px solid transparent;
+    position: relative;
 }
+.question-option:hover { background: #eef2ff; border-color: #c7d2fe; }
+.question-option.pq-correct { background: #ecfdf5; border-color: #06d6a0; color: #065f46; }
+.question-option.pq-wrong { background: #fef2f2; border-color: #ef476f; color: #991b1b; }
+.question-option.pq-locked { pointer-events: none; cursor: default; }
+.question-option.pq-correct::after { content: '✓'; position: absolute; right: 14px; color: #06d6a0; font-weight: 700; }
+.question-option.pq-wrong::after { content: '✗'; position: absolute; right: 14px; color: #ef476f; font-weight: 700; }
 
 .correct-answer {
     color: #06d6a0;
     font-weight: 600;
-    margin-top: 10px;
-    padding-top: 10px;
-    border-top: 1px solid #e0e0e0;
+    margin-top: 12px;
+    padding-top: 12px;
+    border-top: 1px solid #f0f1f5;
+    font-size: 13px;
+    display: none;
 }
+.correct-answer.pq-show { display: block; }
+.pq-explanation { margin-top: 10px; font-size: 12px; color: #666; display: none; }
+.pq-explanation.pq-show { display: block; }
+.pq-show-answer-btn { background: #eef2ff; color: var(--primary-blue, #3f66e6); font-weight: 500; text-align: center; }
 
 /* Chat Messages */
 .chat-messages {
     flex: 1;
     overflow-y: auto;
-    padding: 20px;
+    padding: 20px 24px;
     display: flex;
     flex-direction: column;
     gap: 12px;
-    background: #f5f7fb;
+    background: #f8f9fb;
+    min-height: 0;
 }
 
 /* Bot messages - Left aligned with 65% width */
@@ -1109,7 +1287,7 @@
 }
 
 .user-message .message-content {
-    background: linear-gradient(135deg, #4361ee, #3a56d4);
+    background: linear-gradient(135deg, #3f66e6, #129695);
     color: white;
     border-radius: 18px 18px 5px 18px;
 }
@@ -1117,41 +1295,44 @@
 .chat-input-area {
     display: flex;
     gap: 10px;
-    padding: 15px 20px;
+    padding: 14px 20px;
     background: white;
-    border-top: 1px solid #eee;
+    border-top: 1px solid #f0f1f5;
+    flex-shrink: 0;
 }
 #book-chat-input {
     flex: 1;
-    padding: 12px 15px;
-    border: 2px solid #e0e0e0;
-    border-radius: 25px;
+    padding: 10px 16px;
+    border: 1.5px solid #e0e4ea;
+    border-radius: 12px;
     resize: none;
-    font-family: inherit;
-    font-size: 14px;
-    transition: all 0.3s;
+    font-family: 'Poppins', sans-serif;
+    font-size: 13px;
+    transition: border-color 0.2s;
+    background: #f8f9fb;
 }
 #book-chat-input:focus {
     outline: none;
-    border-color: #4361ee;
-    box-shadow: 0 0 0 3px rgba(67,97,238,0.1);
+    border-color: #3f66e6;
+    background: #fff;
 }
 #send-book-chat-btn {
-    width: 45px;
-    height: 45px;
+    width: 42px;
+    height: 42px;
     border: none;
-    background: linear-gradient(135deg, #4361ee, #3a56d4);
+    background: linear-gradient(135deg, #3f66e6, #129695);
     color: white;
-    border-radius: 50%;
+    border-radius: 12px;
     cursor: pointer;
-    transition: all 0.3s;
+    transition: transform 0.15s, box-shadow 0.15s;
     display: flex;
     align-items: center;
     justify-content: center;
+    flex-shrink: 0;
 }
 #send-book-chat-btn:hover {
-    transform: scale(1.1);
-    box-shadow: 0 5px 15px rgba(67,97,238,0.3);
+    transform: scale(1.05);
+    box-shadow: 0 4px 14px rgba(67,97,238,0.3);
 }
 
 /* Typing Indicator */
@@ -1166,7 +1347,7 @@
 .typing-indicator span {
     width: 8px;
     height: 8px;
-    background: #4361ee;
+    background: #3f66e6;
     border-radius: 50%;
     animation: typing 1s infinite;
 }
@@ -1205,7 +1386,7 @@
     margin: 0 0 30px 0;
 }
 .add-books-btn {
-    background: linear-gradient(135deg, #4361ee, #06d6a0);
+    background: linear-gradient(135deg, #3f66e6, #0ed3a2);
     color: white;
     border: none;
     padding: 12px 30px;
@@ -1262,13 +1443,13 @@
     left: 0;
     right: 0;
     height: 1px;
-    background: linear-gradient(to right, transparent, #4361ee, transparent);
+    background: linear-gradient(to right, transparent, #3f66e6, transparent);
     z-index: 1;
 }
 .chat-separator span {
     background: #f5f7fb;
     padding: 0 15px;
-    color: #4361ee;
+    color: #3f66e6;
     font-size: 12px;
     font-weight: 600;
     position: relative;
@@ -1300,27 +1481,39 @@
 /* Mobile responsiveness */
 @media (max-width: 768px) {
     .bot-message, .user-message {
-        max-width: 80%;
+        max-width: 85%;
+    }
+    .book-reader-header {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 10px;
+        padding: 12px 16px;
+    }
+    .reader-actions {
+        width: 100%;
+        display: flex;
+        gap: 8px;
+        flex-wrap: wrap;
+    }
+    .study-stats-btn, .ask-book-btn {
+        flex: 1;
+        justify-content: center;
+        font-size: 11px;
+        padding: 7px 12px;
     }
 }
 
 @media (max-width: 480px) {
     .bot-message, .user-message {
-        max-width: 90%;
+        max-width: 92%;
     }
-    
     .subject-filter-btn {
         padding: 8px 15px;
         font-size: 14px;
     }
-    
-    .pdf-toolbar {
-        flex-wrap: wrap;
-    }
-    
     .pdf-toolbar button {
-        padding: 6px 10px;
-        font-size: 12px;
+        padding: 5px 8px;
+        font-size: 11px;
     }
 }
 
@@ -1329,32 +1522,16 @@
         border-radius: 20px;
         padding: 15px;
     }
-    
     .courses-header {
         flex-direction: column;
         align-items: stretch;
     }
-    
     .courses-search {
         min-width: auto;
     }
-    
     .books-grid {
         grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
     }
-    
-    .book-reader-header {
-        flex-direction: column;
-        align-items: flex-start;
-        gap: 15px;
-    }
-    
-    .reader-actions {
-        width: 100%;
-        display: flex;
-        justify-content: space-between;
-    }
-    
     .pdf-toolbar {
         justify-content: center;
     }
@@ -1370,6 +1547,7 @@
     // ✅ FIX 1: API_BASE_URL without /api for file paths
     const API_BASE_URL = CONFIG.API_BASE_URL;  
     const API_URL = CONFIG.API_BASE_URL;  
+    
     
     const ENDPOINTS = {
         LOGIN: `${API_URL}/login`,
@@ -1392,6 +1570,7 @@
         section: document.getElementById('courses-section'),
         loading: document.getElementById('courses-loading'),
         grid: document.getElementById('books-grid'),
+        listView: document.getElementById('courses-list-view'),
         error: document.getElementById('courses-error'),
         success: document.getElementById('courses-success'),
         search: document.getElementById('book-search'),
@@ -1459,7 +1638,8 @@
         studiedTopics: null,
         studyStreak: null,
         isMiniChatOpen: false,
-        unreadCount: 0
+        unreadCount: 0,
+        useAutoFit: true
     };
 
     // ==================== AUTH HELPERS ====================
@@ -1830,28 +2010,28 @@
 
     function displayStudySummary(streakData) {
         if (!elements.studySummaryCard || !elements.studySummaryContent) return;
-        
+
         const streak = streakData.study_streak || {};
-        
+
         elements.studySummaryContent.innerHTML = `
-            <div class="stat-item">
-                <div class="stat-value">${streak.current_streak_days || 0}</div>
-                <div class="stat-label">Day Streak 🔥</div>
+            <div class="hero-stat-item">
+                <div class="hero-stat-value">${streak.current_streak_days || 0}</div>
+                <div class="hero-stat-label">Day Streak 🔥</div>
             </div>
-            <div class="stat-item">
-                <div class="stat-value">${streak.total_study_days || 0}</div>
-                <div class="stat-label">Days Studied</div>
+            <div class="hero-stat-item">
+                <div class="hero-stat-value">${streak.total_study_days || 0}</div>
+                <div class="hero-stat-label">Days Studied</div>
             </div>
-            <div class="stat-item">
-                <div class="stat-value">${streak.total_questions || 0}</div>
-                <div class="stat-label">Questions</div>
+            <div class="hero-stat-item">
+                <div class="hero-stat-value">${streak.total_questions || 0}</div>
+                <div class="hero-stat-label">Questions</div>
             </div>
-            <div class="stat-item">
-                <div class="stat-value">${streak.average_per_day || 0}</div>
-                <div class="stat-label">Avg/Day</div>
+            <div class="hero-stat-item">
+                <div class="hero-stat-value">${streak.average_per_day || 0}</div>
+                <div class="hero-stat-label">Avg/Day</div>
             </div>
         `;
-        
+
         elements.studySummaryCard.style.display = 'block';
     }
 
@@ -2003,35 +2183,73 @@
 
     function displayPracticeQuestions(questions) {
         if (!elements.practiceQuestionsContainer) return;
-        
+
         if (!questions || questions.length === 0) {
             elements.practiceQuestionsContainer.innerHTML = '<p>No questions generated</p>';
             return;
         }
-        
+
+        // Filter out invalid questions (missing question text)
+        const validQuestions = questions.filter(q => q.question);
+
         let html = '';
-        questions.forEach((q, index) => {
-            html += `<div class="practice-question-card">`;
+        validQuestions.forEach((q, index) => {
+            const correctAns = (q.correct_answer || q.answer || '').trim();
+            const hasOptions = q.options && q.options.length > 0;
+            html += `<div class="practice-question-card" data-answered="false">`;
             html += `<div class="question-text">${index + 1}. ${q.question}</div>`;
-            
-            if (q.options) {
+
+            if (hasOptions) {
                 html += `<div class="question-options">`;
                 q.options.forEach(opt => {
-                    html += `<div class="question-option">${opt}</div>`;
+                    html += `<div class="question-option" data-correct="${opt.trim() === correctAns}">${opt}</div>`;
                 });
                 html += `</div>`;
+            } else {
+                // No options — show a "Show Answer" button
+                html += `<div class="question-options">`;
+                html += `<div class="question-option pq-show-answer-btn" data-correct="true">👆 Click to reveal answer</div>`;
+                html += `</div>`;
             }
-            
-            html += `<div class="correct-answer">✅ ${q.correct_answer || q.answer || 'Answer not available'}</div>`;
-            
+
+            html += `<div class="correct-answer">✅ ${correctAns || 'Answer not available'}</div>`;
             if (q.explanation) {
-                html += `<div style="margin-top: 10px; font-size: 12px; color: #666;">${q.explanation}</div>`;
+                html += `<div class="pq-explanation">💡 ${q.explanation}</div>`;
             }
-            
             html += `</div>`;
         });
-        
+
         elements.practiceQuestionsContainer.innerHTML = html;
+
+        // Click to answer (MCQ options)
+        elements.practiceQuestionsContainer.querySelectorAll('.question-option').forEach(opt => {
+            opt.addEventListener('click', function() {
+                const card = this.closest('.practice-question-card');
+                if (card.dataset.answered === 'true') return;
+                card.dataset.answered = 'true';
+
+                const isShowBtn = this.classList.contains('pq-show-answer-btn');
+
+                // Lock all options & highlight correct one
+                card.querySelectorAll('.question-option').forEach(o => {
+                    o.classList.add('pq-locked');
+                    if (!isShowBtn && o.dataset.correct === 'true') o.classList.add('pq-correct');
+                });
+
+                // For show-answer button, just hide it after click
+                if (isShowBtn) {
+                    this.style.display = 'none';
+                } else if (this.dataset.correct !== 'true') {
+                    this.classList.add('pq-wrong');
+                }
+
+                // Reveal answer & explanation
+                const ans = card.querySelector('.correct-answer');
+                const exp = card.querySelector('.pq-explanation');
+                if (ans) ans.classList.add('pq-show');
+                if (exp) exp.classList.add('pq-show');
+            });
+        });
     }
 
     // ==================== CHAT HISTORY FUNCTIONS ====================
@@ -2163,15 +2381,24 @@
 
     async function renderPage(num) {
         if (!state.pdfDoc) return;
-        
+
         state.pageRendering = true;
-        
+
         try {
             const page = await state.pdfDoc.getPage(num);
-            const viewport = page.getViewport({ scale: state.scale });
-            
+
+            // Auto-fit: calculate scale based on container width
+            var pdfViewer = document.querySelector('.pdf-viewer');
+            var containerWidth = pdfViewer ? pdfViewer.clientWidth : 800;
+            var defaultViewport = page.getViewport({ scale: 1 });
+            var fitScale = containerWidth / defaultViewport.width;
+            // Use fitScale if "fit" mode or on initial load, otherwise use manual scale
+            var useScale = state.useAutoFit ? fitScale : state.scale;
+
+            const viewport = page.getViewport({ scale: useScale });
+
             if (!elements.canvas) return;
-            
+
             elements.canvas.height = viewport.height;
             elements.canvas.width = viewport.width;
             
@@ -2234,10 +2461,9 @@
         if (books.length === 0) {
             elements.grid.innerHTML = `
                 <div class="empty-books">
-                    <i class="fas fa-book-open"></i>
-                    <h3>No books found</h3>
-                    <p>${state.searchTerm ? 'No books match your search' : 'No books available for your class'}</p>
-                    <p style="font-size: 14px; color: #999;">Contact your administrator to add books.</p>
+                    <div class="empty-books-icon"><i class="fas fa-book-open"></i></div>
+                    <h3>${state.searchTerm ? 'No books match your search' : 'No books available yet'}</h3>
+                    <p>${state.searchTerm ? 'Try a different keyword or clear your search.' : 'Your administrator hasn\'t added books for your class yet.'}</p>
                 </div>
             `;
             return;
@@ -2253,18 +2479,32 @@
             social: '🌍', sanskrit: '🕉️', computer: '💻'
         };
 
+        const subjectGradients = {
+            mathematics: 'linear-gradient(135deg, #3f66e6, #129695)',
+            science:     'linear-gradient(135deg, #06d6a0, #05a880)',
+            hindi:       'linear-gradient(135deg, #f97316, #ef4444)',
+            english:     'linear-gradient(135deg, #8b5cf6, #6d28d9)',
+            social:      'linear-gradient(135deg, #ffd166, #f59e0b)',
+            sanskrit:    'linear-gradient(135deg, #ec4899, #be185d)',
+            computer:    'linear-gradient(135deg, #0ea5e9, #2563eb)'
+        };
+
         let html = '';
         books.forEach(book => {
             const emoji = subjectEmoji[book.subject] || '📚';
             const subjectName = subjectNames[book.subject] || book.subject;
-            const coverUrl = book.cover_image || 'https://images.unsplash.com/photo-1532012197267-da84d127e765?ixlib=rb-1.2.1&auto=format&fit=crop&w=400&q=80';
+            const gradient = subjectGradients[book.subject] || 'linear-gradient(135deg, #3f66e6, #129695)';
+            const coverStyle = book.cover_image
+                ? `background-image: url('${book.cover_image}'); background-size: cover; background-position: center;`
+                : `background: ${gradient};`;
             const bookData = encodeURIComponent(JSON.stringify(book));
-            
+
             const hasHistory = book.document_id && state.bookHistoryCache[book.id]?.length > 0;
 
             html += `
                 <div class="book-card" onclick="window.handleBookClick('${bookData}')">
-                    <div class="book-cover" style="background-image: url('${coverUrl}'); background-color: #4361ee;">
+                    <div class="book-cover" style="${coverStyle}">
+                        ${!book.cover_image ? `<div class="book-cover-emoji">${emoji}</div>` : ''}
                         <div class="book-cover-overlay">
                             <button class="read-book-btn" onclick="event.stopPropagation(); window.handleBookClick('${bookData}')">
                                 <i class="fas fa-book-open"></i> Read Now
@@ -2326,10 +2566,12 @@
             state.currentBook = book;
             state.currentDocId = book.document_id || null;
             
-            if (elements.grid) elements.grid.style.display = 'none';
-            if (elements.filters) elements.filters.style.display = 'none';
+            if (elements.listView) elements.listView.style.display = 'none';
+            // Remove section padding for full-width reader
+            var coursesSection = document.getElementById('courses-section');
+            if (coursesSection) coursesSection.style.padding = '0';
             if (elements.reader) {
-                elements.reader.style.display = 'block';
+                elements.reader.style.display = 'flex';
             } else {
                 ui.setLoading(false);
                 ui.showError("Reader container not found");
@@ -2383,8 +2625,10 @@
     window.closeBookReader = function() {
         console.log("Closing book reader");
         if (elements.reader) elements.reader.style.display = 'none';
-        if (elements.grid) elements.grid.style.display = 'grid';
-        if (elements.filters) elements.filters.style.display = 'flex';
+        if (elements.listView) elements.listView.style.display = 'block';
+        // Restore section padding
+        var coursesSection = document.getElementById('courses-section');
+        if (coursesSection) coursesSection.style.padding = '';
        
         state.currentBook = null;
         state.currentDocId = null;
@@ -2663,8 +2907,11 @@
             elements.showPracticeBtn.addEventListener('click', async () => {
                 if (elements.practiceQuestionsPanel) {
                     if (elements.practiceQuestionsPanel.style.display === 'none') {
-                        elements.practiceQuestionsPanel.style.display = 'block';
-                        
+                        elements.practiceQuestionsPanel.style.display = 'flex';
+                        if (elements.chatMessages) elements.chatMessages.style.display = 'none';
+                        const chatInputArea = document.querySelector('#book-chat-container .chat-input-area');
+                        if (chatInputArea) chatInputArea.style.display = 'none';
+
                         const topicsData = await loadBookStudiedTopics();
                         
                         if (!topicsData || !topicsData.topic_details || topicsData.topic_details.length === 0) {
@@ -2684,6 +2931,9 @@
                         }
                     } else {
                         elements.practiceQuestionsPanel.style.display = 'none';
+                        if (elements.chatMessages) elements.chatMessages.style.display = 'flex';
+                        const chatInputArea = document.querySelector('#book-chat-container .chat-input-area');
+                        if (chatInputArea) chatInputArea.style.display = 'flex';
                     }
                 }
             });
@@ -2692,6 +2942,9 @@
         if (elements.closePracticeBtn) {
             elements.closePracticeBtn.addEventListener('click', () => {
                 elements.practiceQuestionsPanel.style.display = 'none';
+                if (elements.chatMessages) elements.chatMessages.style.display = 'flex';
+                const chatInputArea = document.querySelector('#book-chat-container .chat-input-area');
+                if (chatInputArea) chatInputArea.style.display = 'flex';
             });
         }
 
@@ -2723,6 +2976,7 @@
 
         if (elements.zoomIn) {
             elements.zoomIn.addEventListener('click', () => {
+                state.useAutoFit = false;
                 state.scale += 0.25;
                 if (state.pdfDoc) queueRenderPage(state.pageNum);
             });
@@ -2730,6 +2984,7 @@
 
         if (elements.zoomOut) {
             elements.zoomOut.addEventListener('click', () => {
+                state.useAutoFit = false;
                 if (state.scale > 0.5) {
                     state.scale -= 0.25;
                     if (state.pdfDoc) queueRenderPage(state.pageNum);
@@ -2739,7 +2994,7 @@
 
         if (elements.fitPage) {
             elements.fitPage.addEventListener('click', () => {
-                state.scale = 1.5;
+                state.useAutoFit = true;
                 if (state.pdfDoc) queueRenderPage(state.pageNum);
             });
         }
@@ -2808,9 +3063,11 @@
         updateFloatingChatbotForBook();
     }
 
+    let booksLoaded = false;
     function checkAndLoad() {
-        if (elements.section && elements.section.style.display !== 'none') {
+        if (elements.section && elements.section.style.display !== 'none' && !booksLoaded) {
             console.log("Courses section visible, loading books...");
+            booksLoaded = true;
             api.loadBooks();
         }
     }

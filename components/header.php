@@ -1,786 +1,1312 @@
 <?php
-// Ensure config.js is loaded (this is just a check, actual loading happens in index.php)
+// Header component - NeuraEduBot v2
 ?>
 
 <header class="header">
-    <button class="menu-toggle" id="menuToggle">
-        <i class="fas fa-bars"></i>
-    </button>
-   
-    <div class="page-title" id="pageTitle">
-        <h2 id="welcomeHeading">Welcome back, Guest!</h2>
-        <p id="welcomeSubtitle">Your academic progress summary</p>
-    </div>
-   
-    <div class="header-actions">
-        <button class="notification-btn">
-            <i class="fas fa-bell"></i>
-            <span class="notification-badge" id="notificationCount">0</span>
-        </button>
-       
-        <!-- User Dropdown -->
-        <div class="user-dropdown" id="userDropdown" style="position: relative; cursor: pointer;">
-            <div style="display: flex; align-items: center; gap: 10px;">
-                <div class="dropdown-avatar" id="userAvatar" 
-                     style="width: 38px; height: 38px; background: #4361ee; color: white; border-radius: 50%; 
-                            display: flex; align-items: center; justify-content: center; font-weight: 600;">
-                    ??
+    <div class="header-container">
+
+        <!-- Left Side: Menu Button + Page Context -->
+        <div class="header-left">
+            <button class="menu-toggle" id="menuToggle" aria-label="Toggle menu">
+                <div class="hamburger" id="hamburgerIcon">
+                    <span class="hamburger-line"></span>
+                    <span class="hamburger-line"></span>
+                    <span class="hamburger-line"></span>
                 </div>
-                <div>
-                    <div style="font-weight: 500; font-size: 15px;" id="userFullName">Guest User</div>
-                    <div style="font-size: 13px; color: var(--text-light);" id="userSubtitle">Not logged in</div>
+            </button>
+            <div class="header-breadcrumb" id="headerBreadcrumb">
+                <span class="breadcrumb-section" id="breadcrumbSection">Home</span>
+            </div>
+        </div>
+
+        <!-- Center: Search Bar -->
+        <div class="header-search" id="headerSearch">
+            <i class="fas fa-search header-search-icon"></i>
+            <input type="text" class="header-search-input" id="headerSearchInput" placeholder="Search courses, topics, quizzes..." autocomplete="off">
+            <kbd class="header-search-kbd">Ctrl+K</kbd>
+        </div>
+
+        <!-- Right Side: Actions -->
+        <div class="header-actions">
+
+            <!-- Notification Bell -->
+            <div class="notification-wrapper">
+                
+
+                <!-- Notification Dropdown -->
+                <div class="notification-dropdown" id="notificationDropdown">
+                    <div class="dropdown-header">
+                        <h3>Notifications</h3>
+                        <span class="mark-read" id="markAllRead">Mark all read</span>
+                    </div>
+                    <div class="notification-list" id="notificationList">
+                        <div class="notification-item unread">
+                            <div class="notification-icon" style="background:rgba(6,214,160,0.12);"><i class="fas fa-trophy" style="color:#06d6a0;"></i></div>
+                            <div class="notification-content">
+                                <p><strong>Quiz Completed!</strong> You scored 85% on Science</p>
+                                <span class="notification-time">Just now</span>
+                            </div>
+                        </div>
+                        <div class="notification-item unread">
+                            <div class="notification-icon"><i class="fas fa-fire"></i></div>
+                            <div class="notification-content">
+                                <p><strong>Streak Alert!</strong> 7-day study streak achieved</p>
+                                <span class="notification-time">2 hours ago</span>
+                            </div>
+                        </div>
+                        <div class="notification-item">
+                            <div class="notification-icon" style="background:rgba(255,209,102,0.12);"><i class="fas fa-book-open" style="color:#ffd166;"></i></div>
+                            <div class="notification-content">
+                                <p>New chapter available in Mathematics</p>
+                                <span class="notification-time">Yesterday</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="dropdown-footer">
+                        <a href="#" id="viewAllNotifications">View all notifications</a>
+                    </div>
                 </div>
-                <i class="fas fa-chevron-down" style="margin-left: 5px; font-size: 14px;"></i>
             </div>
 
-            <!-- Dropdown Menu -->
-            <div id="userDropdownMenu" class="dropdown-menu" 
-                 style="display: none; position: absolute; top: 110%; right: 0; background: white; 
-                        border: 1px solid #e0e0e0; border-radius: 12px; box-shadow: 0 10px 30px rgba(0,0,0,0.15); 
-                        min-width: 220px; z-index: 2000; overflow: hidden;">
-                
-                <!-- Profile Link -->
-                <a href="#" id="profile-link" class="dropdown-item">👤 My Profile</a>
-                
-                <!-- Settings Link -->
-                <a href="#" id="settings-link" class="dropdown-item">⚙️ Settings</a>
-                
-                <!-- Help & Support Link -->
-                <a href="#" id="help-link" class="dropdown-item">❓ Help & Support</a>
-                
-                <hr style="margin: 6px 0; border: none; border-top: 1px solid #eee;">
-                
-                <!-- Logout Button -->
-                <a href="#" id="logout-link" class="dropdown-item" style="color: #e74c3c; font-weight: 500;">
-                    🚪 Logout
-                </a>
+            <!-- User Profile Dropdown -->
+            <div class="user-dropdown" id="userDropdown">
+                <div class="dropdown-trigger">
+                    <div class="dropdown-avatar" id="userAvatar">
+                        <img id="profileImage" class="profile-img" alt="Profile">
+                        <span id="profileInitials" class="profile-initials">??</span>
+                    </div>
+                    <div class="user-info">
+                        <div class="user-name" id="userFullName">Guest User</div>
+                        <div class="user-role" id="userSubtitle">Not logged in</div>
+                    </div>
+                    <i class="fas fa-chevron-down dropdown-icon"></i>
+                </div>
+
+                <!-- Dropdown Menu -->
+                <div class="dropdown-menu" id="userDropdownMenu">
+                    <div class="dropdown-user-card">
+                        <div class="dropdown-user-avatar" id="dropdownAvatar">
+                            <span id="dropdownInitials">??</span>
+                        </div>
+                        <div>
+                            <div class="dropdown-user-name" id="dropdownName">Guest User</div>
+                            <div class="dropdown-user-email" id="dropdownEmail">Not logged in</div>
+                        </div>
+                    </div>
+                    <div class="dropdown-divider"></div>
+                    <a href="#" id="profile-link" class="dropdown-item">
+                        <i class="fas fa-user"></i>
+                        <span>My Profile</span>
+                    </a>
+                    <a href="#" id="settings-link" class="dropdown-item">
+                        <i class="fas fa-cog"></i>
+                        <span>Settings</span>
+                    </a>
+                    <a href="#" id="help-link" class="dropdown-item">
+                        <i class="fas fa-question-circle"></i>
+                        <span>Help & Support</span>
+                    </a>
+                    <div class="dropdown-divider"></div>
+                    <a href="#" id="logout-link" class="dropdown-item logout-item">
+                        <i class="fas fa-sign-out-alt"></i>
+                        <span>Logout</span>
+                    </a>
+                </div>
             </div>
         </div>
     </div>
 </header>
 
-<script>
-/* ==========================================
-   HEADER / USER SYSTEM SCRIPT
-   WITH AUTO-REDIRECT ON TOKEN EXPIRY
-========================================== */
+<style>
+/* ============================================================
+   HEADER STYLES - NeuraEduBot v2
+   Frosted glass with refined layout
+   ============================================================ */
 
+.header {
+    background: rgba(255, 255, 255, 0.82);
+    backdrop-filter: blur(16px) saturate(180%);
+    -webkit-backdrop-filter: blur(16px) saturate(180%);
+    border-bottom: 1px solid rgba(0, 0, 0, 0.06);
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+    box-shadow: 0 1px 12px rgba(0, 0, 0, 0.04);
+    padding: 0 !important;
+    margin-left: -30px;
+    margin-right: -30px;
+    width: calc(100% + 60px);
+    height: 60px;
+    min-height: 60px;
+    flex-shrink: 0;
+    display: flex;
+    align-items: center;
+}
+
+.sidebar {
+    position: fixed;
+    top: 0;
+    left: 0;
+    z-index: 1100;
+}
+
+/* menu-toggle visible on all screens */
+
+.header-container {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    width: 100%;
+    max-width: 100%;
+    margin: 0;
+    padding: 0 24px;
+    gap: 16px;
+}
+
+/* ---- Left Side ---- */
+.header-left {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    flex-shrink: 0;
+}
+
+.menu-toggle {
+    width: 38px !important;
+    height: 38px !important;
+    border-radius: 10px !important;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border: none;
+    background: transparent;
+    cursor: pointer;
+    transition: background 0.2s ease;
+    flex-shrink: 0;
+    margin: 0 !important;
+    padding: 0 !important;
+}
+
+.menu-toggle:hover {
+    background: #f1f3f9;
+}
+
+.menu-toggle:active {
+    transform: scale(0.92);
+}
+
+/* ---- Hamburger Animation ---- */
+.hamburger {
+    width: 20px;
+    height: 14px;
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+.hamburger-line {
+    display: block;
+    width: 100%;
+    height: 2px;
+    background: #2b2d42;
+    border-radius: 2px;
+    transition: all 0.35s cubic-bezier(0.4, 0, 0.2, 1);
+    transform-origin: center;
+}
+
+.hamburger-line:nth-child(2) {
+    width: 14px;
+    transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.menu-toggle:hover .hamburger-line {
+    background: #4361ee;
+}
+
+.menu-toggle:hover .hamburger-line:nth-child(2) {
+    width: 20px;
+}
+
+/* Active state: morph to X */
+.menu-toggle.active .hamburger-line:nth-child(1) {
+    transform: translateY(6px) rotate(45deg);
+    background: #4361ee;
+}
+
+.menu-toggle.active .hamburger-line:nth-child(2) {
+    opacity: 0;
+    transform: scaleX(0);
+}
+
+.menu-toggle.active .hamburger-line:nth-child(3) {
+    transform: translateY(-6px) rotate(-45deg);
+    background: #4361ee;
+}
+
+/* Breadcrumb */
+.header-breadcrumb {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+}
+
+.breadcrumb-section {
+    font-size: 15px;
+    font-weight: 600;
+    color: #2b2d42;
+    letter-spacing: -0.2px;
+}
+
+/* ---- Center: Search ---- */
+.header-search {
+    flex: 1;
+    max-width: 420px;
+    position: relative;
+    display: flex;
+    align-items: center;
+}
+
+.header-search-icon {
+    position: absolute;
+    left: 14px;
+    font-size: 13px;
+    color: #8d99ae;
+    pointer-events: none;
+}
+
+.header-search-input {
+    width: 100%;
+    height: 38px;
+    padding: 0 80px 0 38px;
+    border: 1.5px solid #e9ecef;
+    border-radius: 10px;
+    font-size: 13px;
+    font-family: 'Poppins', sans-serif;
+    color: #2b2d42;
+    background: rgba(248, 249, 252, 0.7);
+    outline: none;
+    transition: all 0.2s ease;
+}
+
+.header-search-input::placeholder {
+    color: #adb5c4;
+    font-weight: 400;
+}
+
+.header-search-input:focus {
+    border-color: #4361ee;
+    background: #fff;
+    box-shadow: 0 0 0 3px rgba(67, 97, 238, 0.08);
+}
+
+.header-search-kbd {
+    position: absolute;
+    right: 12px;
+    font-size: 10px;
+    font-family: 'Poppins', sans-serif;
+    color: #8d99ae;
+    background: #f1f3f7;
+    border: 1px solid #e0e4ea;
+    border-radius: 5px;
+    padding: 2px 7px;
+    pointer-events: none;
+    line-height: 1.4;
+    font-weight: 500;
+}
+
+/* ---- Right Side ---- */
+.header-actions {
+    display: flex;
+    align-items: center;
+    gap: 8px !important;
+    margin-left: auto;
+    margin-right: 30px !important;
+    flex-shrink: 0;
+}
+
+/* Icon Buttons (Notification) */
+.header-icon-btn {
+    width: 38px;
+    height: 38px;
+    border-radius: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border: 1.5px solid #e9ecef;
+    background: rgba(255, 255, 255, 0.6);
+    cursor: pointer;
+    color: #5a6275;
+    font-size: 16px;
+    transition: all 0.2s ease;
+    position: relative;
+}
+
+.header-icon-btn:hover {
+    background: #f1f3f9;
+    border-color: #d0d5e0;
+    color: #4361ee;
+}
+
+.notif-dot {
+    position: absolute;
+    top: 9px;
+    right: 9px;
+    width: 8px;
+    height: 8px;
+    background: #ef476f;
+    border-radius: 50%;
+    border: 2px solid #fff;
+    display: none;
+}
+
+.notif-dot.show {
+    display: block;
+    animation: notifPulse 2s ease-in-out infinite;
+}
+
+@keyframes notifPulse {
+    0%, 100% { box-shadow: 0 0 0 0 rgba(239, 71, 111, 0.4); }
+    50%      { box-shadow: 0 0 0 4px rgba(239, 71, 111, 0); }
+}
+
+.notification-wrapper {
+    position: relative;
+    margin: 0;
+    padding: 0;
+}
+
+/* ---- User Profile Trigger ---- */
+.user-dropdown {
+    position: relative;
+    margin-left: 6px;
+    padding: 0;
+}
+
+.dropdown-trigger {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 4px 10px 4px 4px;
+    background: rgba(255, 255, 255, 0.5);
+    border-radius: 12px;
+    cursor: pointer;
+    border: 1.5px solid #e9ecef;
+    transition: all 0.2s ease;
+}
+
+.dropdown-trigger:hover {
+    background: #f5f7fb;
+    border-color: #d0d5e0;
+}
+
+.dropdown-avatar {
+    width: 34px !important;
+    height: 34px !important;
+    background: linear-gradient(135deg, #4361ee, #7209b7);
+    border-radius: 9px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+    overflow: hidden;
+    flex-shrink: 0;
+}
+
+.profile-img {
+    width: 100%;
+    height: 100%;
+    border-radius: 9px;
+    object-fit: cover;
+    position: absolute;
+    top: 0;
+    left: 0;
+    z-index: 2;
+    display: none;
+}
+
+.profile-initials {
+    font-weight: 600;
+    font-size: 13px !important;
+    color: white;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    height: 100%;
+    z-index: 1;
+    position: relative;
+}
+
+.user-info {
+    display: flex;
+    flex-direction: column;
+    line-height: 1.2;
+}
+
+.user-name {
+    font-size: 13px !important;
+    font-weight: 600;
+    color: #2b2d42;
+    letter-spacing: -0.1px;
+}
+
+.user-role {
+    font-size: 11px !important;
+    color: #8d99ae;
+    font-weight: 400;
+}
+
+.dropdown-icon {
+    font-size: 10px !important;
+    color: #8d99ae;
+    transition: transform 0.25s ease;
+    margin-left: 2px;
+}
+
+.user-dropdown.open .dropdown-icon {
+    transform: rotate(180deg);
+}
+
+/* ---- Dropdown Panels ---- */
+.notification-dropdown,
+.dropdown-menu {
+    position: absolute;
+    top: calc(100% + 8px);
+    right: 0;
+    background: #fff;
+    border-radius: 14px;
+    box-shadow: 0 12px 40px rgba(0, 0, 0, 0.12), 0 0 0 1px rgba(0, 0, 0, 0.04);
+    border: none;
+    opacity: 0;
+    visibility: hidden;
+    transform: translateY(-8px) scale(0.98);
+    transition: all 0.22s ease;
+    z-index: 1000;
+    min-width: 240px;
+    overflow: hidden;
+}
+
+.notification-dropdown {
+    width: 380px;
+}
+
+.notification-dropdown.show,
+.dropdown-menu.show {
+    opacity: 1;
+    visibility: visible;
+    transform: translateY(0) scale(1);
+}
+
+/* Dropdown header */
+.dropdown-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 16px 18px 12px;
+    border-bottom: 1px solid #f3f4f6;
+}
+
+.dropdown-header h3 {
+    font-size: 15px;
+    font-weight: 700;
+    color: #2b2d42;
+}
+
+.mark-read {
+    font-size: 11px;
+    color: #4361ee;
+    cursor: pointer;
+    font-weight: 500;
+}
+
+.mark-read:hover { text-decoration: underline; }
+
+/* Notification items */
+.notification-list {
+    max-height: 340px;
+    overflow-y: auto;
+}
+
+.notification-item {
+    display: flex;
+    gap: 12px;
+    padding: 12px 18px;
+    cursor: pointer;
+    transition: background 0.15s ease;
+    border-bottom: 1px solid #fafafa;
+}
+
+.notification-item:last-child {
+    border-bottom: none;
+}
+
+.notification-item:hover {
+    background: #f8f9fc;
+}
+
+.notification-item.unread {
+    background: rgba(67, 97, 238, 0.03);
+}
+
+.notification-icon {
+    width: 36px;
+    height: 36px;
+    border-radius: 10px;
+    background: rgba(67, 97, 238, 0.08);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+}
+
+.notification-icon i {
+    font-size: 14px;
+    color: #4361ee;
+}
+
+.notification-content {
+    flex: 1;
+    min-width: 0;
+}
+
+.notification-content p {
+    font-size: 13px;
+    color: #2b2d42;
+    margin-bottom: 3px;
+    line-height: 1.4;
+}
+
+.notification-content p strong {
+    font-weight: 600;
+}
+
+.notification-time {
+    font-size: 11px;
+    color: #8d99ae;
+}
+
+.dropdown-footer {
+    padding: 10px 18px;
+    text-align: center;
+    border-top: 1px solid #f3f4f6;
+    background: #fafbfc;
+}
+
+.dropdown-footer a {
+    color: #4361ee;
+    text-decoration: none;
+    font-size: 12px;
+    font-weight: 500;
+}
+
+.dropdown-footer a:hover {
+    text-decoration: underline;
+}
+
+/* ---- User Dropdown Card ---- */
+.dropdown-user-card {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 16px 18px;
+}
+
+.dropdown-user-avatar {
+    width: 40px;
+    height: 40px;
+    background: linear-gradient(135deg, #4361ee, #7209b7);
+    border-radius: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    color: #fff;
+    font-weight: 700;
+    font-size: 14px;
+}
+
+.dropdown-user-name {
+    font-size: 14px;
+    font-weight: 600;
+    color: #2b2d42;
+}
+
+.dropdown-user-email {
+    font-size: 11px;
+    color: #8d99ae;
+    margin-top: 1px;
+}
+
+/* Menu items */
+.dropdown-item {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 10px 18px;
+    text-decoration: none;
+    color: #4a5270;
+    font-size: 13px;
+    font-weight: 500;
+    transition: all 0.15s ease;
+    cursor: pointer;
+}
+
+.dropdown-item i {
+    width: 18px;
+    text-align: center;
+    font-size: 14px;
+    opacity: 0.65;
+}
+
+.dropdown-item:hover {
+    background: #f5f7fb;
+    color: #2b2d42;
+}
+
+.dropdown-item:hover i {
+    opacity: 1;
+    color: #4361ee;
+}
+
+.dropdown-divider {
+    height: 1px;
+    background: #f1f3f6;
+    margin: 4px 0;
+}
+
+.logout-item {
+    color: #ef476f !important;
+}
+
+.logout-item i {
+    color: #ef476f !important;
+    opacity: 0.8 !important;
+}
+
+.logout-item:hover {
+    background: rgba(239, 71, 111, 0.05) !important;
+}
+
+.logout-item:hover i {
+    color: #ef476f !important;
+}
+
+/* ---- Responsive ---- */
+@media (max-width: 768px) {
+    .header {
+        height: 56px !important;
+        min-height: 56px;
+        margin-left: -16px;
+        margin-right: -16px;
+        width: calc(100% + 32px);
+        overflow: visible !important;
+    }
+    .header-container {
+        padding: 0 18px 0 14px;
+        gap: 8px;
+        justify-content: space-between;
+    }
+    .header-search { flex: 1; max-width: none; min-width: 0; }
+    .header-search-kbd { display: none; }
+    .header-breadcrumb { display: none; }
+    .header-left { flex-shrink: 0; }
+    .header-actions {
+        display: flex !important;
+        flex-shrink: 0;
+        gap: 6px !important;
+        margin-left: auto;
+        margin-right: 0 !important;
+    }
+    .header-icon-btn { width: 34px; height: 34px; font-size: 15px; border: none; }
+    .user-info { display: none !important; }
+    .dropdown-icon { display: none !important; }
+    .user-dropdown {
+        display: flex !important;
+        flex-shrink: 0;
+    }
+    .dropdown-trigger {
+        padding: 3px !important;
+        gap: 0 !important;
+        border: none !important;
+        background: transparent !important;
+        border-radius: 10px !important;
+        flex-shrink: 0;
+    }
+    .dropdown-avatar {
+        width: 34px !important;
+        height: 34px !important;
+        min-width: 34px !important;
+        display: flex !important;
+        visibility: visible !important;
+        opacity: 1 !important;
+    }
+    .notification-dropdown { width: 300px; right: 0; }
+    .dropdown-menu { min-width: 220px; right: 0; }
+}
+
+@media (max-width: 480px) {
+    .header {
+        height: 52px !important;
+        min-height: 52px;
+        margin-left: -16px;
+        margin-right: -16px;
+        width: calc(100% + 32px);
+    }
+    .header-container { padding: 0 16px 0 12px; gap: 6px; }
+    .header-icon-btn { width: 32px; height: 32px; font-size: 14px; }
+    .dropdown-avatar { width: 32px !important; height: 32px !important; min-width: 32px !important; }
+    .notification-dropdown { width: calc(100vw - 24px); right: 0; }
+    .dropdown-menu { min-width: 200px; right: 0; }
+}
+</style>
+
+<script>
 (function () {
     'use strict';
 
-    console.log('🚀 Header script loaded');
+    if (typeof CONFIG === 'undefined') {
+        window.CONFIG = {
+            API_BASE_URL: 'http://localhost:8000',
+            PAGES: { LOGIN: '/neuraEdu/client/pages/login.php', DASHBOARD: '/index.php' }
+        };
+    }
 
-    // API Configuration
     const API_BASE_URL = CONFIG.API_BASE_URL + '/api';
     const LOGIN_PAGE_URL = CONFIG.PAGES.LOGIN;
-    const DASHBOARD_PAGE_URL = CONFIG.PAGES.DASHBOARD;
 
-    // Store timeout IDs
     let tokenCheckInterval = null;
     let logoutTimer = null;
 
     /* ==============================
-       CHECK IF TOKEN IS VALID
+       BREADCRUMB SYNC
+    ============================== */
+    function updateBreadcrumb() {
+        const active = document.querySelector('.menu-item.active .menu-text');
+        const el = document.getElementById('breadcrumbSection');
+        if (el && active) {
+            el.textContent = active.textContent.trim();
+        }
+    }
+
+    // Watch for menu changes
+    const observer = new MutationObserver(updateBreadcrumb);
+    document.querySelectorAll('.menu-item').forEach(item => {
+        observer.observe(item, { attributes: true, attributeFilter: ['class'] });
+    });
+
+    /* ==============================
+       SEARCH BAR (Ctrl+K)
+    ============================== */
+    document.addEventListener('keydown', function(e) {
+        if ((e.ctrlKey || e.metaKey) && e.key === 'k') {
+            e.preventDefault();
+            const input = document.getElementById('headerSearchInput');
+            if (input) input.focus();
+        }
+        if (e.key === 'Escape') {
+            const input = document.getElementById('headerSearchInput');
+            if (input && document.activeElement === input) input.blur();
+        }
+    });
+
+    /* ==============================
+       NOTIFICATION DOT
+    ============================== */
+    function updateNotifDot() {
+        const unread = document.querySelectorAll('.notification-item.unread').length;
+        const dot = document.getElementById('notificationDot');
+        if (dot) {
+            if (unread > 0) {
+                dot.classList.add('show');
+            } else {
+                dot.classList.remove('show');
+            }
+        }
+    }
+
+    /* ==============================
+       PROFILE PHOTO
+    ============================== */
+    async function loadProfilePhoto() {
+        const token = localStorage.getItem('access_token');
+        if (!token) return;
+
+        try {
+            const response = await fetch(`${API_BASE_URL}/profile/photo`, {
+                method: 'GET',
+                headers: {
+                    'Authorization': `Bearer ${token}`,
+                    'Content-Type': 'application/json'
+                }
+            });
+
+            const data = await response.json();
+
+            if (response.ok && data.success && data.data && data.data.photo_url) {
+                const photoUrl = data.data.photo_url;
+                let fullPhotoUrl = photoUrl;
+                if (!photoUrl.startsWith('http')) {
+                    fullPhotoUrl = `${CONFIG.API_BASE_URL}${photoUrl}`;
+                }
+
+                const profileImg = document.getElementById('profileImage');
+                const profileInitials = document.getElementById('profileInitials');
+
+                if (profileImg && profileInitials) {
+                    profileImg.style.display = 'none';
+                    profileInitials.style.display = 'flex';
+                    profileInitials.textContent = getInitials();
+                    profileImg.src = '';
+
+                    const imgWithTimestamp = `${fullPhotoUrl}?t=${Date.now()}`;
+                    profileImg.src = imgWithTimestamp;
+
+                    profileImg.onload = function() {
+                        profileImg.style.display = 'block';
+                        profileInitials.style.display = 'none';
+                        profileImg.onload = null;
+                        profileImg.onerror = null;
+                    };
+
+                    profileImg.onerror = function() {
+                        profileImg.style.display = 'none';
+                        profileInitials.style.display = 'flex';
+                        profileInitials.textContent = getInitials();
+                        profileImg.onload = null;
+                        profileImg.onerror = null;
+                    };
+                }
+            } else {
+                showInitialsOnly();
+            }
+        } catch (error) {
+            showInitialsOnly();
+        }
+    }
+
+    function getInitials() {
+        const nameEl = document.getElementById("userFullName");
+        const fullName = nameEl ? nameEl.textContent : "User";
+        if (fullName && fullName !== "Guest User") {
+            const nameParts = fullName.split(" ");
+            if (nameParts.length >= 2) {
+                return (nameParts[0][0] + nameParts[1][0]).toUpperCase();
+            } else if (nameParts.length === 1) {
+                return nameParts[0].substring(0, 2).toUpperCase();
+            }
+            return fullName.substring(0, 2).toUpperCase();
+        }
+        return "??";
+    }
+
+    function showInitialsOnly() {
+        const profileImg = document.getElementById('profileImage');
+        const profileInitials = document.getElementById('profileInitials');
+        if (profileImg) profileImg.style.display = 'none';
+        if (profileInitials) {
+            profileInitials.style.display = 'flex';
+            profileInitials.textContent = getInitials();
+        }
+    }
+
+    /* ==============================
+       TOKEN MANAGEMENT
     ============================== */
     function isTokenValid() {
         const token = localStorage.getItem('access_token');
         const tokenExpiry = localStorage.getItem('token_expiry');
-
-        console.log('🔍 Checking token:', { 
-            token: token ? 'exists' : 'missing', 
-            expiry: tokenExpiry 
-        });
-
-        if (!token) {
-            console.log('⚠️ No token found');
-            return false;
-        }
-
+        if (!token) return false;
         if (tokenExpiry) {
-            const now = new Date().getTime();
-            const expiry = parseInt(tokenExpiry);
-            
-            console.log(`⏰ Current time: ${new Date(now).toLocaleString()}`);
-            console.log(`⏰ Token expiry: ${new Date(expiry).toLocaleString()}`);
-            console.log(`⏰ Time remaining: ${Math.round((expiry - now) / 1000)} seconds`);
-
-            if (now > expiry) {
-                console.log('⚠️ Token has EXPIRED');
-                return false;
-            }
+            if (new Date().getTime() > parseInt(tokenExpiry)) return false;
         }
-
         return true;
     }
 
-    /* ==============================
-       GET TIME UNTIL EXPIRY
-    ============================== */
     function getTimeUntilExpiry() {
         const tokenExpiry = localStorage.getItem('token_expiry');
-        
-        if (!tokenExpiry) {
-            return 0;
-        }
-
-        const now = new Date().getTime();
-        const expiry = parseInt(tokenExpiry);
-        
-        return expiry - now;
+        if (!tokenExpiry) return 0;
+        return parseInt(tokenExpiry) - new Date().getTime();
     }
 
-    /* ==============================
-       REDIRECT TO LOGIN PAGE
-    ============================== */
-    function redirectToLogin(message) {
-        console.log(`➡️ Redirecting to login: ${message}`);
-        
-        // Clear all auth data
+    function clearAuthData() {
+        ['access_token', 'refresh_token', 'token_expiry', 'user', 'user_id', 'user_role'].forEach(i => {
+            localStorage.removeItem(i);
+            sessionStorage.removeItem(i);
+        });
+    }
+
+    function redirectToLogin() {
         clearAuthData();
-        
-        // Show guest view
-        showGuestView();
-        
-        // Redirect to login page
         window.location.href = LOGIN_PAGE_URL;
     }
 
-    /* ==============================
-       AUTO REDIRECT ON TOKEN EXPIRY
-    ============================== */
     async function handleTokenExpiry() {
-        console.log('🔔 Token expired! Redirecting to login...');
-        
-        // Clear timers
         stopTokenMonitoring();
-
-        // Call logout API
-        const accessToken = localStorage.getItem('access_token');
-        
-        if (accessToken) {
+        const token = localStorage.getItem('access_token');
+        if (token) {
             try {
                 await fetch(`${API_BASE_URL}/logout`, {
                     method: 'POST',
-                    headers: {
-                        'Content-Type': 'application/json',
-                        'Authorization': `Bearer ${accessToken}`
-                    }
+                    headers: { 'Authorization': `Bearer ${token}` }
                 });
-                console.log('📡 Logout API called');
-            } catch (error) {
-                console.error('Logout API error:', error);
-            }
+            } catch(e) {}
         }
-
-        // Redirect to login
-        redirectToLogin('Your session has expired. Please login again.');
+        redirectToLogin();
     }
 
-    /* ==============================
-       START TOKEN MONITORING
-    ============================== */
     function startTokenMonitoring() {
-        // Clear existing monitoring
         stopTokenMonitoring();
-
-        // Check if we're on dashboard/index page
-        const currentPath = window.location.pathname;
-        const isDashboard = currentPath.includes('index.php') || currentPath === '/neuraEdu/client/';
-        
-        console.log(`📍 Current page: ${currentPath}, isDashboard: ${isDashboard}`);
-
-        // Calculate time until expiry
-        const timeUntilExpiry = getTimeUntilExpiry();
-        
-        console.log(`⏰ Token expires in ${Math.round(timeUntilExpiry / 1000)} seconds`);
-
-        if (timeUntilExpiry <= 0) {
-            // Token already expired
-            console.log('⚠️ Token already expired on page load');
-            
-            if (isDashboard) {
-                handleTokenExpiry();
-            } else {
-                // Just show guest view for non-dashboard pages
-                clearAuthData();
-                showGuestView();
-            }
-            return;
-        }
-
-        // Set timer for auto-redirect at expiry
-        logoutTimer = setTimeout(() => {
-            console.log('⏰ Token expiry timer triggered');
-            
-            if (isDashboard || confirm('Your session has expired. Would you like to login again?')) {
-                handleTokenExpiry();
-            } else {
-                clearAuthData();
-                showGuestView();
-            }
-        }, timeUntilExpiry);
-
-        // Also check every 10 seconds as backup
+        const timeLeft = getTimeUntilExpiry();
+        if (timeLeft <= 0) { handleTokenExpiry(); return; }
+        // setTimeout max safe value is ~24.8 days (2^31-1 ms). Cap at 24 hours and let setInterval re-check.
+        const MAX_TIMEOUT = 24 * 60 * 60 * 1000; // 24 hours
+        logoutTimer = setTimeout(handleTokenExpiry, Math.min(timeLeft, MAX_TIMEOUT));
         tokenCheckInterval = setInterval(() => {
-            const remaining = getTimeUntilExpiry();
-            
-            console.log(`⏰ Interval check: ${Math.round(remaining / 1000)} seconds remaining`);
-            
-            if (remaining <= 0) {
-                console.log('⚠️ Token expired during interval check');
-                
-                if (isDashboard) {
-                    handleTokenExpiry();
-                } else {
-                    clearAuthData();
-                    showGuestView();
-                }
-            } else if (remaining < 60000) { // Less than 1 minute
-                console.log(`⚠️ Token expiring soon: ${Math.round(remaining / 1000)} seconds`);
-            }
-        }, 10000); // Check every 10 seconds
-
-        console.log('✅ Token monitoring started');
+            if (getTimeUntilExpiry() <= 0) handleTokenExpiry();
+        }, 10000);
     }
 
-    /* ==============================
-       STOP TOKEN MONITORING
-    ============================== */
     function stopTokenMonitoring() {
-        if (logoutTimer) {
-            clearTimeout(logoutTimer);
-            logoutTimer = null;
-        }
-        
-        if (tokenCheckInterval) {
-            clearInterval(tokenCheckInterval);
-            tokenCheckInterval = null;
-        }
+        if (logoutTimer) clearTimeout(logoutTimer);
+        if (tokenCheckInterval) clearInterval(tokenCheckInterval);
     }
 
     /* ==============================
-       CLEAR AUTH DATA
-    ============================== */
-    function clearAuthData() {
-        stopTokenMonitoring();
-
-        const authItems = [
-            'access_token',
-            'refresh_token',
-            'token_expiry',
-            'user',
-            'user_id',
-            'user_role',
-            'rememberedEmail',
-            'rememberedPassword',
-            'auth',
-            'loginHistory'
-        ];
-
-        authItems.forEach(item => {
-            localStorage.removeItem(item);
-            sessionStorage.removeItem(item);
-        });
-
-        console.log('✅ All auth data cleared');
-    }
-
-    /* ==============================
-       LOAD USER DATA
+       USER DATA
     ============================== */
     function loadUserData() {
+        if (!isTokenValid()) { redirectToLogin(); return; }
+
+        let userJson = localStorage.getItem("user") || sessionStorage.getItem("user");
+        if (!userJson) { redirectToLogin(); return; }
+
         try {
-            // Check token first
-            if (!isTokenValid()) {
-                console.log('⚠️ Token invalid, checking if on dashboard...');
-                
-                const currentPath = window.location.pathname;
-                const isDashboard = currentPath.includes('index.php') || currentPath === '/neuraEdu/client/';
-                
-                if (isDashboard) {
-                    console.log('📍 On dashboard with invalid token - redirecting...');
-                    handleTokenExpiry();
-                } else {
-                    showGuestView();
-                }
-                return;
-            }
-
-            let userJson = localStorage.getItem("user");
-
-            if (!userJson || userJson === "undefined" || userJson === "null") {
-                userJson = sessionStorage.getItem("user");
-            }
-
-            if (!userJson) {
-                console.log('⚠️ No user data found');
-                showGuestView();
-                return;
-            }
-
             const user = JSON.parse(userJson);
+            const fullName = user.full_name || user.name || user.username ||
+                           (user.email ? user.email.split("@")[0] : "User");
+            const initials = getInitialsFromName(fullName);
 
-            const welcomeHeading = document.getElementById("welcomeHeading");
-            const welcomeSubtitle = document.getElementById("welcomeSubtitle");
-            const userAvatar = document.getElementById("userAvatar");
-            const userFullName = document.getElementById("userFullName");
-            const userSubtitle = document.getElementById("userSubtitle");
+            const nameEl = document.getElementById("userFullName");
+            const roleEl = document.getElementById("userSubtitle");
+            const profileInitials = document.getElementById("profileInitials");
 
-            const fullName = user.full_name || user.name || user.username || 
-                            (user.email ? user.email.split("@")[0] : "User");
+            if (nameEl) nameEl.textContent = fullName;
+            if (roleEl) roleEl.textContent = user.role || "User";
+            if (profileInitials) profileInitials.textContent = initials || "??";
 
-            const firstName = fullName.split(" ")[0];
+            // Sync dropdown card
+            const ddName = document.getElementById("dropdownName");
+            const ddEmail = document.getElementById("dropdownEmail");
+            const ddInitials = document.getElementById("dropdownInitials");
+            if (ddName) ddName.textContent = fullName;
+            if (ddEmail) ddEmail.textContent = user.email || user.role || "User";
+            if (ddInitials) ddInitials.textContent = initials || "??";
 
-            if (welcomeHeading) {
-                welcomeHeading.textContent = `Welcome back, ${firstName}!`;
-            }
-
-            if (welcomeSubtitle) {
-                if (user.role && user.role.toLowerCase() === "administrator") {
-                    welcomeSubtitle.textContent = "System overview and analytics";
-                } else {
-                    welcomeSubtitle.textContent = "Your academic progress summary";
-                }
-            }
-
-            if (userAvatar) {
-                const initials = fullName
-                    .split(" ")
-                    .map(p => p.charAt(0).toUpperCase())
-                    .join("")
-                    .substring(0, 2);
-                userAvatar.textContent = initials || "??";
-            }
-
-            if (userFullName) {
-                userFullName.textContent = fullName;
-            }
-
-            if (userSubtitle) {
-                userSubtitle.textContent = user.role || "User";
-            }
-
-            console.log('✅ User data loaded:', fullName);
-
-            // Start monitoring token expiry
+            setTimeout(() => loadProfilePhoto(), 100);
             startTokenMonitoring();
-
-        } catch (error) {
-            console.error("❌ User load error:", error);
-            showGuestView();
+        } catch(e) {
+            redirectToLogin();
         }
     }
 
-    /* ==============================
-       SHOW GUEST VIEW
-    ============================== */
+    function getInitialsFromName(name) {
+        if (!name || name === "Guest User") return "??";
+        const nameParts = name.split(" ");
+        if (nameParts.length >= 2) return (nameParts[0][0] + nameParts[1][0]).toUpperCase();
+        if (nameParts.length === 1) return nameParts[0].substring(0, 2).toUpperCase();
+        return name.substring(0, 2).toUpperCase();
+    }
+
     function showGuestView() {
-        const elements = {
-            welcomeHeading: document.getElementById("welcomeHeading"),
-            welcomeSubtitle: document.getElementById("welcomeSubtitle"),
-            userAvatar: document.getElementById("userAvatar"),
-            userFullName: document.getElementById("userFullName"),
-            userSubtitle: document.getElementById("userSubtitle"),
-            dropdownMenu: document.getElementById("userDropdownMenu")
-        };
+        const nameEl = document.getElementById("userFullName");
+        const roleEl = document.getElementById("userSubtitle");
+        const profileInitials = document.getElementById("profileInitials");
 
-        if (elements.welcomeHeading) {
-            elements.welcomeHeading.textContent = "Welcome back, Guest!";
-        }
+        if (nameEl) nameEl.textContent = "Guest User";
+        if (roleEl) roleEl.textContent = "Not logged in";
+        if (profileInitials) profileInitials.textContent = "??";
 
-        if (elements.welcomeSubtitle) {
-            elements.welcomeSubtitle.textContent = "Your academic progress summary";
-        }
-
-        if (elements.userAvatar) {
-            elements.userAvatar.textContent = "??";
-        }
-
-        if (elements.userFullName) {
-            elements.userFullName.textContent = "Guest User";
-        }
-
-        if (elements.userSubtitle) {
-            elements.userSubtitle.textContent = "Not logged in";
-        }
-
-        if (elements.dropdownMenu) {
-            elements.dropdownMenu.style.display = "none";
-        }
+        showInitialsOnly();
+        closeAllDropdowns();
     }
 
-    /* ==============================
-       DROPDOWN SETUP
-    ============================== */
-    function setupDropdown() {
+    function closeAllDropdowns() {
+        const userMenu = document.getElementById("userDropdownMenu");
         const userDropdown = document.getElementById("userDropdown");
-        const dropdownMenu = document.getElementById("userDropdownMenu");
+        const notifDropdown = document.getElementById("notificationDropdown");
 
-        if (!userDropdown || !dropdownMenu) {
-            console.error('❌ Dropdown elements not found');
-            return;
-        }
-
-        const toggleArea = userDropdown.querySelector("div:first-child");
-
-        toggleArea.addEventListener("click", function (e) {
-            e.stopPropagation();
-            
-            if (isTokenValid()) {
-                const isVisible = dropdownMenu.style.display === "block";
-                dropdownMenu.style.display = isVisible ? "none" : "block";
-            } else {
-                window.location.href = LOGIN_PAGE_URL;
-            }
-        });
-
-        document.addEventListener("click", function (e) {
-            if (!userDropdown.contains(e.target)) {
-                dropdownMenu.style.display = "none";
-            }
-        });
+        if (userMenu) { userMenu.classList.remove('show'); userMenu.style.display = ''; }
+        if (userDropdown) userDropdown.classList.remove('open');
+        if (notifDropdown) notifDropdown.classList.remove('show');
     }
 
     /* ==============================
-       PROFILE HANDLER
+       SECTION SWITCHING
     ============================== */
-    function setupProfileLink() {
-        const profileLink = document.getElementById("profile-link");
-        
-        if (!profileLink) {
-            console.error('❌ Profile link not found');
-            return;
+    function switchToSection(sectionId) {
+        const allSections = document.querySelectorAll('.content-section');
+        allSections.forEach(section => section.style.display = 'none');
+
+        const targetSection = document.getElementById(sectionId);
+        if (targetSection) {
+            targetSection.style.display = 'block';
+        } else {
+            createSectionIfNotExists(sectionId);
         }
 
-        const newProfileLink = profileLink.cloneNode(true);
-        profileLink.parentNode.replaceChild(newProfileLink, profileLink);
-
-        newProfileLink.addEventListener("click", function (e) {
-            e.preventDefault();
-            e.stopPropagation();
-            
-            console.log('👤 Opening profile section...');
-            
-            if (!isTokenValid()) {
-                window.location.href = LOGIN_PAGE_URL + '?redirect=index.php';
-                return;
-            }
-            
-            const dropdownMenu = document.getElementById("userDropdownMenu");
-            if (dropdownMenu) dropdownMenu.style.display = "none";
-            
-            const currentPath = window.location.pathname;
-            const isDashboard = currentPath.includes('index.php') || currentPath === '/neuraEdu/client/';
-            
-            if (isDashboard) {
-                const profileSection = document.getElementById('profile-section');
-                if (profileSection) {
-                    document.querySelectorAll('.content-section').forEach(section => {
-                        section.style.display = 'none';
-                    });
-                    profileSection.style.display = 'block';
-                    
-                    document.querySelectorAll('.menu-item').forEach(item => {
-                        item.classList.remove('active');
-                        if (item.dataset.section === 'profile-section') {
-                            item.classList.add('active');
-                        }
-                    });
-                    
-                    window.scrollTo({ top: 0, behavior: 'smooth' });
-                    console.log('✅ Profile section displayed');
-                }
-            } else {
-                window.location.href = DASHBOARD_PAGE_URL + '#profile';
-            }
+        const allMenuItems = document.querySelectorAll('.menu-item');
+        allMenuItems.forEach(item => {
+            item.classList.remove('active');
+            if (item.dataset.section === sectionId) item.classList.add('active');
         });
 
-        console.log('✅ Profile link handler attached');
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+        closeAllDropdowns();
+        updateBreadcrumb();
+    }
+
+    function createSectionIfNotExists(sectionId) {
+        const mainContent = document.querySelector('.main-content') || document.querySelector('main') || document.body;
+        let sectionTitle = '';
+
+        switch(sectionId) {
+            case 'profile-section': sectionTitle = 'My Profile'; break;
+            case 'settings-section': sectionTitle = 'Settings'; break;
+            case 'help-section': sectionTitle = 'Help & Support'; break;
+            default: return;
+        }
+
+        const newSection = document.createElement('div');
+        newSection.id = sectionId;
+        newSection.className = 'content-section';
+        newSection.style.display = 'none';
+        newSection.style.padding = '24px';
+        newSection.innerHTML = `
+            <div style="background: white; border-radius: 16px; padding: 24px; box-shadow: 0 1px 3px rgba(0,0,0,0.1);">
+                <h2 style="font-size: 24px; margin-bottom: 16px;">${sectionTitle}</h2>
+                <p style="color: #6c7a91;">${sectionTitle} section content will appear here.</p>
+            </div>
+        `;
+        mainContent.appendChild(newSection);
     }
 
     /* ==============================
-       SETTINGS HANDLER
+       DROPDOWN HANDLERS
     ============================== */
-    function setupSettingsLink() {
-        const settingsLink = document.getElementById("settings-link");
-        
-        if (!settingsLink) {
-            console.error('❌ Settings link not found');
-            return;
-        }
+    let isDropdownInitialized = false;
 
-        const newSettingsLink = settingsLink.cloneNode(true);
-        settingsLink.parentNode.replaceChild(newSettingsLink, settingsLink);
+    function setupDropdowns() {
+        if (isDropdownInitialized) return;
 
-        newSettingsLink.addEventListener("click", function (e) {
-            e.preventDefault();
-            e.stopPropagation();
-            
-            console.log('⚙️ Opening settings section...');
-            
-            if (!isTokenValid()) {
-                window.location.href = LOGIN_PAGE_URL + '?redirect=index.php';
-                return;
-            }
-            
-            const dropdownMenu = document.getElementById("userDropdownMenu");
-            if (dropdownMenu) dropdownMenu.style.display = "none";
-            
-            const currentPath = window.location.pathname;
-            const isDashboard = currentPath.includes('index.php') || currentPath === '/neuraEdu/client/';
-            
-            if (isDashboard) {
-                const settingsSection = document.getElementById('settings-section');
-                if (settingsSection) {
-                    document.querySelectorAll('.content-section').forEach(section => {
-                        section.style.display = 'none';
-                    });
-                    settingsSection.style.display = 'block';
-                    
-                    document.querySelectorAll('.menu-item').forEach(item => {
-                        item.classList.remove('active');
-                        if (item.dataset.section === 'settings-section') {
-                            item.classList.add('active');
-                        }
-                    });
-                    
-                    window.scrollTo({ top: 0, behavior: 'smooth' });
-                    console.log('✅ Settings section displayed');
+        const userDropdown = document.getElementById("userDropdown");
+        const userMenu = document.getElementById("userDropdownMenu");
+        const notifBtn = document.getElementById("notificationBtn");
+        const notifDropdown = document.getElementById("notificationDropdown");
+
+        if (!userDropdown || !userMenu) return;
+
+        const trigger = userDropdown.querySelector('.dropdown-trigger');
+        if (trigger) {
+            const newTrigger = trigger.cloneNode(true);
+            trigger.parentNode.replaceChild(newTrigger, trigger);
+
+            newTrigger.addEventListener("click", function(e) {
+                e.stopPropagation();
+                e.preventDefault();
+
+                if (isTokenValid()) {
+                    const isVisible = userMenu.classList.contains('show');
+                    if (isVisible) {
+                        userMenu.classList.remove('show');
+                        userDropdown.classList.remove('open');
+                    } else {
+                        if (notifDropdown) notifDropdown.classList.remove('show');
+                        userMenu.classList.add('show');
+                        userDropdown.classList.add('open');
+                        userMenu.style.display = 'block';
+                    }
                 } else {
-                    console.error('❌ Settings section not found in DOM');
+                    window.location.href = LOGIN_PAGE_URL;
                 }
-            } else {
-                window.location.href = DASHBOARD_PAGE_URL + '#settings';
-            }
-        });
-
-        console.log('✅ Settings link handler attached');
-    }
-
-    /* ==============================
-       HELP HANDLER
-    ============================== */
-    function setupHelpLink() {
-        const helpLink = document.getElementById("help-link");
-        
-        if (!helpLink) {
-            console.error('❌ Help link not found');
-            return;
+            });
         }
 
-        const newHelpLink = helpLink.cloneNode(true);
-        helpLink.parentNode.replaceChild(newHelpLink, helpLink);
+        if (notifBtn && notifDropdown) {
+            const newNotifBtn = notifBtn.cloneNode(true);
+            notifBtn.parentNode.replaceChild(newNotifBtn, notifBtn);
 
-        newHelpLink.addEventListener("click", function (e) {
-            e.preventDefault();
-            e.stopPropagation();
-            
-            console.log('❓ Opening help section...');
-            
-            if (!isTokenValid()) {
-                window.location.href = LOGIN_PAGE_URL + '?redirect=index.php';
-                return;
-            }
-            
-            const dropdownMenu = document.getElementById("userDropdownMenu");
-            if (dropdownMenu) dropdownMenu.style.display = "none";
-            
-            const currentPath = window.location.pathname;
-            const isDashboard = currentPath.includes('index.php') || currentPath === '/neuraEdu/client/';
-            
-            if (isDashboard) {
-                const helpSection = document.getElementById('help-section');
-                if (helpSection) {
-                    document.querySelectorAll('.content-section').forEach(section => {
-                        section.style.display = 'none';
-                    });
-                    helpSection.style.display = 'block';
-                    
-                    document.querySelectorAll('.menu-item').forEach(item => {
-                        item.classList.remove('active');
-                        if (item.dataset.section === 'help-section') {
-                            item.classList.add('active');
-                        }
-                    });
-                    
-                    window.scrollTo({ top: 0, behavior: 'smooth' });
-                    console.log('✅ Help section displayed');
+            newNotifBtn.addEventListener("click", function(e) {
+                e.stopPropagation();
+                e.preventDefault();
+
+                const isVisible = notifDropdown.classList.contains('show');
+                if (isVisible) {
+                    notifDropdown.classList.remove('show');
                 } else {
-                    console.error('❌ Help section not found in DOM');
+                    if (userMenu) {
+                        userMenu.classList.remove('show');
+                        userDropdown.classList.remove('open');
+                    }
+                    notifDropdown.classList.add('show');
                 }
-            } else {
-                window.location.href = DASHBOARD_PAGE_URL + '#help';
+            });
+        }
+
+        document.addEventListener("click", function(e) {
+            let clickedInsideUser = userDropdown && userDropdown.contains(e.target);
+            let clickedInsideNotif = (notifDropdown && notifDropdown.contains(e.target)) || (notifBtn && notifBtn.contains(e.target));
+
+            if (!clickedInsideUser && !clickedInsideNotif) {
+                if (userMenu && userMenu.classList.contains('show')) {
+                    userMenu.classList.remove('show');
+                    userDropdown.classList.remove('open');
+                }
+                if (notifDropdown && notifDropdown.classList.contains('show')) {
+                    notifDropdown.classList.remove('show');
+                }
             }
         });
 
-        console.log('✅ Help link handler attached');
+        isDropdownInitialized = true;
     }
 
     /* ==============================
-       LOGOUT HANDLER
+       MENU TOGGLE
     ============================== */
-    async function performLogout() {
-        console.log('🚪 Manual logout');
+    function setupMenuToggle() {
+        const menuToggle = document.getElementById("menuToggle");
+        if (menuToggle) {
+            const newMenuToggle = menuToggle.cloneNode(true);
+            menuToggle.parentNode.replaceChild(newMenuToggle, menuToggle);
+            newMenuToggle.addEventListener("click", () => {
+                newMenuToggle.classList.toggle('active');
+                window.dispatchEvent(new CustomEvent('menuToggle'));
+            });
 
-        stopTokenMonitoring();
-
-        const accessToken = localStorage.getItem('access_token');
-        const refreshToken = localStorage.getItem('refresh_token');
-
-        try {
-            if (accessToken) {
-                await fetch(`${API_BASE_URL}/logout`, {
-                    method: 'POST',
-                    headers: {
-                        'Content-Type': 'application/json',
-                        'Authorization': `Bearer ${accessToken}`
-                    },
-                    body: JSON.stringify({ refresh_token: refreshToken })
+            // Sync: when sidebar closes via overlay click or outside click, reset hamburger
+            const sidebar = document.getElementById('sidebar');
+            if (sidebar) {
+                const obs = new MutationObserver(() => {
+                    const isOpen = sidebar.classList.contains('active');
+                    if (isOpen) {
+                        newMenuToggle.classList.add('active');
+                    } else {
+                        newMenuToggle.classList.remove('active');
+                    }
                 });
+                obs.observe(sidebar, { attributes: true, attributeFilter: ['class'] });
             }
-        } catch (error) {
-            console.error('Logout API error:', error);
-        } finally {
-            clearAuthData();
-            window.location.href = LOGIN_PAGE_URL;
         }
+    }
+
+    /* ==============================
+       NAV LINKS
+    ============================== */
+    function setupLink(id, sectionId) {
+        const link = document.getElementById(id);
+        if (!link) return;
+        const newLink = link.cloneNode(true);
+        link.parentNode.replaceChild(newLink, link);
+        newLink.addEventListener("click", (e) => {
+            e.preventDefault();
+            e.stopPropagation();
+            if (sectionId && !isTokenValid()) { window.location.href = LOGIN_PAGE_URL; return; }
+            closeAllDropdowns();
+            if (sectionId) switchToSection(sectionId);
+        });
+        return newLink;
     }
 
     function setupLogout() {
-        const logoutLink = document.getElementById("logout-link");
-        
-        if (!logoutLink) {
-            console.error('❌ Logout link not found');
-            return;
-        }
-
-        const newLogoutLink = logoutLink.cloneNode(true);
-        logoutLink.parentNode.replaceChild(newLogoutLink, logoutLink);
-
-        newLogoutLink.addEventListener("click", async function (e) {
+        const link = document.getElementById("logout-link");
+        if (!link) return;
+        const newLink = link.cloneNode(true);
+        link.parentNode.replaceChild(newLink, link);
+        newLink.addEventListener("click", async (e) => {
             e.preventDefault();
             e.stopPropagation();
-            await performLogout();
+            stopTokenMonitoring();
+            const token = localStorage.getItem('access_token');
+            if (token) {
+                try { await fetch(`${API_BASE_URL}/logout`, { method: 'POST', headers: { 'Authorization': `Bearer ${token}` } }); } catch(e) {}
+            }
+            clearAuthData();
+            window.location.href = LOGIN_PAGE_URL;
         });
+    }
 
-        console.log('✅ Logout handler attached');
+    /* ==============================
+       NOTIFICATION HANDLERS
+    ============================== */
+    function setupNotificationHandlers() {
+        const markAllRead = document.getElementById("markAllRead");
+        if (markAllRead) {
+            const newEl = markAllRead.cloneNode(true);
+            markAllRead.parentNode.replaceChild(newEl, markAllRead);
+            newEl.addEventListener("click", () => {
+                document.querySelectorAll('.notification-item.unread').forEach(item => item.classList.remove('unread'));
+                updateNotifDot();
+            });
+        }
+
+        document.querySelectorAll('.notification-item').forEach(item => {
+            const newItem = item.cloneNode(true);
+            item.parentNode.replaceChild(newItem, item);
+            newItem.addEventListener("click", () => {
+                newItem.classList.remove('unread');
+                updateNotifDot();
+            });
+        });
     }
 
     /* ==============================
        FETCH INTERCEPTOR
     ============================== */
     function setupFetchInterceptor() {
-        const originalFetch = window.fetch;
-        
-        window.fetch = async function(...args) {
-            const response = await originalFetch.apply(this, args);
-            
-            if (response.status === 401) {
-                console.log('🔔 Received 401 response');
-                
-                const currentPath = window.location.pathname;
-                const isDashboard = currentPath.includes('index.php') || currentPath === '/neuraEdu/client/';
-                
-                if (isDashboard) {
-                    handleTokenExpiry();
-                } else {
-                    clearAuthData();
-                    showGuestView();
-                }
+        const oldFetch = window.fetch;
+        window.fetch = async (...args) => {
+            try {
+                const res = await oldFetch(...args);
+                if (res.status === 401) handleTokenExpiry();
+                return res;
+            } catch (error) {
+                throw error;
             }
-            
-            return response;
         };
-        
-        console.log('✅ Fetch interceptor setup');
     }
 
     /* ==============================
-       INITIALIZATION
+       INIT
     ============================== */
     function init() {
-        console.log('🔄 Initializing header...');
-        
         setupFetchInterceptor();
-        
-        const isValid = isTokenValid();
-        const currentPath = window.location.pathname;
-        const isDashboard = currentPath.includes('index.php') || currentPath === '/neuraEdu/client/';
-        
-        console.log(`📍 Page: ${currentPath}, isDashboard: ${isDashboard}, tokenValid: ${isValid}`);
-        
-        if (isValid) {
+
+        if (isTokenValid()) {
             loadUserData();
         } else {
-            if (isDashboard) {
-                console.log('⚠️ On dashboard with invalid token - redirecting...');
-                handleTokenExpiry();
-            } else {
-                showGuestView();
-            }
+            // Token is null or expired — redirect to login page
+            redirectToLogin();
+            return;
         }
-        
-        setupDropdown();
-        setupProfileLink();
-        setupSettingsLink();
-        setupHelpLink();
+
+        setupDropdowns();
+        setupLink('profile-link', 'profile-section');
+        setupLink('settings-link', 'settings-section');
+        setupLink('help-link', 'help-section');
         setupLogout();
-        
-        console.log('✅ Header initialization complete');
+        setupMenuToggle();
+        setupNotificationHandlers();
+        updateNotifDot();
+        updateBreadcrumb();
     }
 
-    // Run initialization
     if (document.readyState === "loading") {
         document.addEventListener("DOMContentLoaded", init);
     } else {
         init();
     }
 
-    // Check on visibility change
-    document.addEventListener('visibilitychange', function() {
-        if (!document.hidden) {
-            console.log('👁️ Page became visible');
-            
-            if (!isTokenValid()) {
-                const currentPath = window.location.pathname;
-                const isDashboard = currentPath.includes('index.php') || currentPath === '/neuraEdu/client/';
-                
-                if (isDashboard) {
-                    handleTokenExpiry();
-                } else {
-                    clearAuthData();
-                    showGuestView();
-                }
-            }
-        }
-    });
-
-    // Cleanup on unload
-    window.addEventListener('beforeunload', function() {
-        stopTokenMonitoring();
-    });
-
+    window.addEventListener('beforeunload', () => stopTokenMonitoring());
 })();
 </script>
-
-<style>
-.loading {
-    display: inline-block;
-    width: 16px;
-    height: 16px;
-    border: 2px solid #f3f3f3;
-    border-top: 2px solid #e74c3c;
-    border-radius: 50%;
-    animation: spin 1s linear infinite;
-    margin-right: 5px;
-}
-
-@keyframes spin {
-    0% { transform: rotate(0deg); }
-    100% { transform: rotate(360deg); }
-}
-
-#logout-link[style*="pointer-events: none"] {
-    opacity: 0.7;
-}
-</style>

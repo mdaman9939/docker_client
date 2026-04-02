@@ -1,18 +1,26 @@
 <!-- Help Center Section -->
 <div id="help-section" class="content-section" style="display: none;">
-    <div class="help-header">
-        <div>
-            <h3><i class="fas fa-question-circle"></i> Help Center</h3>
+
+    <!-- Hero Banner -->
+    <div class="help-hero">
+        <div class="help-hero-text">
+            <h2><i class="fas fa-question-circle" style="margin-right:10px;opacity:.85;"></i>Help Center</h2>
             <p>Find answers to common questions and learn how to use NeuraEduBot</p>
+            <div class="hero-support-btns">
+                <button class="hero-btn hero-btn-primary" id="contact-support-btn">
+                    <i class="fas fa-envelope"></i> Contact Support
+                </button>
+                <button class="hero-btn hero-btn-ghost" id="live-chat-btn">
+                    <i class="fas fa-comment"></i> Live Chat
+                </button>
+            </div>
         </div>
         <div class="help-search">
             <i class="fas fa-search"></i>
             <input type="text" id="help-search" placeholder="Search for help articles...">
         </div>
     </div>
-    
-    <hr class="divider">
-    
+
     <!-- Categories -->
     <div class="help-categories">
         <button class="category-btn active" data-category="all">📚 All Topics</button>
@@ -54,19 +62,6 @@
         </div>
     </div>
     
-    <!-- Still Need Help Section -->
-    <div class="still-need-help" id="still-need-help">
-        <h4>Still need help?</h4>
-        <p>Can't find what you're looking for? Our support team is here to help.</p>
-        <div class="support-options">
-            <button class="support-btn" id="contact-support-btn">
-                <i class="fas fa-envelope"></i> Contact Support
-            </button>
-            <button class="support-btn" id="live-chat-btn">
-                <i class="fas fa-comment"></i> Live Chat
-            </button>
-        </div>
-    </div>
 </div>
 
 <!-- Contact Support Form (Inline) -->
@@ -112,7 +107,7 @@
 <div id="live-chat-container" style="display: none;">
     <div class="chat-card">
         <div class="chat-header">
-            <h4 style="color: rgb(225, 226, 230);"><i class="fas fa-comments"></i> Live Support Chat</h4>
+            <h4><i class="fas fa-comments"></i> Live Support Chat</h4>
             <button class="close-chat-btn" id="close-live-chat">×</button>
         </div>
         
@@ -148,334 +143,443 @@
 </div>
 
 <style>
-/* ==================== HELP CENTER STYLES ==================== */
-.help-header {
+/* ==================== HELP CENTER STYLES - AI WORLD THEME ==================== */
+
+/* Page wrapper */
+#help-section {
+    padding: 28px 0 40px;
+}
+
+/* ---- Hero banner - AI World Gradient ---- */
+.help-hero {
+    background: linear-gradient(135deg, #3f66e6 0%, #0ed3a2 50%, #129695 100%);
+    border-radius: 24px;
+    padding: 40px 36px;
+    margin-bottom: 28px;
     display: flex;
-    justify-content: space-between;
     align-items: center;
-    margin-bottom: 20px;
+    justify-content: space-between;
+    gap: 24px;
     flex-wrap: wrap;
-    gap: 15px;
 }
 
-.help-header h3 {
-    font-size: 28px;
-    color: #333;
-    margin: 0 0 5px 0;
+.help-hero-text h2 {
+    font-size: 26px;
+    font-weight: 700;
+    color: #fff;
+    margin: 0 0 6px;
+    line-height: 1.3;
 }
 
-.help-header h3 i {
-    color: #4361ee;
-    margin-right: 10px;
+.help-hero-text p {
+    font-size: 14px;
+    color: rgba(255,255,255,0.85);
+    margin: 0 0 18px;
 }
 
-.help-header p {
-    color: #666;
-    margin: 0;
-    font-size: 16px;
+.hero-support-btns {
+    display: flex;
+    gap: 10px;
+    flex-wrap: wrap;
+}
+
+.hero-btn {
+    padding: 9px 20px;
+    border-radius: 14px;
+    font-size: 13px;
+    font-weight: 600;
+    cursor: pointer;
+    display: inline-flex;
+    align-items: center;
+    gap: 7px;
+    transition: all 0.2s;
+    font-family: inherit;
+    border: none;
+}
+
+.hero-btn-primary {
+    background: #fff;
+    color: #3f66e6;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+}
+
+.hero-btn-primary:hover {
+    background: #f0f4ff;
+    transform: translateY(-2px);
+    box-shadow: 0 6px 20px rgba(63, 102, 230, 0.25);
+}
+
+.hero-btn-ghost {
+    background: rgba(255,255,255,0.2);
+    color: #fff;
+    border: 1.5px solid rgba(255,255,255,0.4) !important;
+    backdrop-filter: blur(10px);
+}
+
+.hero-btn-ghost:hover {
+    background: rgba(255,255,255,0.3);
+    transform: translateY(-2px);
 }
 
 .help-search {
     position: relative;
-    min-width: 300px;
+    flex: 0 0 340px;
+    max-width: 100%;
 }
 
 .help-search i {
     position: absolute;
-    left: 15px;
+    left: 16px;
     top: 50%;
     transform: translateY(-50%);
-    color: #999;
+    color: #3f66e6;
+    font-size: 14px;
+    pointer-events: none;
 }
 
 .help-search input {
     width: 100%;
-    padding: 12px 15px 12px 45px;
-    border: 2px solid #e0e0e0;
-    border-radius: 30px;
-    font-size: 16px;
+    padding: 12px 16px 12px 44px;
+    border: none;
+    border-radius: 14px;
+    font-size: 14px;
+    background: #fff;
+    color: #1a1a2e;
+    box-shadow: 0 4px 16px rgba(0,0,0,0.1);
     transition: all 0.3s;
     box-sizing: border-box;
+    font-family: inherit;
+}
+
+.help-search input::placeholder { 
+    color: #999;
 }
 
 .help-search input:focus {
     outline: none;
-    border-color: #4361ee;
-    box-shadow: 0 0 0 3px rgba(67,97,238,0.1);
+    box-shadow: 0 4px 20px rgba(63, 102, 230, 0.35);
+    transform: translateY(-1px);
 }
 
-/* Categories */
+/* ---- Category tabs ---- */
 .help-categories {
     display: flex;
     gap: 10px;
-    margin-bottom: 30px;
+    margin-bottom: 28px;
     flex-wrap: wrap;
-    background: white;
-    padding: 15px 20px;
-    border-radius: 50px;
-    box-shadow: 0 5px 20px rgba(0,0,0,0.05);
 }
 
 .category-btn {
-    padding: 10px 20px;
-    border: none;
-    background: transparent;
-    border-radius: 30px;
+    padding: 8px 20px;
+    border: 1.5px solid #e8ecf4;
+    background: #fff;
+    border-radius: 12px;
     cursor: pointer;
     font-weight: 500;
-    transition: all 0.3s;
-    color: #666;
-    font-size: 15px;
+    font-size: 13px;
+    color: #6c7a91;
+    transition: all 0.2s;
+    font-family: inherit;
+    line-height: 1;
 }
 
 .category-btn:hover {
+    border-color: #3f66e6;
+    color: #3f66e6;
     background: #f0f4ff;
-    color: #4361ee;
+    transform: translateY(-1px);
 }
 
 .category-btn.active {
-    background: linear-gradient(135deg, #4361ee, #06d6a0);
-    color: white;
+    background: linear-gradient(135deg, #3f66e6, #0ed3a2);
+    border-color: transparent;
+    color: #fff;
+    box-shadow: 0 4px 12px rgba(63, 102, 230, 0.3);
 }
 
-/* Help Grid */
+/* ---- Article grid ---- */
 .help-grid {
     display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+    grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
     gap: 20px;
-    margin-bottom: 40px;
+    margin-bottom: 32px;
 }
 
-/* Article Cards */
+/* ---- Article card - AI World Theme ---- */
 .article-card {
-    background: white;
+    background: #fff;
     border-radius: 20px;
-    padding: 20px;
-    box-shadow: 0 5px 20px rgba(0,0,0,0.05);
-    transition: all 0.3s;
+    padding: 22px;
+    border: 1.5px solid #eef0f5;
     cursor: pointer;
-    border: 1px solid #f0f0f0;
+    transition: all 0.3s;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
 }
 
 .article-card:hover {
-    transform: translateY(-5px);
-    box-shadow: 0 15px 30px rgba(67,97,238,0.15);
-    border-color: #4361ee;
+    border-color: #0ed3a2;
+    box-shadow: 0 8px 24px rgba(14, 211, 162, 0.12);
+    transform: translateY(-3px);
 }
 
-.article-icon {
-    font-size: 40px;
-    margin-bottom: 15px;
+.article-card-top {
+    display: flex;
+    align-items: flex-start;
+    gap: 14px;
+}
+
+.article-icon-wrap {
+    width: 48px;
+    height: 48px;
+    border-radius: 14px;
+    background: linear-gradient(135deg, #f0f4ff, #e8faf3);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 24px;
+    flex-shrink: 0;
+}
+
+.article-card-body { 
+    flex: 1; 
+    min-width: 0;
 }
 
 .article-card h4 {
-    margin: 0 0 10px 0;
-    color: #333;
-    font-size: 18px;
+    margin: 0 0 6px;
+    color: #1a1a2e;
+    font-size: 16px;
+    font-weight: 700;
+    line-height: 1.4;
 }
 
 .article-description {
-    color: #666;
-    font-size: 14px;
-    line-height: 1.5;
-    margin: 0 0 15px 0;
+    color: #6c7a91;
+    font-size: 13px;
+    line-height: 1.55;
+    margin: 0;
     display: -webkit-box;
     -webkit-line-clamp: 2;
     -webkit-box-orient: vertical;
     overflow: hidden;
 }
 
+.article-footer {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding-top: 12px;
+    border-top: 1px solid #f1f3f6;
+}
+
+.article-category {
+    background: linear-gradient(135deg, #f0f4ff, #e8faf3);
+    color: #3f66e6;
+    padding: 4px 12px;
+    border-radius: 8px;
+    font-size: 11px;
+    font-weight: 600;
+    letter-spacing: 0.4px;
+}
+
 .article-meta {
     display: flex;
-    gap: 15px;
-    font-size: 12px;
-    color: #999;
+    gap: 12px;
+    font-size: 11px;
+    color: #aab0bb;
 }
 
 .article-meta span {
     display: flex;
     align-items: center;
-    gap: 5px;
+    gap: 4px;
 }
 
-.article-category {
-    background: #f0f4ff;
-    color: #4361ee;
-    padding: 4px 10px;
-    border-radius: 15px;
-    font-size: 12px;
-    display: inline-block;
-}
-
-/* Expanded Article View */
+/* ---- Expanded article - AI World Theme ---- */
 .expanded-article {
-    background: white;
+    background: #fff;
     border-radius: 20px;
-    padding: 30px;
-    box-shadow: 0 10px 30px rgba(0,0,0,0.1);
-    margin-bottom: 30px;
-    animation: slideDown 0.3s ease;
+    border: 1.5px solid #eef0f5;
+    overflow: hidden;
+    margin-bottom: 28px;
+    animation: hcFadeUp 0.25s ease;
 }
 
-@keyframes slideDown {
-    from {
-        opacity: 0;
-        transform: translateY(-20px);
-    }
-    to {
-        opacity: 1;
-        transform: translateY(0);
-    }
+@keyframes hcFadeUp {
+    from { opacity: 0; transform: translateY(12px); }
+    to   { opacity: 1; transform: translateY(0); }
 }
 
 .expanded-header {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    margin-bottom: 20px;
-    padding-bottom: 15px;
-    border-bottom: 2px solid #f0f0f0;
+    padding: 22px 28px;
+    background: linear-gradient(135deg, #f8faff, #f0faf5);
+    border-bottom: 1.5px solid #eef0f5;
+    gap: 16px;
 }
 
 .expanded-header > div {
     display: flex;
     align-items: center;
-    gap: 15px;
+    gap: 16px;
+    flex: 1;
+    min-width: 0;
 }
 
 .expanded-icon {
-    font-size: 48px;
+    font-size: 40px;
+    line-height: 1;
+    flex-shrink: 0;
 }
 
 .expanded-header h3 {
     margin: 0;
-    color: #333;
-    font-size: 24px;
+    color: #1a1a2e;
+    font-size: 20px;
+    font-weight: 700;
+    line-height: 1.3;
 }
 
 .close-expanded-btn {
-    background: none;
-    border: none;
-    font-size: 24px;
+    background: #fff;
+    border: 1.5px solid #eef0f5;
+    font-size: 14px;
     cursor: pointer;
-    color: #666;
-    width: 40px;
-    height: 40px;
-    border-radius: 50%;
+    color: #6c7a91;
+    width: 36px;
+    height: 36px;
+    border-radius: 12px;
     display: flex;
     align-items: center;
     justify-content: center;
-    transition: all 0.3s;
+    transition: all 0.2s;
+    flex-shrink: 0;
 }
 
 .close-expanded-btn:hover {
-    background: #f0f0f0;
-    color: #dc3545;
+    background: #fee2e2;
+    border-color: #ef476f;
+    color: #ef476f;
+    transform: scale(1.05);
 }
 
 .expanded-content {
-    color: #444;
-    line-height: 1.7;
-    font-size: 16px;
-    margin-bottom: 20px;
+    color: #374151;
+    line-height: 1.75;
+    font-size: 15px;
+    padding: 28px;
 }
 
-.expanded-content h2 {
-    color: #333;
-    margin: 30px 0 15px;
+.expanded-content h2 { 
+    color: #1a1a2e; 
+    margin: 28px 0 12px; 
     font-size: 22px;
+    font-weight: 700;
 }
-
-.expanded-content h3 {
-    color: #4361ee;
-    margin: 25px 0 15px;
-    font-size: 20px;
-}
-
-.expanded-content h4 {
-    color: #555;
-    margin: 20px 0 10px;
+.expanded-content h3 { 
+    color: #3f66e6; 
+    margin: 22px 0 10px; 
     font-size: 18px;
+    font-weight: 600;
 }
-
-.expanded-content p {
-    margin-bottom: 15px;
+.expanded-content h4 { 
+    color: #374151; 
+    margin: 18px 0 8px; 
+    font-size: 16px;
+    font-weight: 600;
+}
+.expanded-content p  { 
+    margin-bottom: 14px;
+    color: #4a5568;
 }
 
 .expanded-content ul,
 .expanded-content ol {
-    margin-bottom: 20px;
-    padding-left: 25px;
+    margin-bottom: 16px;
+    padding-left: 22px;
 }
 
-.expanded-content li {
-    margin-bottom: 8px;
+.expanded-content li { 
+    margin-bottom: 7px;
+    color: #4a5568;
 }
 
 .expanded-content code {
-    background: #f0f0f0;
-    padding: 2px 5px;
-    border-radius: 4px;
+    background: #f0f4ff;
+    padding: 2px 6px;
+    border-radius: 6px;
     font-family: monospace;
-    font-size: 14px;
+    font-size: 13px;
+    color: #3f66e6;
 }
 
 .expanded-content pre {
-    background: #f5f5f5;
-    padding: 15px;
-    border-radius: 8px;
+    background: #f8fafc;
+    border: 1px solid #e9ecef;
+    padding: 16px;
+    border-radius: 12px;
     overflow-x: auto;
-    margin: 20px 0;
+    margin: 18px 0;
 }
 
 .expanded-content table {
     width: 100%;
     border-collapse: collapse;
-    margin: 20px 0;
+    margin: 18px 0;
+    font-size: 14px;
 }
 
 .expanded-content th,
 .expanded-content td {
-    border: 1px solid #e0e0e0;
-    padding: 10px;
+    border: 1px solid #e9ecef;
+    padding: 10px 14px;
     text-align: left;
 }
 
 .expanded-content th {
-    background: #f5f5f5;
+    background: #f8fafc;
     font-weight: 600;
+    color: #1a1a2e;
 }
 
 .expanded-content .tip-box {
-    background: #e8f4fd;
-    border-left: 4px solid #0284c7;
-    padding: 15px;
-    border-radius: 8px;
-    margin: 20px 0;
+    background: linear-gradient(135deg, #f0f4ff, #e8faf3);
+    border-left: 4px solid #0ed3a2;
+    padding: 14px 18px;
+    border-radius: 0 12px 12px 0;
+    margin: 18px 0;
+    font-size: 14px;
 }
 
 .expanded-content .warning-box {
-    background: #fff3cd;
-    border-left: 4px solid #ffc107;
-    padding: 15px;
-    border-radius: 8px;
-    margin: 20px 0;
+    background: #fffbeb;
+    border-left: 4px solid #f59e0b;
+    padding: 14px 18px;
+    border-radius: 0 12px 12px 0;
+    margin: 18px 0;
+    font-size: 14px;
 }
 
 .expanded-footer {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    margin-top: 20px;
-    padding-top: 15px;
-    border-top: 1px solid #eee;
+    padding: 16px 28px;
+    border-top: 1.5px solid #eef0f5;
+    background: #fafbfc;
+    gap: 12px;
+    flex-wrap: wrap;
 }
 
 .expanded-meta {
     display: flex;
-    gap: 20px;
-    color: #999;
-    font-size: 14px;
+    gap: 18px;
+    color: #aab0bb;
+    font-size: 13px;
 }
 
 .expanded-meta span {
@@ -484,78 +588,22 @@
     gap: 5px;
 }
 
-/* Still Need Help Section */
-.still-need-help {
-    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-    border-radius: 20px;
-    padding: 40px;
-    text-align: center;
-    color: white;
-    margin-top: 30px;
-}
-
-.still-need-help h4 {
-    font-size: 24px;
-    margin: 0 0 10px 0;
-}
-
-.still-need-help p {
-    font-size: 16px;
-    opacity: 0.9;
-    margin: 0 0 25px 0;
-}
-
-.support-options {
-    display: flex;
-    gap: 15px;
-    justify-content: center;
-    flex-wrap: wrap;
-}
-
-.support-btn {
-    padding: 12px 30px;
-    border: none;
-    border-radius: 30px;
-    font-size: 16px;
-    font-weight: 600;
-    cursor: pointer;
-    display: inline-flex;
-    align-items: center;
-    gap: 8px;
-    transition: all 0.3s;
-}
-
-#contact-support-btn {
-    background: white;
-    color: #4361ee;
-}
-
-#live-chat-btn {
-    background: #06d6a0;
-    color: white;
-}
-
-.support-btn:hover {
-    transform: translateY(-2px);
-    box-shadow: 0 10px 20px rgba(0,0,0,0.2);
-}
-
-/* Support Form Card */
+/* ---- Support form card - AI World Theme ---- */
 .support-form-card,
 .chat-card {
-    background: white;
+    background: #fff;
     border-radius: 20px;
-    box-shadow: 0 10px 30px rgba(0,0,0,0.1);
-    margin-bottom: 30px;
+    border: 1.5px solid #eef0f5;
+    margin-bottom: 28px;
     overflow: hidden;
-    animation: slideDown 0.3s ease;
+    animation: hcFadeUp 0.25s ease;
 }
 
 .support-form-header,
 .chat-header {
-    background: linear-gradient(135deg, #4361ee, #3a56d4);
-    color: white;
-    padding: 15px 20px;
+    background: linear-gradient(135deg, #3f66e6, #0ed3a2);
+    color: #fff;
+    padding: 16px 22px;
     display: flex;
     justify-content: space-between;
     align-items: center;
@@ -564,38 +612,53 @@
 .support-form-header h4,
 .chat-header h4 {
     margin: 0;
-    font-size: 18px;
+    font-size: 16px;
+    font-weight: 600;
     display: flex;
     align-items: center;
     gap: 8px;
+    color: #fff;
 }
 
 .close-form-btn,
 .close-chat-btn {
-    background: none;
+    background: rgba(255,255,255,0.2);
     border: none;
-    color: white;
-    font-size: 24px;
+    color: #fff;
+    font-size: 20px;
     cursor: pointer;
     line-height: 1;
+    width: 32px;
+    height: 32px;
+    border-radius: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: background 0.2s;
 }
 
-.support-form-body {
-    padding: 25px;
+.close-form-btn:hover,
+.close-chat-btn:hover { 
+    background: rgba(255,255,255,0.35);
+    transform: scale(1.05);
 }
 
-/* Quick Issues Styling */
+.support-form-body { 
+    padding: 24px 22px; 
+}
+
+/* ---- Quick issue chips - AI World Theme ---- */
 .quick-issues {
-    padding: 15px 20px;
-    background: #f8f9ff;
-    border-bottom: 1px solid #e0e0e0;
+    padding: 14px 22px;
+    background: linear-gradient(135deg, #f8faff, #f0faf5);
+    border-bottom: 1px solid #eef0f5;
 }
 
 .quick-issues-title {
-    margin: 0 0 10px 0;
+    margin: 0 0 10px;
     font-weight: 600;
-    color: #4361ee;
-    font-size: 14px;
+    color: #3f66e6;
+    font-size: 13px;
 }
 
 .issue-buttons {
@@ -605,120 +668,130 @@
 }
 
 .issue-btn {
-    padding: 8px 15px;
-    background: white;
-    border: 1px solid #4361ee;
-    border-radius: 20px;
-    font-size: 13px;
+    padding: 6px 14px;
+    background: #fff;
+    border: 1.5px solid #e0e7ff;
+    border-radius: 10px;
+    font-size: 12px;
     cursor: pointer;
-    color: #4361ee;
-    transition: all 0.3s;
+    color: #3f66e6;
+    font-weight: 500;
+    transition: all 0.2s;
     white-space: nowrap;
+    font-family: inherit;
 }
 
 .issue-btn:hover {
-    background: #4361ee;
-    color: white;
+    background: linear-gradient(135deg, #3f66e6, #0ed3a2);
+    border-color: transparent;
+    color: #fff;
     transform: translateY(-2px);
-    box-shadow: 0 5px 10px rgba(67,97,238,0.2);
+    box-shadow: 0 4px 12px rgba(63, 102, 230, 0.3);
 }
 
-/* Chat Card */
+/* ---- Chat messages - AI World Theme ---- */
 .chat-messages {
-    height: 250px;
+    height: 260px;
     overflow-y: auto;
-    padding: 20px;
-    background: #f5f7fb;
+    padding: 18px 20px;
+    background: #f8faff;
     display: flex;
     flex-direction: column;
-    gap: 15px;
+    gap: 12px;
 }
 
-.chat-message {
-    display: flex;
-    flex-direction: column;
+.chat-message { 
+    display: flex; 
+    flex-direction: column; 
 }
-
-.chat-message.bot {
-    align-items: flex-start;
+.chat-message.bot  { 
+    align-items: flex-start; 
 }
-
-.chat-message.user {
-    align-items: flex-end;
+.chat-message.user { 
+    align-items: flex-end; 
 }
 
 .chat-message .message-content {
     max-width: 80%;
-    padding: 10px 15px;
-    border-radius: 15px;
-    font-size: 14px;
-    line-height: 1.5;
+    padding: 10px 14px;
+    border-radius: 14px;
+    font-size: 13.5px;
+    line-height: 1.55;
 }
 
 .chat-message.bot .message-content {
-    background: white;
-    color: #333;
-    border-radius: 15px 15px 15px 5px;
-    box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+    background: #fff;
+    color: #1a1a2e;
+    border-radius: 4px 14px 14px 14px;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.06);
+    border: 1px solid #eef0f5;
 }
 
 .chat-message.user .message-content {
-    background: #4361ee;
-    color: white;
-    border-radius: 15px 15px 5px 15px;
+    background: linear-gradient(135deg, #3f66e6, #0ed3a2);
+    color: #fff;
+    border-radius: 14px 4px 14px 14px;
+    box-shadow: 0 2px 8px rgba(63, 102, 230, 0.2);
 }
 
 .chat-input-area {
     display: flex;
     gap: 10px;
-    padding: 15px;
-    background: white;
-    border-top: 1px solid #eee;
+    padding: 14px 16px;
+    background: #fff;
+    border-top: 1px solid #eef0f5;
 }
 
-.chat-input-area input {
+.chat-input-area input { 
     flex: 1;
+    border-radius: 12px;
 }
 
 .chat-input-area button {
-    width: 45px;
-    height: 45px;
-    border-radius: 50%;
+    width: 44px;
+    height: 44px;
+    border-radius: 12px;
     display: flex;
     align-items: center;
     justify-content: center;
+    flex-shrink: 0;
 }
 
-/* Form Styles */
-.form-group {
-    margin-bottom: 20px;
+/* ---- Form controls - AI World Theme ---- */
+.form-group { 
+    margin-bottom: 18px; 
 }
 
 .form-group label {
     display: block;
-    margin-bottom: 8px;
-    color: #555;
-    font-weight: 500;
+    margin-bottom: 6px;
+    color: #374151;
+    font-size: 13px;
+    font-weight: 600;
 }
 
 .form-control {
     width: 100%;
-    padding: 12px;
-    border: 2px solid #e0e0e0;
-    border-radius: 8px;
-    font-size: 16px;
+    padding: 10px 14px;
+    border: 2px solid #e8ecf4;
+    border-radius: 12px;
+    font-size: 14px;
+    color: #1a1a2e;
     transition: all 0.3s;
     box-sizing: border-box;
+    font-family: inherit;
+    background: #fafbff;
 }
 
 .form-control:focus {
     outline: none;
-    border-color: #4361ee;
-    box-shadow: 0 0 0 3px rgba(67,97,238,0.1);
+    border-color: #0ed3a2;
+    background: #fff;
+    box-shadow: 0 0 0 3px rgba(14, 211, 162, 0.1);
 }
 
-.required {
-    color: #dc3545;
+.required { 
+    color: #ef476f; 
 }
 
 .form-actions {
@@ -726,89 +799,143 @@
     gap: 10px;
     justify-content: flex-end;
     flex-wrap: wrap;
+    margin-top: 4px;
 }
 
 .btn-primary, .btn-secondary {
-    padding: 12px 30px;
+    padding: 10px 24px;
     border: none;
-    border-radius: 8px;
+    border-radius: 12px;
     cursor: pointer;
-    font-weight: 500;
+    font-weight: 600;
+    font-size: 14px;
     transition: all 0.3s;
+    font-family: inherit;
 }
 
 .btn-primary {
-    background: linear-gradient(135deg, #4361ee, #06d6a0);
-    color: white;
+    background: linear-gradient(135deg, #3f66e6, #0ed3a2);
+    color: #fff;
+    box-shadow: 0 4px 12px rgba(63, 102, 230, 0.25);
+}
+
+.btn-primary:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 20px rgba(63, 102, 230, 0.35);
 }
 
 .btn-secondary {
-    background: white;
-    border: 1px solid #ddd;
-    color: #333;
+    background: #fff;
+    border: 2px solid #e8ecf4;
+    color: #6c7a91;
 }
 
-.btn-primary:hover, .btn-secondary:hover {
-    transform: translateY(-2px);
-    box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+.btn-secondary:hover {
+    border-color: #0ed3a2;
+    color: #0ed3a2;
+    transform: translateY(-1px);
+    background: #f0faf5;
 }
 
-/* Responsive */
+/* ---- Empty state ---- */
+.empty-books {
+    text-align: center;
+    padding: 60px 20px;
+    background: #fff;
+    border-radius: 20px;
+    border: 2px dashed #e8ecf4;
+}
+
+.empty-books i {
+    font-size: 48px;
+    color: #0ed3a2;
+    margin-bottom: 16px;
+}
+
+.empty-books h3 {
+    color: #1a1a2e;
+    margin-bottom: 8px;
+}
+
+.empty-books p {
+    color: #6c7a91;
+}
+
+/* ---- Responsive - AI World Theme ---- */
 @media (max-width: 768px) {
-    .help-header {
-        flex-direction: column;
-        align-items: stretch;
+    #help-section { 
+        padding: 20px 0 32px; 
+    }
+
+    .help-hero { 
+        padding: 28px 24px; 
+        flex-direction: column; 
+        align-items: stretch; 
+    }
+    .help-hero-text h2 { 
+        font-size: 22px; 
+    }
+    .help-search { 
+        flex: none; 
+    }
+    .hero-btn { 
+        font-size: 12px; 
+        padding: 8px 16px; 
+    }
+
+    .help-grid { 
+        grid-template-columns: 1fr; 
+    }
+
+    .expanded-header { 
+        flex-direction: column; 
+        align-items: flex-start; 
+        gap: 12px; 
+        padding: 18px; 
+    }
+    .expanded-content { 
+        padding: 18px; 
+    }
+    .expanded-footer { 
+        flex-direction: column; 
+        align-items: flex-start; 
+        padding: 14px 18px; 
+    }
+
+    .issue-buttons { 
+        flex-wrap: nowrap; 
+        overflow-x: auto; 
+        padding-bottom: 4px; 
     }
     
-    .help-search {
-        min-width: auto;
+    .issue-btn {
+        white-space: nowrap;
+    }
+}
+
+@media (max-width: 576px) {
+    .help-hero {
+        padding: 20px;
     }
     
-    .help-categories {
-        border-radius: 20px;
+    .help-hero-text h2 {
+        font-size: 20px;
     }
     
-    .help-grid {
-        grid-template-columns: 1fr;
+    .article-card {
+        padding: 18px;
     }
     
-    .support-options {
-        flex-direction: column;
-    }
-    
-    .support-btn {
-        width: 100%;
-        justify-content: center;
-    }
-    
-    .expanded-footer {
-        flex-direction: column;
-        gap: 15px;
-        align-items: flex-start;
-    }
-    
-    .expanded-header {
-        flex-direction: column;
-        align-items: flex-start;
-        gap: 10px;
-    }
-    
-    .expanded-header > div {
-        flex-wrap: wrap;
-    }
-    
-    .issue-buttons {
-        flex-wrap: nowrap;
-        overflow-x: auto;
-        padding-bottom: 5px;
+    .expanded-header h3 {
+        font-size: 18px;
     }
 }
 </style>
 
 <script>
-// Help Center Script - No Popups Version with Interactive Chat
+// Help Center Script - AI World Theme with Interactive Chat
 (function() {
-    console.log("=== Help Center Initialized (No Popups) ===");
+    console.log("=== Help Center Initialized (AI World Theme) ===");
     
     // API Base URL
     const API_BASE = 'http://127.0.0.1:8000/api';
@@ -845,14 +972,11 @@
     const liveChatMessages = document.getElementById('live-chat-messages');
     const issueBtns = document.querySelectorAll('.issue-btn');
     
-    // Still Need Help Section
-    const stillNeedHelp = document.getElementById('still-need-help');
-    
     // State
     let currentCategory = 'all';
     let searchTerm = '';
     
-    // Issue Solutions Database
+    // Issue Solutions Database (same as before)
     const issueSolutions = {
         login: {
             title: "🔐 Can't Login Issue",
@@ -937,7 +1061,7 @@
         }
     };
     
-    // Help Articles Data (unchanged)
+    // Help Articles Data (same as before - keeping for brevity)
     const articles = [
         // Getting Started
         {
@@ -1007,7 +1131,6 @@
                 </ul>
             `
         },
-        
         // Account & Profile
         {
             id: 3,
@@ -1106,7 +1229,6 @@
                 <p>Didn't get the email? Check spam folder or request a new one from profile settings.</p>
             `
         },
-        
         // Courses & Books
         {
             id: 6,
@@ -1157,7 +1279,6 @@
                 <p>Your daily reading activity builds your study streak - visible in the study summary card.</p>
             `
         },
-        
         // AI Features
         {
             id: 8,
@@ -1245,7 +1366,6 @@
                 <p>While reading a book, click "Study Stats" button to see your progress for that book.</p>
             `
         },
-        
         // Troubleshooting
         {
             id: 11,
@@ -1337,7 +1457,6 @@
                 </ul>
             `
         },
-        
         // FAQs
         {
             id: 14,
@@ -1403,7 +1522,7 @@
         }
     ];
     
-    // Helper Functions
+    // Helper Functions (same as before)
     function escapeHtml(text) {
         const div = document.createElement('div');
         div.textContent = text;
@@ -1457,12 +1576,10 @@
     function renderArticles() {
         let filtered = [...articles];
         
-        // Filter by category
         if (currentCategory !== 'all') {
             filtered = filtered.filter(article => article.category === currentCategory);
         }
         
-        // Filter by search
         if (searchTerm.trim()) {
             const term = searchTerm.toLowerCase().trim();
             filtered = filtered.filter(article =>
@@ -1487,13 +1604,19 @@
         filtered.forEach(article => {
             html += `
                 <div class="article-card" data-id="${article.id}">
-                    <div class="article-icon">${article.icon}</div>
-                    <h4>${article.title}</h4>
-                    <p class="article-description">${article.description}</p>
-                    <div class="article-meta">
+                    <div class="article-card-top">
+                        <div class="article-icon-wrap">${article.icon}</div>
+                        <div class="article-card-body">
+                            <h4>${article.title}</h4>
+                            <p class="article-description">${article.description}</p>
+                        </div>
+                    </div>
+                    <div class="article-footer">
                         <span class="article-category">${getCategoryName(article.category)}</span>
-                        <span><i class="far fa-clock"></i> ${article.readTime}</span>
-                        <span><i class="far fa-eye"></i> ${article.views}</span>
+                        <div class="article-meta">
+                            <span><i class="far fa-clock"></i> ${article.readTime}</span>
+                            <span><i class="far fa-eye"></i> ${article.views}</span>
+                        </div>
                     </div>
                 </div>
             `;
@@ -1501,7 +1624,6 @@
         
         helpGrid.innerHTML = html;
         
-        // Add click listeners to article cards
         document.querySelectorAll('.article-card').forEach(card => {
             card.addEventListener('click', () => {
                 const id = parseInt(card.dataset.id);
@@ -1513,7 +1635,6 @@
         });
     }
     
-    // Helper function to get category display name
     function getCategoryName(category) {
         const categories = {
             'getting-started': 'Getting Started',
@@ -1526,33 +1647,23 @@
         return categories[category] || category;
     }
     
-    // Expand Article (instead of popup)
     function expandArticle(article) {
-        // Hide the grid and still need help section
         helpGrid.style.display = 'none';
-        stillNeedHelp.style.display = 'none';
-        
-        // Show expanded article
         expandedIcon.textContent = article.icon;
         expandedTitle.textContent = article.title;
         expandedContent.innerHTML = article.content;
         expandedReadTime.textContent = article.readTime;
         expandedViews.textContent = article.views;
-        
         expandedArticle.style.display = 'block';
-        
-        // Scroll to expanded article
         expandedArticle.scrollIntoView({ behavior: 'smooth', block: 'start' });
     }
     
-    // Close Expanded Article
     function closeExpanded() {
         expandedArticle.style.display = 'none';
         helpGrid.style.display = 'grid';
-        stillNeedHelp.style.display = 'block';
     }
     
-    // Filter by category
+    // Event Listeners
     categoryBtns.forEach(btn => {
         btn.addEventListener('click', () => {
             categoryBtns.forEach(b => b.classList.remove('active'));
@@ -1562,7 +1673,6 @@
         });
     });
     
-    // Search
     if (helpSearch) {
         helpSearch.addEventListener('input', (e) => {
             searchTerm = e.target.value;
@@ -1570,45 +1680,26 @@
         });
     }
     
-    // Close Expanded Article
-    if (closeExpandedBtn) {
-        closeExpandedBtn.addEventListener('click', closeExpanded);
-    }
+    if (closeExpandedBtn) closeExpandedBtn.addEventListener('click', closeExpanded);
+    if (backToArticlesBtn) backToArticlesBtn.addEventListener('click', closeExpanded);
     
-    if (backToArticlesBtn) {
-        backToArticlesBtn.addEventListener('click', closeExpanded);
-    }
-    
-    // Contact Support - Show Form
+    // Contact Support
     if (contactSupportBtn) {
         contactSupportBtn.addEventListener('click', () => {
-            // Hide other stuff
-            stillNeedHelp.style.display = 'none';
-            
-            // Show support form
             supportFormContainer.style.display = 'block';
-            
-            // Scroll to form
             supportFormContainer.scrollIntoView({ behavior: 'smooth', block: 'start' });
         });
     }
     
-    // Close Support Form
-    if (closeSupportForm) {
-        closeSupportForm.addEventListener('click', () => {
-            supportFormContainer.style.display = 'none';
-            stillNeedHelp.style.display = 'block';
-        });
-    }
+    if (closeSupportForm) closeSupportForm.addEventListener('click', () => {
+        supportFormContainer.style.display = 'none';
+    });
     
-    if (cancelSupportForm) {
-        cancelSupportForm.addEventListener('click', () => {
-            supportFormContainer.style.display = 'none';
-            stillNeedHelp.style.display = 'block';
-        });
-    }
+    if (cancelSupportForm) cancelSupportForm.addEventListener('click', () => {
+        supportFormContainer.style.display = 'none';
+    });
     
-    // Submit Support Form - API Call
+    // Submit Support Form
     if (submitSupportForm) {
         submitSupportForm.addEventListener('click', async function(e) {
             e.preventDefault();
@@ -1616,74 +1707,55 @@
             const subject = document.getElementById('support-subject').value;
             const message = document.getElementById('support-message').value;
             const attachment = document.getElementById('support-attachment').files[0];
-
+            
             if (!subject) {
                 alert('Please select a subject');
                 return;
             }
-
+            
             if (!message.trim()) {
                 alert('Please enter your message');
                 return;
             }
-
-            // Disable button to prevent double submission
+            
             submitSupportForm.disabled = true;
             submitSupportForm.textContent = 'Submitting...';
-
+            
             const formData = new FormData();
             formData.append("subject", subject);
             formData.append("message", message);
-
-            if (attachment) {
-                formData.append("attachment", attachment);
-            }
-
+            if (attachment) formData.append("attachment", attachment);
+            
             try {
                 const response = await fetch(`${API_BASE}/help/contact-support`, {
                     method: "POST",
                     body: formData
                 });
-
                 const data = await response.json();
-
+                
                 if (data.success) {
-                    alert("Support ticket submitted successfully! We'll respond within 24 hours.");
-
-                    // Hide form and show still need help
                     supportFormContainer.style.display = 'none';
-                    stillNeedHelp.style.display = 'block';
-
-                    // Reset form
                     document.getElementById('support-subject').value = '';
                     document.getElementById('support-message').value = '';
                     document.getElementById('support-attachment').value = '';
-
+                    alert('Support request submitted successfully!');
                 } else {
                     alert(data.message || "Error sending support request");
                 }
-
             } catch (error) {
                 console.error('API Error:', error);
                 alert("Server error. Please try again later.");
             } finally {
-                // Re-enable button
                 submitSupportForm.disabled = false;
                 submitSupportForm.textContent = 'Submit Ticket';
             }
         });
     }
     
-    // Live Chat - Show Chat
+    // Live Chat
     if (liveChatBtn) {
         liveChatBtn.addEventListener('click', () => {
-            // Hide other stuff
-            stillNeedHelp.style.display = 'none';
-            
-            // Show chat
             liveChatContainer.style.display = 'block';
-            
-            // Clear previous messages
             liveChatMessages.innerHTML = `
                 <div class="chat-message bot">
                     <div class="message-content">
@@ -1691,45 +1763,22 @@
                     </div>
                 </div>
             `;
-            
-            // Scroll to chat
             liveChatContainer.scrollIntoView({ behavior: 'smooth', block: 'start' });
         });
     }
     
-    // Close Live Chat
-    if (closeLiveChat) {
-        closeLiveChat.addEventListener('click', () => {
-            liveChatContainer.style.display = 'none';
-            stillNeedHelp.style.display = 'block';
-        });
-    }
+    if (closeLiveChat) closeLiveChat.addEventListener('click', () => {
+        liveChatContainer.style.display = 'none';
+    });
     
-    // Issue Buttons Click Handlers
     if (issueBtns) {
         issueBtns.forEach(btn => {
             btn.addEventListener('click', () => {
                 const issue = btn.dataset.issue;
                 const issueText = btn.textContent;
-                
-                // Add user message
                 addUserMessage(issueText);
-                
-                // Show solution
-                setTimeout(() => {
-                    showIssueSolution(issue);
-                }, 500);
+                setTimeout(() => showIssueSolution(issue), 500);
             });
-        });
-    }
-    
-    // Send Chat Message
-    if (sendLiveChat && liveChatInput) {
-        sendLiveChat.addEventListener('click', sendChatMessage);
-        liveChatInput.addEventListener('keypress', (e) => {
-            if (e.key === 'Enter') {
-                sendChatMessage();
-            }
         });
     }
     
@@ -1737,29 +1786,25 @@
         const message = liveChatInput.value.trim();
         if (!message) return;
         
-        // Add user message
         addUserMessage(message);
-        
-        // Clear input
         liveChatInput.value = '';
         
-        // Check if message matches any known issue
         setTimeout(() => {
             const lowerMessage = message.toLowerCase();
             
-            if (lowerMessage.includes('login') || lowerMessage.includes('sign in') || lowerMessage.includes('log in')) {
+            if (lowerMessage.includes('login') || lowerMessage.includes('sign in')) {
                 showIssueSolution('login');
             } else if (lowerMessage.includes('password') || lowerMessage.includes('forgot')) {
                 showIssueSolution('password');
-            } else if (lowerMessage.includes('pdf') || lowerMessage.includes('book') || lowerMessage.includes('loading')) {
+            } else if (lowerMessage.includes('pdf') || lowerMessage.includes('book')) {
                 showIssueSolution('pdf');
-            } else if (lowerMessage.includes('ai') || lowerMessage.includes('chatbot') || lowerMessage.includes('question')) {
+            } else if (lowerMessage.includes('ai') || lowerMessage.includes('chatbot')) {
                 showIssueSolution('ai');
-            } else if (lowerMessage.includes('profile') || lowerMessage.includes('update') || lowerMessage.includes('edit')) {
+            } else if (lowerMessage.includes('profile') || lowerMessage.includes('update')) {
                 showIssueSolution('profile');
-            } else if (lowerMessage.includes('book') || lowerMessage.includes('course') || lowerMessage.includes('my courses')) {
+            } else if (lowerMessage.includes('book') || lowerMessage.includes('course')) {
                 showIssueSolution('books');
-            } else if (lowerMessage.includes('payment') || lowerMessage.includes('billing') || lowerMessage.includes('money')) {
+            } else if (lowerMessage.includes('payment') || lowerMessage.includes('billing')) {
                 showIssueSolution('payment');
             } else {
                 addBotMessage("I couldn't find a specific solution for your query. Please select an issue from the buttons above or use the Contact Support form for detailed assistance.");
@@ -1767,22 +1812,25 @@
         }, 1000);
     }
     
+    if (sendLiveChat && liveChatInput) {
+        sendLiveChat.addEventListener('click', sendChatMessage);
+        liveChatInput.addEventListener('keypress', (e) => {
+            if (e.key === 'Enter') sendChatMessage();
+        });
+    }
+    
     // Load articles when section becomes visible
     function checkAndLoad() {
         if (helpSection && helpSection.style.display !== 'none') {
-            console.log("Help section visible, loading articles...");
             renderArticles();
         }
     }
     
-    // Observer for style changes
     if (helpSection) {
         const observer = new MutationObserver(checkAndLoad);
         observer.observe(helpSection, { attributes: true, attributeFilter: ['style'] });
     }
     
-    // Initial load if visible
     checkAndLoad();
-    
 })();
 </script>

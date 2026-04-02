@@ -5,225 +5,239 @@
 
 <!-- Manage Books Section (Admin Only) -->
 <div id="manage-books-section" class="content-section" style="display: none;">
-    <div class="courses-header">
-        <div>
-            <h3>📚 Manage Books (Admin)</h3>
-            <p>Add, edit, delete and manage school/NCERT books</p>
+
+    <!-- Hero Banner -->
+    <div class="mb-hero-banner">
+        <div class="mb-hero-left">
+            <div class="mb-hero-icon">
+                <i class="fas fa-book-open"></i>
+            </div>
+            <div class="mb-hero-text">
+                <h2>Manage Books</h2>
+                <p>Add, edit, delete and manage school/NCERT books</p>
+            </div>
         </div>
-        <div class="courses-search">
-            <i class="fas fa-search"></i>
-            <input type="text" id="admin-book-search" placeholder="Search books by title, author or subject...">
+        <div class="mb-hero-right">
+            <div class="mb-hero-search">
+                <i class="fas fa-search"></i>
+                <input type="text" id="admin-book-search" placeholder="Search books...">
+            </div>
+            <button class="mb-add-btn" id="addNewBookBtn">
+                <i class="fas fa-plus"></i> Add New Book
+            </button>
         </div>
     </div>
-
-    <hr class="divider">
 
     <!-- Messages -->
     <div id="admin-books-loading" class="loading-spinner-container" style="display: none;">
         <div class="spinner"></div>
         <p>Loading all books...</p>
     </div>
+    <div id="admin-books-error" class="mb-error-message" style="display: none;"></div>
+    <div id="admin-books-success" class="mb-success-message" style="display: none;"></div>
 
-    <div id="admin-books-error" class="error-message" style="display: none;"></div>
-    <div id="admin-books-success" class="success-message" style="display: none;"></div>
-
-    <!-- Filters + Add Button -->
-    <div class="subject-filters" style="justify-content: space-between; align-items: center; margin-bottom: 25px;">
-        <div style="display: flex; gap: 10px; flex-wrap: wrap; align-items: center;">
-            <!-- Subject Filters -->
-            <div style="display: flex; gap: 10px; flex-wrap: wrap;">
-                <button class="subject-filter-btn active" data-filter="all">📚 All Books</button>
-                <button class="subject-filter-btn" data-filter="mathematics">📐 Mathematics</button>
-                <button class="subject-filter-btn" data-filter="science">🔬 Science</button>
-                <button class="subject-filter-btn" data-filter="hindi">📗 Hindi</button>
-                <button class="subject-filter-btn" data-filter="english">📘 English</button>
-                <button class="subject-filter-btn" data-filter="social">🌍 Social Studies</button>
-                <button class="subject-filter-btn" data-filter="sanskrit">🕉️ Sanskrit</button>
-                <button class="subject-filter-btn" data-filter="computer">💻 Computer</button>
-            </div>
-            
-            <!-- Class Filter Dropdown -->
-            <div style="display: flex; gap: 10px; align-items: center; margin-left: 15px;">
-                <select id="classFilter" style="
-                    padding: 10px 20px;
-                    border: 2px solid #e0e0e0;
-                    border-radius: 30px;
-                    font-size: 15px;
-                    color: #333;
-                    background: white;
-                    cursor: pointer;
-                    outline: none;
-                    min-width: 150px;
-                ">
-                    <option value="all">🎓 All Classes</option>
-                    <?php for($i=1; $i<=12; $i++): ?>
-                        <option value="<?= $i ?>">Class <?= $i ?></option>
-                    <?php endfor; ?>
-                </select>
-            </div>
+    <!-- Filters Bar -->
+    <div class="mb-filters-bar">
+        <div class="mb-subject-filters">
+            <button class="mb-filter-chip active" data-filter="all">All Books</button>
+            <button class="mb-filter-chip" data-filter="mathematics"><i class="fas fa-calculator"></i> Mathematics</button>
+            <button class="mb-filter-chip" data-filter="science"><i class="fas fa-flask"></i> Science</button>
+            <button class="mb-filter-chip" data-filter="hindi"><i class="fas fa-language"></i> Hindi</button>
+            <button class="mb-filter-chip" data-filter="english"><i class="fas fa-book"></i> English</button>
+            <button class="mb-filter-chip" data-filter="social"><i class="fas fa-globe-americas"></i> Social Studies</button>
+            <button class="mb-filter-chip" data-filter="sanskrit"><i class="fas fa-om"></i> Sanskrit</button>
+            <button class="mb-filter-chip" data-filter="computer"><i class="fas fa-laptop-code"></i> Computer</button>
         </div>
-
-        <button class="edit-profile-btn" id="addNewBookBtn">
-            <i class="fas fa-plus"></i> Add New Book
-        </button>
+        <div class="mb-class-filter">
+            <i class="fas fa-graduation-cap"></i>
+            <select id="classFilter">
+                <option value="all">All Classes</option>
+                <?php for($i=1; $i<=12; $i++): ?>
+                    <option value="<?= $i ?>">Class <?= $i ?></option>
+                <?php endfor; ?>
+            </select>
+        </div>
     </div>
 
-    <!-- Active Filters Display -->
-    <div style="display: flex; gap: 10px; align-items: center; margin-bottom: 20px; min-height: 40px;" id="activeFiltersContainer">
-        <div style="display: flex; gap: 10px; flex-wrap: wrap;" id="activeFilters"></div>
-        <button id="clearAllFilters" style="
-            background: none;
-            border: none;
-            color: #dc3545;
-            cursor: pointer;
-            font-size: 14px;
-            display: none;
-            padding: 5px 10px;
-            border-radius: 20px;
-            transition: all 0.3s;
-        ">
-            <i class="fas fa-times-circle"></i> Clear all filters
+    <!-- Active Filters & Summary -->
+    <div class="mb-active-filters" id="activeFiltersContainer">
+        <div class="mb-filter-summary" id="filterSummary"></div>
+        <div class="mb-active-tags" id="activeFilters"></div>
+        <button id="clearAllFilters" class="mb-clear-filters-btn" style="display: none;">
+            <i class="fas fa-times-circle"></i> Clear all
         </button>
     </div>
-
-    <!-- Filter Summary -->
-    <div id="filterSummary" style="margin: 10px 0 20px 0; color: #666; font-size: 14px;"></div>
 
     <!-- Books Grid -->
-    <div class="books-grid" id="admin-books-grid">
-        <!-- Dynamically populated -->
-    </div>
+    <div class="mb-grid" id="admin-books-grid"></div>
 </div>
 
 <!-- ====================== MODALS ====================== -->
 
 <!-- Add Book Modal -->
-<div id="addBookModal" class="modal" style="display: none;">
-    <div class="modal-content">
-        <span class="close-modal" onclick="closeAddModal()">&times;</span>
-        <h2>Add New Book</h2>
-        <form id="addBookForm">
-            <div class="form-group">
-                <label>Title *</label>
-                <input type="text" id="bookTitle" required>
+<div id="addBookModal" class="mb-modal" style="display: none;">
+    <div class="mb-modal-content">
+        <div class="mb-modal-header">
+            <span class="mb-close-modal" onclick="closeAddBookModal()">&times;</span>
+            <div class="mb-modal-header-icon"><i class="fas fa-cloud-upload-alt"></i></div>
+            <h2>Add New Book</h2>
+            <p>Upload a new book for students</p>
+        </div>
+        <form id="addBookForm" class="mb-form">
+            <div class="mb-form-row">
+                <div class="mb-form-group">
+                    <label><i class="fas fa-heading"></i> Title *</label>
+                    <input type="text" id="bookTitle" placeholder="e.g., Mathematics Class 10" required>
+                </div>
+                <div class="mb-form-group">
+                    <label><i class="fas fa-user"></i> Author *</label>
+                    <input type="text" id="bookAuthor" value="NCERT" required>
+                </div>
             </div>
-            <div class="form-group">
-                <label>Author *</label>
-                <input type="text" id="bookAuthor" value="NCERT" required>
+            <div class="mb-form-row">
+                <div class="mb-form-group">
+                    <label><i class="fas fa-graduation-cap"></i> Class *</label>
+                    <select id="bookClass" required>
+                        <option value="">Select Class</option>
+                        <?php for($i=1; $i<=12; $i++): ?>
+                            <option value="<?= $i ?>">Class <?= $i ?></option>
+                        <?php endfor; ?>
+                    </select>
+                </div>
+                <div class="mb-form-group">
+                    <label><i class="fas fa-book"></i> Subject *</label>
+                    <select id="bookSubject" required>
+                        <option value="">Select Subject</option>
+                        <option value="mathematics">Mathematics</option>
+                        <option value="science">Science</option>
+                        <option value="hindi">Hindi</option>
+                        <option value="english">English</option>
+                        <option value="social">Social Studies</option>
+                        <option value="sanskrit">Sanskrit</option>
+                        <option value="computer">Computer</option>
+                    </select>
+                </div>
             </div>
-            <div class="form-group">
-                <label>Class *</label>
-                <select id="bookClass" required>
-                    <option value="">Select Class</option>
-                    <?php for($i=1; $i<=12; $i++): ?>
-                        <option value="<?= $i ?>">Class <?= $i ?></option>
-                    <?php endfor; ?>
-                </select>
+            <div class="mb-form-group">
+                <label><i class="fas fa-align-left"></i> Description (optional)</label>
+                <textarea id="bookDescription" placeholder="Brief description of the book..."></textarea>
             </div>
-            <div class="form-group">
-                <label>Subject *</label>
-                <select id="bookSubject" required>
-                    <option value="">Select Subject</option>
-                    <option value="mathematics">Mathematics</option>
-                    <option value="science">Science</option>
-                    <option value="hindi">Hindi</option>
-                    <option value="english">English</option>
-                    <option value="social">Social Studies</option>
-                    <option value="sanskrit">Sanskrit</option>
-                    <option value="computer">Computer</option>
-                </select>
+            <div class="mb-form-group">
+                <label><i class="fas fa-list-ol"></i> Chapters JSON (optional)</label>
+                <textarea id="bookChapters" placeholder='[{"chapter_number":1,"title":"Chapter 1","page_start":1,"page_end":20}, ...]'></textarea>
             </div>
-            <div class="form-group">
-                <label>Description (optional)</label>
-                <textarea id="bookDescription"></textarea>
+            <div class="mb-form-row">
+                <div class="mb-form-group">
+                    <label><i class="fas fa-image"></i> Cover Image (optional)</label>
+                    <div class="mb-file-upload">
+                        <input type="file" id="bookCover" accept="image/*">
+                        <div class="mb-file-label">
+                            <i class="fas fa-cloud-upload-alt"></i>
+                            <span>Choose image</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="mb-form-group">
+                    <label><i class="fas fa-file-pdf"></i> PDF File *</label>
+                    <div class="mb-file-upload">
+                        <input type="file" id="bookPdf" accept=".pdf" required>
+                        <div class="mb-file-label">
+                            <i class="fas fa-file-pdf"></i>
+                            <span>Choose PDF</span>
+                        </div>
+                    </div>
+                </div>
             </div>
-            <div class="form-group">
-                <label>Chapters JSON (optional)</label>
-                <textarea id="bookChapters"  placeholder='[{"chapter_number":1,"title":"Chapter 1","page_start":1,"page_end":20}, ...]'></textarea>
-            </div>
-            <div class="form-group">
-                <label>Cover Image (optional)</label>
-                <input type="file" id="bookCover" accept="image/*">
-            </div>
-            <div class="form-group">
-                <label>PDF File *</label>
-                <input type="file" id="bookPdf" accept=".pdf" required>
-            </div>
-            <button type="submit" id="submitBookBtn">Upload Book</button>
+            <button type="submit" id="submitBookBtn" class="mb-submit-btn">
+                <i class="fas fa-cloud-upload-alt"></i> Upload Book
+            </button>
         </form>
     </div>
 </div>
 
 <!-- Edit Book Modal -->
-<div id="editBookModal" class="modal" style="display: none;">
-    <div class="modal-content">
-        <span class="close-modal" onclick="closeEditModal()">&times;</span>
-        <h2>Edit Book</h2>
-        <form id="editBookForm">
+<div id="editBookModal" class="mb-modal" style="display: none;">
+    <div class="mb-modal-content">
+        <div class="mb-modal-header" style="background: linear-gradient(135deg, #3f66e6, #0ed3a2);">
+            <span class="mb-close-modal" onclick="closeEditBookModal()">&times;</span>
+            <div class="mb-modal-header-icon" style="background: rgba(255,255,255,0.2);"><i class="fas fa-edit"></i></div>
+            <h2>Edit Book</h2>
+            <p>Update book details and files</p>
+        </div>
+        <form id="editBookForm" class="mb-form">
             <input type="hidden" id="editBookId">
-            
-            <div class="form-group">
-                <label>Title *</label>
-                <input type="text" id="editTitle" required>
+            <div class="mb-form-row">
+                <div class="mb-form-group">
+                    <label><i class="fas fa-heading"></i> Title *</label>
+                    <input type="text" id="editTitle" required>
+                </div>
+                <div class="mb-form-group">
+                    <label><i class="fas fa-user"></i> Author *</label>
+                    <input type="text" id="editAuthor" required>
+                </div>
             </div>
-            
-            <div class="form-group">
-                <label>Author *</label>
-                <input type="text" id="editAuthor" required>
+            <div class="mb-form-row">
+                <div class="mb-form-group">
+                    <label><i class="fas fa-graduation-cap"></i> Class *</label>
+                    <select id="editClass" required>
+                        <option value="">Select Class</option>
+                        <?php for($i=1; $i<=12; $i++): ?>
+                            <option value="<?= $i ?>">Class <?= $i ?></option>
+                        <?php endfor; ?>
+                    </select>
+                </div>
+                <div class="mb-form-group">
+                    <label><i class="fas fa-book"></i> Subject *</label>
+                    <select id="editSubject" required>
+                        <option value="">Select Subject</option>
+                        <option value="mathematics">Mathematics</option>
+                        <option value="science">Science</option>
+                        <option value="hindi">Hindi</option>
+                        <option value="english">English</option>
+                        <option value="social">Social Studies</option>
+                        <option value="sanskrit">Sanskrit</option>
+                        <option value="computer">Computer</option>
+                    </select>
+                </div>
             </div>
-            
-            <div class="form-group">
-                <label>Class *</label>
-                <select id="editClass" required>
-                    <option value="">Select Class</option>
-                    <?php for($i=1; $i<=12; $i++): ?>
-                        <option value="<?= $i ?>">Class <?= $i ?></option>
-                    <?php endfor; ?>
-                </select>
-            </div>
-            
-            <div class="form-group">
-                <label>Subject *</label>
-                <select id="editSubject" required>
-                    <option value="">Select Subject</option>
-                    <option value="mathematics">Mathematics</option>
-                    <option value="science">Science</option>
-                    <option value="hindi">Hindi</option>
-                    <option value="english">English</option>
-                    <option value="social">Social Studies</option>
-                    <option value="sanskrit">Sanskrit</option>
-                    <option value="computer">Computer</option>
-                </select>
-            </div>
-            
-            <div class="form-group">
-                <label>Description</label>
+            <div class="mb-form-group">
+                <label><i class="fas fa-align-left"></i> Description</label>
                 <textarea id="editDescription"></textarea>
             </div>
-            
-            <div class="form-group">
-                <label>Chapters JSON (optional)</label>
-                <textarea id="editChapters"  placeholder='[{"chapter_number":1,"title":"Chapter 1","page_start":1,"page_end":20}]'></textarea>
-                <small style="color: #666;">Edit the JSON array directly</small>
+            <div class="mb-form-group">
+                <label><i class="fas fa-list-ol"></i> Chapters JSON (optional)</label>
+                <textarea id="editChapters" placeholder='[{"chapter_number":1,"title":"Chapter 1","page_start":1,"page_end":20}]'></textarea>
+                <small class="mb-form-hint">Edit the JSON array directly</small>
             </div>
-            
-            <div class="form-group">
-                <label>Current Cover Image</label>
-                <div id="currentCoverContainer"></div>
-                <label style="margin-top: 10px; display: block;">Upload New Cover Image (optional)</label>
-                <input type="file" id="editCover" accept="image/*">
+            <div class="mb-form-row">
+                <div class="mb-form-group">
+                    <label><i class="fas fa-image"></i> Cover Image</label>
+                    <div id="currentCoverContainer" class="mb-current-file"></div>
+                    <div class="mb-file-upload" style="margin-top: 8px;">
+                        <input type="file" id="editCover" accept="image/*">
+                        <div class="mb-file-label">
+                            <i class="fas fa-cloud-upload-alt"></i>
+                            <span>New image</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="mb-form-group">
+                    <label><i class="fas fa-file-pdf"></i> PDF File</label>
+                    <div id="currentPdfContainer" class="mb-current-file"></div>
+                    <div class="mb-file-upload" style="margin-top: 8px;">
+                        <input type="file" id="editPdf" accept=".pdf">
+                        <div class="mb-file-label">
+                            <i class="fas fa-file-pdf"></i>
+                            <span>New PDF</span>
+                        </div>
+                    </div>
+                </div>
             </div>
-            
-            <div class="form-group">
-                <label>Current PDF</label>
-                <div id="currentPdfContainer"></div>
-                <label style="margin-top: 10px; display: block;">Upload New PDF (optional)</label>
-                <input type="file" id="editPdf" accept=".pdf">
-            </div>
-            
-            <div style="display: flex; gap: 10px; margin-top: 20px;">
-                <button type="submit" id="updateBookBtn">Update Book</button>
-                <button type="button" onclick="closeEditModal()" style="background: #6c757d;">Cancel</button>
+            <div class="mb-modal-actions">
+                <button type="submit" id="updateBookBtn" class="mb-submit-btn" style="background: linear-gradient(135deg, #3f66e6, #0ed3a2);">
+                    <i class="fas fa-save"></i> Update Book
+                </button>
+                <button type="button" onclick="closeEditBookModal()" class="mb-cancel-btn">Cancel</button>
             </div>
         </form>
     </div>
@@ -231,208 +245,840 @@
 
 <!-- ====================== STYLES ====================== -->
 <style>
-/* Reuse same styles as student view + admin specific tweaks */
-.books-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
-    gap: 24px;
+/* ==================== HERO BANNER ==================== */
+.mb-hero-banner {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background: linear-gradient(135deg, #3f66e6 0%, #129695 50%, #0ed3a2 100%);
+    border-radius: 20px;
+    padding: 28px 36px;
+    margin-bottom: 24px;
+    flex-wrap: wrap;
+    gap: 20px;
+    color: white;
 }
 
-.book-card {
+.mb-hero-left {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+}
+
+.mb-hero-icon {
+    width: 60px;
+    height: 60px;
+    background: rgba(255, 255, 255, 0.2);
+    border-radius: 16px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 26px;
+    flex-shrink: 0;
+}
+
+.mb-hero-text h2 {
+    font-size: 24px;
+    font-weight: 700;
+    margin: 0 0 4px 0;
+    color: white;
+}
+
+.mb-hero-text p {
+    font-size: 14px;
+    margin: 0;
+    opacity: 0.88;
+}
+
+.mb-hero-right {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    flex-wrap: wrap;
+}
+
+.mb-hero-search {
     position: relative;
-    cursor: default;
+    min-width: 260px;
 }
 
-.book-actions {
+.mb-hero-search i {
     position: absolute;
-    top: 10px;
-    right: 10px;
+    left: 16px;
+    top: 50%;
+    transform: translateY(-50%);
+    color: rgba(255, 255, 255, 0.7);
+    font-size: 14px;
+}
+
+.mb-hero-search input {
+    width: 100%;
+    padding: 11px 18px 11px 42px;
+    border: 2px solid rgba(255, 255, 255, 0.3);
+    border-radius: 30px;
+    font-size: 14px;
+    background: rgba(255, 255, 255, 0.15);
+    color: white;
+    backdrop-filter: blur(4px);
+    box-sizing: border-box;
+    transition: all 0.3s;
+}
+
+.mb-hero-search input::placeholder {
+    color: rgba(255, 255, 255, 0.65);
+}
+
+.mb-hero-search input:focus {
+    outline: none;
+    border-color: rgba(255, 255, 255, 0.7);
+    background: rgba(255, 255, 255, 0.25);
+    box-shadow: 0 0 0 3px rgba(255, 255, 255, 0.15);
+}
+
+.mb-add-btn {
+    background: white;
+    color: #3f66e6;
+    padding: 11px 24px;
+    border-radius: 30px;
+    border: none;
+    cursor: pointer;
+    font-weight: 600;
+    font-size: 14px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    transition: all 0.3s;
+    white-space: nowrap;
+}
+
+.mb-add-btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 5px 20px rgba(0, 0, 0, 0.2);
+}
+
+/* ==================== FILTERS BAR ==================== */
+.mb-filters-bar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background: white;
+    padding: 12px 20px;
+    border-radius: 50px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05);
+    margin-bottom: 20px;
+    flex-wrap: wrap;
+    gap: 12px;
+}
+
+.mb-subject-filters {
+    display: flex;
+    gap: 6px;
+    flex-wrap: wrap;
+}
+
+.mb-filter-chip {
+    padding: 8px 16px;
+    border: none;
+    background: transparent;
+    border-radius: 30px;
+    cursor: pointer;
+    font-weight: 500;
+    color: #666;
+    font-size: 13px;
+    transition: all 0.3s;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+}
+
+.mb-filter-chip:hover {
+    background: #f0f4ff;
+    color: #3f66e6;
+}
+
+.mb-filter-chip.active {
+    background: linear-gradient(135deg, #3f66e6, #0ed3a2);
+    color: white;
+}
+
+.mb-class-filter {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    color: #666;
+}
+
+.mb-class-filter i {
+    font-size: 14px;
+}
+
+.mb-class-filter select {
+    padding: 8px 16px;
+    border: 2px solid #e8ecf4;
+    border-radius: 25px;
+    font-size: 13px;
+    color: #333;
+    background: white;
+    cursor: pointer;
+    outline: none;
+    min-width: 130px;
+    transition: all 0.3s;
+}
+
+.mb-class-filter select:focus {
+    border-color: #3f66e6;
+    box-shadow: 0 0 0 3px rgba(67, 97, 238, 0.1);
+}
+
+/* ==================== ACTIVE FILTERS ==================== */
+.mb-active-filters {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin-bottom: 20px;
+    flex-wrap: wrap;
+    min-height: 36px;
+}
+
+.mb-filter-summary {
+    font-size: 13px;
+    color: #666;
+    padding: 8px 16px;
+    background: #f8f9fa;
+    border-radius: 25px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.mb-filter-summary strong {
+    color: #3f66e6;
+}
+
+.mb-active-tags {
     display: flex;
     gap: 8px;
+    flex-wrap: wrap;
+}
+
+.mb-active-tag {
+    background: #eef1ff;
+    color: #3f66e6;
+    padding: 6px 14px;
+    border-radius: 25px;
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 13px;
+    font-weight: 500;
+    animation: mbSlideIn 0.3s ease;
+}
+
+.mb-active-tag i.fa-times {
+    cursor: pointer;
+    opacity: 0.6;
+    font-size: 12px;
+    transition: opacity 0.2s;
+}
+
+.mb-active-tag i.fa-times:hover {
+    opacity: 1;
+}
+
+@keyframes mbSlideIn {
+    from { opacity: 0; transform: translateX(-10px); }
+    to { opacity: 1; transform: translateX(0); }
+}
+
+.mb-clear-filters-btn {
+    background: none;
+    border: none;
+    color: #dc3545;
+    cursor: pointer;
+    font-size: 13px;
+    padding: 6px 12px;
+    border-radius: 20px;
+    transition: all 0.2s;
+}
+
+.mb-clear-filters-btn:hover {
+    background: #fff0f0;
+}
+
+/* ==================== BOOKS GRID ==================== */
+.mb-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    gap: 24px;
+    margin-bottom: 40px;
+}
+
+/* ==================== BOOK CARD ==================== */
+.mb-card {
+    background: white;
+    border-radius: 20px;
+    overflow: hidden;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.06);
+    transition: all 0.35s cubic-bezier(0.4, 0, 0.2, 1);
+    display: flex;
+    flex-direction: column;
+    position: relative;
+}
+
+.mb-card:hover {
+    transform: translateY(-8px);
+    box-shadow: 0 16px 40px rgba(67, 97, 238, 0.15);
+}
+
+.mb-card-cover {
+    height: 200px;
+    background-size: cover;
+    background-position: center;
+    position: relative;
+    overflow: hidden;
+}
+
+.mb-card-cover-gradient {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.mb-card-cover-emoji {
+    font-size: 56px;
+    filter: drop-shadow(0 4px 12px rgba(0, 0, 0, 0.25));
+    z-index: 1;
+}
+
+/* Hover overlay with action buttons */
+.mb-card-overlay {
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(to bottom, rgba(0, 0, 0, 0.1), rgba(0, 0, 0, 0.5));
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 12px;
     opacity: 0;
     transition: opacity 0.3s;
 }
 
-.book-card:hover .book-actions {
+.mb-card:hover .mb-card-overlay {
     opacity: 1;
 }
 
-.action-btn {
-    width: 36px;
-    height: 36px;
+.mb-card-action {
+    width: 44px;
+    height: 44px;
     border-radius: 50%;
     background: white;
     border: none;
-    box-shadow: 0 2px 8px rgba(0,0,0,0.15);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
     cursor: pointer;
     font-size: 16px;
     display: flex;
     align-items: center;
     justify-content: center;
-    transition: all 0.2s;
+    transition: all 0.3s;
+    transform: translateY(10px);
 }
 
-.action-btn.edit {
-    color: #4361ee;
+.mb-card:hover .mb-card-action {
+    transform: translateY(0);
 }
 
-.action-btn.delete {
+.mb-card-action.edit {
+    color: #3f66e6;
+}
+
+.mb-card-action.edit:hover {
+    background: #3f66e6;
+    color: white;
+}
+
+.mb-card-action.delete {
     color: #dc3545;
 }
 
-.action-btn:hover {
-    transform: scale(1.1);
+.mb-card-action.delete:hover {
+    background: #dc3545;
+    color: white;
 }
 
-.edit-profile-btn {
-    background: linear-gradient(135deg, #06d6a0, #118ab2);
-    color: white !important;
-    padding: 12px 24px;
-    border-radius: 30px;
-    border: none;
-    cursor: pointer;
+/* Badges on cover */
+.mb-card-subject-badge {
+    position: absolute;
+    top: 14px;
+    right: 14px;
+    background: rgba(255, 255, 255, 0.95);
+    padding: 4px 12px;
+    border-radius: 20px;
+    font-size: 12px;
     font-weight: 600;
+    color: #3f66e6;
+    z-index: 2;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+.mb-card-class-badge {
+    position: absolute;
+    bottom: 14px;
+    left: 14px;
+    background: rgba(67, 97, 238, 0.9);
+    color: white;
+    padding: 4px 12px;
+    border-radius: 20px;
+    font-size: 12px;
     display: flex;
     align-items: center;
-    gap: 8px;
+    gap: 5px;
+    z-index: 2;
 }
 
-.modal {
+/* Card body */
+.mb-card-body {
+    padding: 18px 20px 20px;
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+}
+
+.mb-card-title {
+    font-size: 17px;
+    font-weight: 700;
+    color: #1a1a2e;
+    margin: 0 0 6px 0;
+    line-height: 1.3;
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+}
+
+.mb-card-author {
+    font-size: 13px;
+    color: #888;
+    margin: 0 0 12px 0;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+}
+
+.mb-card-author i {
+    color: #aaa;
+    font-size: 11px;
+}
+
+.mb-card-stats {
+    display: flex;
+    gap: 6px;
+    flex-wrap: wrap;
+    margin-top: auto;
+}
+
+.mb-stat {
+    display: inline-flex;
+    align-items: center;
+    gap: 4px;
+    font-size: 11px;
+    color: #888;
+    background: #f5f7fb;
+    padding: 5px 10px;
+    border-radius: 20px;
+}
+
+.mb-stat i {
+    font-size: 10px;
+    color: #aaa;
+}
+
+/* ==================== EMPTY STATE ==================== */
+.mb-empty {
+    grid-column: 1 / -1;
+    text-align: center;
+    padding: 60px 20px;
+    background: white;
+    border-radius: 20px;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.06);
+}
+
+.mb-empty-icon {
+    width: 80px;
+    height: 80px;
+    background: linear-gradient(135deg, #e8edff, #dff5ef);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0 auto 20px;
+    font-size: 32px;
+    color: #3f66e6;
+}
+
+.mb-empty h3 {
+    font-size: 20px;
+    color: #333;
+    margin: 0 0 8px 0;
+}
+
+.mb-empty p {
+    color: #888;
+    font-size: 14px;
+    margin: 4px 0;
+}
+
+/* ==================== MODAL ==================== */
+.mb-modal {
     position: fixed;
     inset: 0;
-    background: rgba(0,0,0,0.6);
+    background: rgba(0, 0, 0, 0.5);
     display: flex;
     align-items: center;
     justify-content: center;
     z-index: 1000;
+    backdrop-filter: blur(6px);
+    animation: mbFadeIn 0.25s ease;
 }
 
-/* Hide scrollbar for Chrome, Safari and Opera */
-.modal-content::-webkit-scrollbar {
-    display: none;
+@keyframes mbFadeIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
 }
 
-.modal-content {
-    -ms-overflow-style: none;  /* IE and Edge */
-    scrollbar-width: none;  /* Firefox */
+.mb-modal-content {
     background: white;
-    padding: 30px;
-    border-radius: 16px;
+    border-radius: 24px;
     width: 90%;
-    max-width: 600px;
+    max-width: 660px;
     max-height: 90vh;
     overflow-y: auto;
     position: relative;
+    animation: mbSlideUp 0.3s ease;
+    box-shadow: 0 25px 60px rgba(0, 0, 0, 0.15);
+    -ms-overflow-style: none;
+    scrollbar-width: none;
 }
 
-.close-modal {
+.mb-modal-content::-webkit-scrollbar {
+    display: none;
+}
+
+@keyframes mbSlideUp {
+    from { opacity: 0; transform: translateY(30px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+.mb-modal-header {
+    background: linear-gradient(135deg, #3f66e6, #129695, #0ed3a2);
+    color: white;
+    padding: 28px 30px 22px;
+    border-radius: 24px 24px 0 0;
+    text-align: center;
+    position: relative;
+}
+
+.mb-modal-header-icon {
+    width: 52px;
+    height: 52px;
+    background: rgba(255, 255, 255, 0.2);
+    border-radius: 16px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0 auto 12px;
+    font-size: 22px;
+}
+
+.mb-modal-header h2 {
+    margin: 0 0 4px 0;
+    font-size: 22px;
+    font-weight: 700;
+    color: white;
+}
+
+.mb-modal-header p {
+    margin: 0;
+    font-size: 14px;
+    opacity: 0.85;
+}
+
+.mb-close-modal {
     position: absolute;
-    right: 20px;
-    top: 15px;
-    font-size: 32px;
+    right: 16px;
+    top: 14px;
+    font-size: 28px;
     cursor: pointer;
-    color: #666;
+    color: rgba(255, 255, 255, 0.8);
+    line-height: 1;
+    transition: all 0.2s;
+    z-index: 10;
+    width: 36px;
+    height: 36px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%;
+    background: rgba(255, 255, 255, 0.15);
 }
 
-.form-group {
-    margin-bottom: 20px;
+.mb-close-modal:hover {
+    color: white;
+    transform: scale(1.1);
+    background: rgba(255, 255, 255, 0.3);
 }
 
-.form-group label {
+/* ==================== FORM ==================== */
+.mb-form {
+    padding: 28px 30px 30px;
+}
+
+.mb-form-row {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 16px;
+}
+
+.mb-form-group {
+    margin-bottom: 18px;
+}
+
+.mb-form-group label {
     display: block;
-    margin-bottom: 8px;
+    margin-bottom: 6px;
     font-weight: 600;
+    color: #444;
+    font-size: 13px;
+}
+
+.mb-form-group label i {
+    margin-right: 6px;
+    color: #3f66e6;
+    font-size: 12px;
+}
+
+.mb-form-group input[type="text"],
+.mb-form-group input[type="url"],
+.mb-form-group select,
+.mb-form-group textarea {
+    width: 100%;
+    padding: 11px 14px;
+    border: 2px solid #e8ecf4;
+    border-radius: 12px;
+    font-size: 14px;
+    box-sizing: border-box;
+    transition: all 0.3s;
+    background: #fafbff;
     color: #333;
 }
 
-.form-group input,
-.form-group select,
-.form-group textarea {
-    width: 100%;
-    padding: 12px;
-    border: 2px solid #e0e0e0;
-    border-radius: 8px;
-    font-size: 15px;
-    box-sizing: border-box;
+.mb-form-group input:focus,
+.mb-form-group select:focus,
+.mb-form-group textarea:focus {
+    outline: none;
+    border-color: #3f66e6;
+    box-shadow: 0 0 0 3px rgba(67, 97, 238, 0.1);
+    background: white;
 }
 
-.form-group textarea {
-    min-height: 100px;
+.mb-form-group textarea {
+    min-height: 80px;
     resize: vertical;
 }
 
-#submitBookBtn,
-#updateBookBtn {
-    background: linear-gradient(135deg, #4361ee, #3a0ca3);
+.mb-form-hint {
+    display: block;
+    margin-top: 4px;
+    font-size: 12px;
+    color: #999;
+}
+
+/* File upload styling */
+.mb-file-upload {
+    position: relative;
+}
+
+.mb-file-upload input[type="file"] {
+    position: absolute;
+    inset: 0;
+    opacity: 0;
+    cursor: pointer;
+    z-index: 2;
+}
+
+.mb-file-label {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    padding: 12px;
+    border: 2px dashed #d0d5e0;
+    border-radius: 12px;
+    color: #888;
+    font-size: 13px;
+    transition: all 0.3s;
+    background: #fafbff;
+}
+
+.mb-file-upload:hover .mb-file-label {
+    border-color: #3f66e6;
+    color: #3f66e6;
+    background: #f0f4ff;
+}
+
+.mb-current-file {
+    margin-bottom: 4px;
+}
+
+.mb-current-file img {
+    max-width: 80px;
+    max-height: 80px;
+    border-radius: 10px;
+    border: 2px solid #e8ecf4;
+}
+
+.mb-current-file a {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    padding: 8px 14px;
+    background: #f0f4ff;
+    border: 2px solid #e8ecf4;
+    border-radius: 10px;
+    color: #3f66e6;
+    text-decoration: none;
+    font-weight: 600;
+    font-size: 13px;
+    transition: all 0.2s;
+}
+
+.mb-current-file a:hover {
+    background: #e0e8ff;
+    border-color: #3f66e6;
+}
+
+.mb-submit-btn {
+    background: linear-gradient(135deg, #3f66e6, #129695, #0ed3a2);
     color: white;
     border: none;
-    padding: 14px 30px;
-    border-radius: 30px;
-    font-size: 16px;
+    padding: 13px 30px;
+    border-radius: 14px;
+    font-size: 15px;
     font-weight: 600;
     cursor: pointer;
     width: 100%;
-    margin-top: 20px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    transition: all 0.3s;
+    margin-top: 6px;
 }
 
-#currentCoverContainer img {
-    max-width: 100px;
-    max-height: 100px;
-    border-radius: 8px;
-    margin: 10px 0;
-    border: 2px solid #e0e0e0;
+.mb-submit-btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 24px rgba(67, 97, 238, 0.3);
 }
 
-#currentPdfContainer a {
-    display: inline-block;
-    margin: 10px 0;
-    padding: 8px 16px;
-    background: #f8f9fa;
+.mb-modal-actions {
+    display: flex;
+    gap: 12px;
+    margin-top: 6px;
+}
+
+.mb-modal-actions .mb-submit-btn {
+    flex: 1;
+}
+
+.mb-cancel-btn {
+    padding: 13px 28px;
     border: 2px solid #e0e0e0;
-    border-radius: 8px;
-    color: #4361ee;
-    text-decoration: none;
+    border-radius: 14px;
+    background: white;
+    color: #666;
+    font-size: 15px;
     font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s;
 }
 
-#currentPdfContainer a:hover {
-    background: #e9ecef;
+.mb-cancel-btn:hover {
+    border-color: #dc3545;
+    color: #dc3545;
+    background: #fff5f5;
 }
 
-/* Filter chips animation */
-#activeFilters span {
-    animation: slideIn 0.3s ease;
+/* ==================== LOADING / MESSAGES ==================== */
+.loading-spinner-container { text-align: center; padding: 40px; }
+.spinner { border: 4px solid #f3f3f3; border-top: 4px solid #3f66e6; border-radius: 50%; width: 40px; height: 40px; animation: mbSpin 1s linear infinite; margin: 0 auto 15px; }
+@keyframes mbSpin { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
+
+.mb-error-message, .mb-success-message {
+    padding: 15px 20px;
+    border-radius: 12px;
+    margin: 10px 0;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    border-left: 4px solid;
+    font-size: 14px;
 }
 
-@keyframes slideIn {
-    from {
-        opacity: 0;
-        transform: translateX(-10px);
+.mb-error-message { background: #fff5f5; color: #dc3545; border-left-color: #dc3545; }
+.mb-success-message { background: #f0fdf4; color: #16a34a; border-left-color: #16a34a; }
+
+/* ==================== RESPONSIVE ==================== */
+@media (max-width: 768px) {
+    .mb-hero-banner {
+        padding: 20px 22px;
+        flex-direction: column;
+        align-items: stretch;
     }
-    to {
-        opacity: 1;
-        transform: translateX(0);
-    }
-}
 
-#clearAllFilters:hover {
-    background: #fee;
-    color: #c82333 !important;
+    .mb-hero-right {
+        flex-direction: column;
+    }
+
+    .mb-hero-search {
+        min-width: 100%;
+    }
+
+    .mb-add-btn {
+        justify-content: center;
+    }
+
+    .mb-filters-bar {
+        border-radius: 16px;
+        padding: 12px 16px;
+        flex-direction: column;
+        align-items: stretch;
+    }
+
+    .mb-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .mb-form-row {
+        grid-template-columns: 1fr;
+    }
+
+    .mb-modal-content {
+        width: 95%;
+        margin: 10px;
+    }
 }
 </style>
 
 <!-- ====================== JAVASCRIPT ====================== -->
 <script>
 // Admin Manage Books - Complete with Class Filter Support
-
 (function() {
-    console.log("=== Admin Manage Books Script Loaded with Class Filter ===");
+    console.log("=== Admin Manage Books Script Loaded ===");
 
-    const API_BASE_URL = 'http://127.0.0.1:8000';  
-    const BOOKS_API = `${API_BASE_URL}/student/books`;           // GET all books (admin sees all)
-    const UPLOAD_API = `${API_BASE_URL}/admin/upload-book`;     // POST new book
-    const UPDATE_API = (id) => `${API_BASE_URL}/admin/book/${id}`; // PUT update book
-    const DELETE_API = (id) => `${API_BASE_URL}/admin/book/${id}`; // DELETE book  
+    const API_BASE_URL = 'http://127.0.0.1:8000';
+    const BOOKS_API = `${API_BASE_URL}/student/books`;
+    const UPLOAD_API = `${API_BASE_URL}/admin/upload-book`;
+    const UPDATE_API = (id) => `${API_BASE_URL}/admin/book/${id}`;
+    const DELETE_API = (id) => `${API_BASE_URL}/admin/book/${id}`;
 
     // DOM Elements
     const section       = document.getElementById('manage-books-section');
@@ -452,6 +1098,27 @@
     let currentSubjectFilter = 'all';
     let currentClassFilter = 'all';
     let currentSearch = '';
+
+    // Subject config
+    const subjectNames = {
+        mathematics: 'Mathematics', science: 'Science', hindi: 'Hindi',
+        english: 'English', social: 'Social Studies', sanskrit: 'Sanskrit', computer: 'Computer'
+    };
+
+    const subjectEmojis = {
+        mathematics: '📐', science: '🔬', hindi: '📗', english: '📘',
+        social: '🌍', sanskrit: '🕉️', computer: '💻'
+    };
+
+    const subjectGradients = {
+        mathematics: 'linear-gradient(135deg, #667eea, #764ba2)',
+        science:     'linear-gradient(135deg, #06d6a0, #0891b2)',
+        hindi:       'linear-gradient(135deg, #f97316, #ef4444)',
+        english:     'linear-gradient(135deg, #8b5cf6, #6d28d9)',
+        social:      'linear-gradient(135deg, #fbbf24, #f59e0b)',
+        sanskrit:    'linear-gradient(135deg, #ec4899, #be185d)',
+        computer:    'linear-gradient(135deg, #3b82f6, #1d4ed8)'
+    };
 
     // Helpers
     function getToken() {
@@ -475,7 +1142,14 @@
         grid.style.display = show ? 'none' : 'grid';
     }
 
-    // Load Books (Admin sees ALL books)
+    function escapeHtml(str) {
+        if (!str) return '';
+        return String(str).replace(/[&<>"']/g, function(m) {
+            return { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[m];
+        });
+    }
+
+    // Load Books
     async function loadBooks() {
         if (!getToken()) {
             showError("Please login again");
@@ -516,31 +1190,26 @@
                 allBooks = [];
                 filterAndRenderBooks();
             }
-
         } catch (err) {
             console.error(err);
             showError("Failed to load books: " + err.message);
-            grid.innerHTML = `<div class="empty-books"><h3>Error loading books</h3><p>${err.message}</p></div>`;
         } finally {
             showLoading(false);
         }
     }
 
-    // Filter and Render Books
+    // Filter and Render
     function filterAndRenderBooks() {
         let books = [...allBooks];
 
-        // Subject filter apply
         if (currentSubjectFilter !== 'all') {
             books = books.filter(b => b.subject === currentSubjectFilter);
         }
-        
-        // Class filter apply
+
         if (currentClassFilter !== 'all') {
             books = books.filter(b => b.class == currentClassFilter);
         }
 
-        // Search filter apply
         if (currentSearch.trim()) {
             const term = currentSearch.toLowerCase().trim();
             books = books.filter(b =>
@@ -555,53 +1224,57 @@
         updateFilterSummary(books.length);
     }
 
-    // Render Books Grid
+    // Render Books
     function renderBooks(books) {
         if (books.length === 0) {
             grid.innerHTML = `
-                <div class="empty-books">
-                    <i class="fas fa-book-open"></i>
+                <div class="mb-empty">
+                    <div class="mb-empty-icon"><i class="fas fa-book-open"></i></div>
                     <h3>No books found</h3>
                     <p>${currentSearch ? 'No matches for your search' : 'No books available yet'}</p>
-                    <p style="font-size: 14px; color: #999;">
-                        ${currentSubjectFilter !== 'all' ? `Subject: ${currentSubjectFilter} • ` : ''}
-                        ${currentClassFilter !== 'all' ? `Class: ${currentClassFilter}` : ''}
-                    </p>
+                    ${currentSubjectFilter !== 'all' || currentClassFilter !== 'all' ?
+                        `<p style="font-size: 13px; color: #aaa; margin-top: 4px;">
+                            ${currentSubjectFilter !== 'all' ? `Subject: ${subjectNames[currentSubjectFilter] || currentSubjectFilter}` : ''}
+                            ${currentSubjectFilter !== 'all' && currentClassFilter !== 'all' ? ' &middot; ' : ''}
+                            ${currentClassFilter !== 'all' ? `Class: ${currentClassFilter}` : ''}
+                        </p>` : ''}
                 </div>
             `;
             return;
         }
 
         let html = '';
-
         books.forEach(book => {
-            const subjectEmoji = {
-                mathematics: '📐', science: '🔬', hindi: '📗', english: '📘',
-                social: '🌍', sanskrit: '🕉️', computer: '💻'
-            }[book.subject] || '📚';
+            const emoji = subjectEmojis[book.subject] || '📚';
+            const subjectName = subjectNames[book.subject] || book.subject || 'Unknown';
+            const gradient = subjectGradients[book.subject] || 'linear-gradient(135deg, #3f66e6, #129695)';
+            const hasCover = !!book.cover_image;
+            const coverStyle = hasCover
+                ? `background-image: url('${book.cover_image}'); background-size: cover; background-position: center;`
+                : `background: ${gradient};`;
+            const escapedTitle = escapeHtml(book.title).replace(/'/g, "\\'");
 
             html += `
-                <div class="book-card" data-subject="${book.subject}" data-class="${book.class}">
-                    <div class="book-cover" style="background-image: url('${book.cover_image || 'https://via.placeholder.com/280x200/4361ee/fff?text=' + encodeURIComponent(book.title?.[0] || 'B')}')">
-                        <div class="book-actions">
-                            <button class="action-btn edit" onclick="editBook(${book.id})" title="Edit">
+                <div class="mb-card">
+                    <div class="mb-card-cover ${!hasCover ? 'mb-card-cover-gradient' : ''}" style="${coverStyle}">
+                        ${!hasCover ? `<div class="mb-card-cover-emoji">${emoji}</div>` : ''}
+                        <div class="mb-card-overlay">
+                            <button class="mb-card-action edit" onclick="editBook(${book.id})" title="Edit">
                                 <i class="fas fa-edit"></i>
                             </button>
-                            <button class="action-btn delete" onclick="deleteBook(${book.id}, '${book.title.replace(/'/g,"\\'")}')" title="Delete">
+                            <button class="mb-card-action delete" onclick="deleteBook(${book.id}, '${escapedTitle}')" title="Delete">
                                 <i class="fas fa-trash"></i>
                             </button>
                         </div>
+                        <span class="mb-card-subject-badge">${emoji} ${escapeHtml(subjectName)}</span>
+                        <span class="mb-card-class-badge"><i class="fas fa-graduation-cap"></i> Class ${book.class}</span>
                     </div>
-                    <div class="book-info">
-                        <h4 class="book-title">${book.title || 'Untitled'}</h4>
-                        <p class="book-author"><i class="fas fa-user"></i> ${book.author || 'NCERT'}</p>
-                        <div class="book-meta">
-                            <span><i class="fas fa-graduation-cap"></i> Class ${book.class}</span>
-                            <span>${subjectEmoji} ${book.subject?.charAt(0).toUpperCase() + book.subject?.slice(1) || 'Unknown'}</span>
-                        </div>
-                        <div style="margin-top:10px; font-size:13px; color:#777;">
-                            <i class="fas fa-file-pdf"></i> ${book.pages || '?'} pages • 
-                            <i class="fas fa-list"></i> ${book.chapters?.length || 0} chapters
+                    <div class="mb-card-body">
+                        <h4 class="mb-card-title">${escapeHtml(book.title) || 'Untitled'}</h4>
+                        <p class="mb-card-author"><i class="fas fa-user"></i> ${escapeHtml(book.author) || 'NCERT'}</p>
+                        <div class="mb-card-stats">
+                            <span class="mb-stat"><i class="fas fa-file-pdf"></i> ${book.pages || '?'} pages</span>
+                            <span class="mb-stat"><i class="fas fa-list"></i> ${book.chapters?.length || 0} chapters</span>
                         </div>
                     </div>
                 </div>
@@ -614,112 +1287,59 @@
     // Update Active Filters Display
     function updateActiveFilters() {
         if (!activeFilters || !clearAllBtn) return;
-        
+
         activeFilters.innerHTML = '';
         let hasActiveFilters = false;
-        
-        // Subject filter chip
+
         if (currentSubjectFilter !== 'all') {
             hasActiveFilters = true;
-            const subjectName = {
-                mathematics: 'Mathematics', science: 'Science', hindi: 'Hindi',
-                english: 'English', social: 'Social Studies', sanskrit: 'Sanskrit', computer: 'Computer'
-            }[currentSubjectFilter] || currentSubjectFilter;
-            
-            activeFilters.innerHTML += `
-                <span style="
-                    background: #f0f4ff;
-                    color: #4361ee;
-                    padding: 5px 12px;
-                    border-radius: 20px;
-                    font-size: 13px;
-                    display: inline-flex;
-                    align-items: center;
-                    gap: 5px;
-                    box-shadow: 0 2px 5px rgba(67,97,238,0.2);
-                ">
-                    📚 ${subjectName}
-                    <i class="fas fa-times" onclick="removeFilter('subject')" style="cursor: pointer; font-size: 12px;"></i>
-                </span>
-            `;
+            const name = subjectNames[currentSubjectFilter] || currentSubjectFilter;
+            activeFilters.innerHTML += `<span class="mb-active-tag">
+                <i class="fas fa-book"></i> ${name} <i class="fas fa-times" onclick="removeFilter('subject')"></i>
+            </span>`;
         }
-        
-        // Class filter chip
+
         if (currentClassFilter !== 'all') {
             hasActiveFilters = true;
-            activeFilters.innerHTML += `
-                <span style="
-                    background: #f0f4ff;
-                    color: #4361ee;
-                    padding: 5px 12px;
-                    border-radius: 20px;
-                    font-size: 13px;
-                    display: inline-flex;
-                    align-items: center;
-                    gap: 5px;
-                    box-shadow: 0 2px 5px rgba(67,97,238,0.2);
-                ">
-                    🎓 Class ${currentClassFilter}
-                    <i class="fas fa-times" onclick="removeFilter('class')" style="cursor: pointer; font-size: 12px;"></i>
-                </span>
-            `;
+            activeFilters.innerHTML += `<span class="mb-active-tag">
+                <i class="fas fa-graduation-cap"></i> Class ${currentClassFilter} <i class="fas fa-times" onclick="removeFilter('class')"></i>
+            </span>`;
         }
-        
-        // Search filter chip
+
         if (currentSearch.trim()) {
             hasActiveFilters = true;
-            activeFilters.innerHTML += `
-                <span style="
-                    background: #f0f4ff;
-                    color: #4361ee;
-                    padding: 5px 12px;
-                    border-radius: 20px;
-                    font-size: 13px;
-                    display: inline-flex;
-                    align-items: center;
-                    gap: 5px;
-                    box-shadow: 0 2px 5px rgba(67,97,238,0.2);
-                ">
-                    🔍 "${currentSearch}"
-                    <i class="fas fa-times" onclick="removeFilter('search')" style="cursor: pointer; font-size: 12px;"></i>
-                </span>
-            `;
+            activeFilters.innerHTML += `<span class="mb-active-tag">
+                <i class="fas fa-search"></i> "${escapeHtml(currentSearch)}" <i class="fas fa-times" onclick="removeFilter('search')"></i>
+            </span>`;
         }
-        
+
         clearAllBtn.style.display = hasActiveFilters ? 'inline-block' : 'none';
     }
 
     // Update Filter Summary
     function updateFilterSummary(count) {
         if (!filterSummary) return;
-        
-        let filterParts = [];
+
+        let summaryHtml = `<i class="fas fa-chart-bar"></i> Showing <strong>${count}</strong> of <strong>${allBooks.length}</strong> books`;
+
         if (currentSubjectFilter !== 'all') {
-            const subjectName = {
-                mathematics: 'Mathematics', science: 'Science', hindi: 'Hindi',
-                english: 'English', social: 'Social Studies', sanskrit: 'Sanskrit', computer: 'Computer'
-            }[currentSubjectFilter] || currentSubjectFilter;
-            filterParts.push(`Subject: ${subjectName}`);
+            summaryHtml += ` &middot; Subject: <strong>${subjectNames[currentSubjectFilter] || currentSubjectFilter}</strong>`;
         }
         if (currentClassFilter !== 'all') {
-            filterParts.push(`Class: ${currentClassFilter}`);
+            summaryHtml += ` &middot; Class: <strong>${currentClassFilter}</strong>`;
         }
         if (currentSearch.trim()) {
-            filterParts.push(`Search: "${currentSearch}"`);
+            summaryHtml += ` &middot; Search: <strong>"${escapeHtml(currentSearch)}"</strong>`;
         }
-        
-        if (filterParts.length > 0) {
-            filterSummary.innerHTML = `📊 Showing <strong>${count}</strong> books • Filters: ${filterParts.join(' • ')}`;
-        } else {
-            filterSummary.innerHTML = `📊 Showing all <strong>${count}</strong> books`;
-        }
+
+        filterSummary.innerHTML = summaryHtml;
     }
 
     // Remove Individual Filter
     window.removeFilter = function(type) {
         if (type === 'subject') {
             currentSubjectFilter = 'all';
-            document.querySelectorAll('.subject-filter-btn').forEach(b => {
+            document.querySelectorAll('.mb-filter-chip').forEach(b => {
                 b.classList.remove('active');
                 if (b.dataset.filter === 'all') b.classList.add('active');
             });
@@ -739,15 +1359,14 @@
             currentSubjectFilter = 'all';
             currentClassFilter = 'all';
             currentSearch = '';
-            
-            // Reset UI
-            document.querySelectorAll('.subject-filter-btn').forEach(b => {
+
+            document.querySelectorAll('.mb-filter-chip').forEach(b => {
                 b.classList.remove('active');
                 if (b.dataset.filter === 'all') b.classList.add('active');
             });
             if (classFilter) classFilter.value = 'all';
             if (searchInput) searchInput.value = '';
-            
+
             filterAndRenderBooks();
         });
     }
@@ -757,7 +1376,7 @@
         document.getElementById('addBookModal').style.display = 'flex';
     });
 
-    window.closeAddModal = function() {
+    window.closeAddBookModal = function() {
         document.getElementById('addBookModal').style.display = 'none';
         document.getElementById('addBookForm').reset();
     };
@@ -783,7 +1402,7 @@
 
         const submitBtn = document.getElementById('submitBookBtn');
         submitBtn.disabled = true;
-        submitBtn.textContent = "Uploading...";
+        submitBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Uploading...';
 
         try {
             const res = await fetch(UPLOAD_API, {
@@ -796,7 +1415,7 @@
 
             if (res.ok && result.success) {
                 showSuccess("Book uploaded successfully!");
-                closeAddModal();
+                closeAddBookModal();
                 loadBooks();
             } else {
                 showError(result.message || result.detail || "Upload failed");
@@ -805,7 +1424,7 @@
             showError("Network error: " + err.message);
         } finally {
             submitBtn.disabled = false;
-            submitBtn.textContent = "Upload Book";
+            submitBtn.innerHTML = '<i class="fas fa-cloud-upload-alt"></i> Upload Book';
         }
     });
 
@@ -817,15 +1436,13 @@
             return;
         }
 
-        // Populate the edit modal with current book data
         document.getElementById('editBookId').value = book.id;
         document.getElementById('editTitle').value = book.title || '';
         document.getElementById('editAuthor').value = book.author || '';
         document.getElementById('editClass').value = book.class || '';
         document.getElementById('editSubject').value = book.subject || '';
         document.getElementById('editDescription').value = book.description || '';
-        
-        // Format chapters for display
+
         let chaptersStr = '';
         if (book.chapters && book.chapters.length > 0) {
             chaptersStr = JSON.stringify(book.chapters, null, 2);
@@ -834,60 +1451,48 @@
         }
         document.getElementById('editChapters').value = chaptersStr;
 
-        // Show current cover image
         const coverContainer = document.getElementById('currentCoverContainer');
         if (book.cover_image) {
             coverContainer.innerHTML = `<img src="${book.cover_image}" alt="Current cover">`;
         } else {
-            coverContainer.innerHTML = '<p>No cover image</p>';
+            coverContainer.innerHTML = '<p style="font-size: 13px; color: #999;">No cover image</p>';
         }
 
-        // Show current PDF link
         const pdfContainer = document.getElementById('currentPdfContainer');
         if (book.pdf_path) {
-            pdfContainer.innerHTML = `<a href="${book.pdf_path}" target="_blank">View Current PDF</a>`;
+            pdfContainer.innerHTML = `<a href="${book.pdf_path}" target="_blank"><i class="fas fa-file-pdf"></i> View Current PDF</a>`;
         } else {
-            pdfContainer.innerHTML = '<p>No PDF file</p>';
+            pdfContainer.innerHTML = '<p style="font-size: 13px; color: #999;">No PDF file</p>';
         }
 
-        // Clear file inputs
         document.getElementById('editCover').value = '';
         document.getElementById('editPdf').value = '';
 
-        // Show modal
         document.getElementById('editBookModal').style.display = 'flex';
     };
 
-    window.closeEditModal = function() {
+    window.closeEditBookModal = function() {
         document.getElementById('editBookModal').style.display = 'none';
         document.getElementById('editBookForm').reset();
     };
 
-    // Edit Book Form Submit (PUT request)
+    // Edit Book Form Submit
     document.getElementById('editBookForm').addEventListener('submit', async (e) => {
         e.preventDefault();
 
         const bookId = document.getElementById('editBookId').value;
         const updateBtn = document.getElementById('updateBookBtn');
-        
+
         const formData = new FormData();
-        
-        const title = document.getElementById('editTitle').value.trim();
-        const author = document.getElementById('editAuthor').value.trim();
-        const classValue = document.getElementById('editClass').value;
-        const subject = document.getElementById('editSubject').value;
+        formData.append('title', document.getElementById('editTitle').value.trim());
+        formData.append('author', document.getElementById('editAuthor').value.trim());
+        formData.append('class_value', document.getElementById('editClass').value);
+        formData.append('subject', document.getElementById('editSubject').value);
+
         const description = document.getElementById('editDescription').value.trim();
+        if (description) formData.append('description', description);
+
         const chapters = document.getElementById('editChapters').value.trim();
-        
-        formData.append('title', title);
-        formData.append('author', author);
-        formData.append('class_value', classValue);
-        formData.append('subject', subject);
-        
-        if (description) {
-            formData.append('description', description);
-        }
-        
         try {
             JSON.parse(chapters);
             formData.append('chapters', chapters);
@@ -898,58 +1503,44 @@
 
         const coverFile = document.getElementById('editCover').files[0];
         const pdfFile = document.getElementById('editPdf').files[0];
-
-        if (coverFile) {
-            formData.append('cover_image', coverFile);
-        }
-        
-        if (pdfFile) {
-            formData.append('pdf_file', pdfFile);
-        }
-
-        console.log("Updating book with ID:", bookId);
-        for (let pair of formData.entries()) {
-            console.log(pair[0] + ': ' + (pair[1] instanceof File ? pair[1].name : pair[1]));
-        }
+        if (coverFile) formData.append('cover_image', coverFile);
+        if (pdfFile) formData.append('pdf_file', pdfFile);
 
         updateBtn.disabled = true;
-        updateBtn.textContent = "Updating...";
+        updateBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Updating...';
 
         try {
             const res = await fetch(UPDATE_API(bookId), {
                 method: 'PUT',
-                headers: { 
-                    'Authorization': `Bearer ${getToken()}`
-                },
+                headers: { 'Authorization': `Bearer ${getToken()}` },
                 body: formData
             });
 
             const result = await res.json();
-            console.log("Update response:", result);
 
             if (res.ok && result.success) {
                 showSuccess("Book updated successfully!");
-                closeEditModal();
+                closeEditBookModal();
                 loadBooks();
             } else {
                 showError(result.message || result.detail || "Update failed");
             }
         } catch (err) {
-            console.error("Update error:", err);
             showError("Network error: " + err.message);
         } finally {
             updateBtn.disabled = false;
-            updateBtn.textContent = "Update Book";
+            updateBtn.innerHTML = '<i class="fas fa-save"></i> Update Book';
         }
     });
 
     // Delete Book
     window.deleteBook = async function(id, title) {
+        if (!confirm(`Are you sure you want to delete "${title}"? This action cannot be undone.`)) return;
 
         try {
             const res = await fetch(DELETE_API(id), {
                 method: 'DELETE',
-                headers: { 
+                headers: {
                     'Authorization': `Bearer ${getToken()}`,
                     'Accept': 'application/json'
                 }
@@ -969,17 +1560,15 @@
     };
 
     // Event Listeners
-    // Subject filter buttons
-    document.querySelectorAll('.subject-filter-btn').forEach(btn => {
+    document.querySelectorAll('.mb-filter-chip').forEach(btn => {
         btn.addEventListener('click', () => {
-            document.querySelectorAll('.subject-filter-btn').forEach(b => b.classList.remove('active'));
+            document.querySelectorAll('.mb-filter-chip').forEach(b => b.classList.remove('active'));
             btn.classList.add('active');
             currentSubjectFilter = btn.dataset.filter;
             filterAndRenderBooks();
         });
     });
 
-    // Class filter dropdown
     if (classFilter) {
         classFilter.addEventListener('change', (e) => {
             currentClassFilter = e.target.value;
@@ -987,7 +1576,6 @@
         });
     }
 
-    // Search input
     if (searchInput) {
         searchInput.addEventListener('input', (e) => {
             currentSearch = e.target.value;
@@ -996,30 +1584,34 @@
     }
 
     // Close modals when clicking outside
-    window.onclick = function(event) {
-        const addModal = document.getElementById('addBookModal');
-        const editModal = document.getElementById('editBookModal');
-        if (event.target === addModal) {
-            closeAddModal();
+    window.addEventListener('click', function(event) {
+        if (event.target.classList.contains('mb-modal')) {
+            if (event.target.id === 'addBookModal') closeAddBookModal();
+            if (event.target.id === 'editBookModal') closeEditBookModal();
         }
-        if (event.target === editModal) {
-            closeEditModal();
-        }
-    };
+    });
+
+    // File input labels update
+    document.querySelectorAll('.mb-file-upload input[type="file"]').forEach(input => {
+        input.addEventListener('change', function() {
+            const label = this.nextElementSibling?.querySelector('span');
+            if (label && this.files.length > 0) {
+                label.textContent = this.files[0].name;
+            }
+        });
+    });
 
     // Observer - load when section becomes visible
+    let manageBooksLoaded = false;
     function checkAndLoad() {
-        if (section && section.style.display !== 'none') {
+        if (section && section.style.display !== 'none' && !manageBooksLoaded) {
+            manageBooksLoaded = true;
             loadBooks();
         }
     }
 
     const observer = new MutationObserver(checkAndLoad);
     if (section) observer.observe(section, { attributes: true, attributeFilter: ['style'] });
-
-    // Initial check
     setTimeout(checkAndLoad, 300);
-
-    console.log("Admin Manage Books initialized with Class Filter support");
 })();
 </script>

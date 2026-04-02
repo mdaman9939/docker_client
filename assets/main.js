@@ -8,20 +8,77 @@ document.addEventListener("DOMContentLoaded", function () {
 
     const menuToggle = document.getElementById("menuToggle");
     const sidebar = document.getElementById("sidebar");
+    const sidebarOverlay = document.getElementById("sidebarOverlay");
+
+    /* --- Sidebar open/close (all screens) --- */
+    function openSidebar() {
+        sidebar.classList.add("active");
+        document.body.classList.add("sidebar-open");
+        if (menuToggle) menuToggle.classList.add("active");
+        if (sidebarOverlay) sidebarOverlay.classList.add("active");
+    }
+
+    function closeSidebar() {
+        sidebar.classList.remove("active");
+        document.body.classList.remove("sidebar-open");
+        if (menuToggle) menuToggle.classList.remove("active");
+        if (sidebarOverlay) sidebarOverlay.classList.remove("active");
+    }
+
+    // Restore sidebar state on desktop
+    if (window.innerWidth > 992 && localStorage.getItem("sidebarOpen") !== "false") {
+        openSidebar();
+    }
 
     if (menuToggle && sidebar) {
-        menuToggle.addEventListener("click", function () {
-            sidebar.classList.toggle("active");
-        });
-
-        document.addEventListener("click", function (e) {
-            if (window.innerWidth < 992) {
-                if (!sidebar.contains(e.target) && !menuToggle.contains(e.target)) {
-                    sidebar.classList.remove("active");
-                }
+        menuToggle.addEventListener("click", function (e) {
+            e.stopPropagation();
+            if (sidebar.classList.contains("active")) {
+                closeSidebar();
+                localStorage.setItem("sidebarOpen", "false");
+            } else {
+                openSidebar();
+                localStorage.setItem("sidebarOpen", "true");
             }
         });
     }
+
+    /* --- Admin dropdown toggle --- */
+    var adminToggleBtn = document.getElementById("adminToggleBtn");
+    var adminToggleItem = document.getElementById("adminToggleItem");
+    if (adminToggleBtn && adminToggleItem) {
+        adminToggleBtn.addEventListener("click", function (e) {
+            e.preventDefault();
+            e.stopPropagation();
+            adminToggleItem.classList.toggle("open");
+        });
+    }
+
+    /* --- AI & Creative Tools dropdown toggle --- */
+    var aiCreativeToggleBtn = document.getElementById("aiCreativeToggleBtn");
+    var aiCreativeToggleItem = document.getElementById("aiCreativeToggleItem");
+    if (aiCreativeToggleBtn && aiCreativeToggleItem) {
+        aiCreativeToggleBtn.addEventListener("click", function (e) {
+            e.preventDefault();
+            e.stopPropagation();
+            aiCreativeToggleItem.classList.toggle("open");
+        });
+    }
+
+    /* --- Close sidebar on overlay or outside click (mobile) --- */
+    if (sidebarOverlay) {
+        sidebarOverlay.addEventListener("click", function () {
+            closeSidebar();
+        });
+    }
+
+    document.addEventListener("click", function (e) {
+        if (window.innerWidth < 992 && sidebar) {
+            if (!sidebar.contains(e.target) && (!menuToggle || !menuToggle.contains(e.target))) {
+                closeSidebar();
+            }
+        }
+    });
 
     /* =========================================================
        SECTION SWITCHING WITH ROLE CHECK AND PERSISTENCE
@@ -63,6 +120,23 @@ document.addEventListener("DOMContentLoaded", function () {
             }
         });
 
+        // Auto-open admin dropdown if an admin sub-item is active
+        var adminToggle = document.getElementById("adminToggleItem");
+        if (adminToggle) {
+            if (sectionId === "manage-books-section" || sectionId === "manage-website-section" || sectionId === "manage-students-section") {
+                adminToggle.classList.add("open");
+            }
+        }
+
+        // Auto-open AI Creative dropdown if a sub-item is active
+        var aiCreativeToggle = document.getElementById("aiCreativeToggleItem");
+        if (aiCreativeToggle) {
+            const aiCreativeSections = ["cypher-section", "somnus-section", "neuralab-section", "block-coding-section"];
+            if (aiCreativeSections.includes(sectionId)) {
+                aiCreativeToggle.classList.add("open");
+            }
+        }
+
         // Save to localStorage
         saveActiveSection(sectionId);
     }
@@ -72,10 +146,13 @@ document.addEventListener("DOMContentLoaded", function () {
         item.addEventListener("click", function (e) {
             e.preventDefault();
 
+            // Skip parent toggle items (they only open/close submenu)
+            if (this.classList.contains("admin-parent-item")) return;
+
             const targetId = this.getAttribute("data-section");
             
             // Check if trying to access admin section
-            if (targetId === "manage-books-section") {
+            if (targetId === "manage-books-section" || targetId === "manage-website-section") {
                 const userJson = localStorage.getItem("user");
                 if (userJson) {
                     try {
@@ -101,7 +178,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
             // Close sidebar on mobile
             if (window.innerWidth < 992 && sidebar) {
-                sidebar.classList.remove("active");
+                closeSidebar();
             }
         });
     });
@@ -110,7 +187,7 @@ document.addEventListener("DOMContentLoaded", function () {
     const savedSection = loadActiveSection();
     
     // Verify if saved section is accessible for current user
-    if (savedSection === "manage-books-section") {
+    if (savedSection === "manage-books-section" || savedSection === "manage-website-section") {
         const userJson = localStorage.getItem("user");
         if (userJson) {
             try {

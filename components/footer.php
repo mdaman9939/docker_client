@@ -1,6 +1,5 @@
 <footer class="dashboard-footer">
-    <p>© 2023 NeuraEduBot - Student Learning Platform | All Rights Reserved</p>
-    <p style="margin-top: 5px; font-size: 13px;" id="lastLoginDisplay">Last login: Loading...</p>
+    <p>© 2026 NeuraEduBot - Student Learning Platform | All Rights Reserved</p>
 </footer>
 
 <script>
