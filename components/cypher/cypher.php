@@ -653,7 +653,7 @@
                 monaco: 'php',
                 ext: 'php',
                 mime: 'application/x-httpd-php',
-                template: '<?php\n// PHP - Cypher Editor\n\n$name = readline("Enter your name: ");\necho "Hello, $name! Welcome to Cypher.\\n";\n'
+                template: '<' + '?php\n// PHP - Cypher Editor\n\n$name = readline("Enter your name: ");\necho "Hello, $name! Welcome to Cypher.\\n";\n'
             },
             'ruby': {
                 monaco: 'ruby',
