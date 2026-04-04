@@ -1074,7 +1074,7 @@
 (function() {
     console.log("=== Admin Manage Books Script Loaded ===");
 
-    const API_BASE_URL = 'http://127.0.0.1:8000';
+    const API_BASE_URL = 'https://docker-server-c38j.onrender.com';
     const BOOKS_API = `${API_BASE_URL}/student/books`;
     const UPLOAD_API = `${API_BASE_URL}/admin/upload-book`;
     const UPDATE_API = (id) => `${API_BASE_URL}/admin/book/${id}`;
