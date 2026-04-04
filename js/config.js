@@ -1,32 +1,25 @@
 // config.js - Sabhi pages ke liye central configuration
-// Is file ko sabhi pages mein include karna hai: <script src="../js/config.js"></script>
-
 const CONFIG = {
     // ==================== API CONFIGURATION ====================
-    // Sirf yahan change karo agar server change ho
     API_BASE_URL: 'https://docker-server-c38j.onrender.com',
+    FRONTEND_URL: 'https://docker-client-m892.onrender.com',  // ✅ ADD THIS
     
-    // API Endpoints
     ENDPOINTS: {  
-        // Auth  
         LOGIN: '/api/login',
         SIGNUP: '/api/signup',
         LOGOUT: '/api/logout',
         REFRESH_TOKEN: '/api/refresh-token',
         
-        // Profile
         PROFILE: '/api/profile',
         CHANGE_PASSWORD: '/api/change-password',
         PROFILE_PHOTO: '/api/profile/photo',
         
-        // OTP
         SEND_OTP: '/api/send-otp',
         VERIFY_OTP: '/api/verify-otp',
         RESEND_OTP: '/api/resend-otp',
         FORGOT_PASSWORD: '/api/forgot-password',
         RESET_PASSWORD: '/api/reset-password',
         
-        // Books
         BOOKS: '/student/books',
         DOCUMENTS: '/list-documents',
         SWITCH_DOC: (docId) => `/switch-document/${docId}`,
@@ -40,28 +33,22 @@ const CONFIG = {
         STUDY_STREAK: (userId) => `/get-study-streak/${userId}`,
         GENERATE_QUESTIONS: '/generate-questions',
 
-        // AI News
         AI_NEWS: '/api/ai_news.php'
     },
     
-    // ==================== FRONTEND PAGES ====================
     PAGES: { 
         LOGIN: '/pages/login.php',
         SIGNUP: '/pages/signup.php',
         DASHBOARD: '/index.php',
     },
     
-    // ==================== HELPER FUNCTIONS ====================
-    // Full API URL banane ke liye
     getApiUrl: function(endpoint) {
-        // Check if endpoint already starts with http
         if (endpoint.startsWith('http')) {
             return endpoint;
         }
         return `${this.API_BASE_URL}${endpoint}`;
     },
     
-    // Endpoint with params banane ke liye
     getEndpoint: function(key, ...params) {
         const endpoint = this.ENDPOINTS[key];
         if (typeof endpoint === 'function') {
@@ -70,10 +57,14 @@ const CONFIG = {
         return endpoint;
     },
     
-    // Full URL with params banane ke liye
     getUrl: function(key, ...params) {
         const endpoint = this.getEndpoint(key, ...params);
-        // AI_NEWS is a local PHP endpoint, not on FastAPI
+        
+        // ✅ SPECIAL HANDLING FOR AI_NEWS
+        if (key === 'AI_NEWS') {
+            return `${this.FRONTEND_URL}${endpoint}?limit=30`;
+        }
+        
         if (endpoint && endpoint.startsWith('/neuraEdu/')) {
             return endpoint;
         }
@@ -81,7 +72,6 @@ const CONFIG = {
     }
 };
 
-// Global variable banao
 window.CONFIG = CONFIG;
-
-console.log('✅ Config loaded:', CONFIG.API_BASE_URL);
+console.log('✅ Config loaded - Backend:', CONFIG.API_BASE_URL);
+console.log('✅ Config loaded - Frontend:', CONFIG.FRONTEND_URL);
