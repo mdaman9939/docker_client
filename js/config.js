@@ -41,14 +41,14 @@ const CONFIG = {
         GENERATE_QUESTIONS: '/generate-questions',
 
         // AI News
-        AI_NEWS: '/neuraEdu/client/api/ai_news.php'
+        AI_NEWS: '/api/ai_news.php'
     },
     
     // ==================== FRONTEND PAGES ====================
     PAGES: { 
-        LOGIN: '/neuraEdu/client/pages/login.php',
-        SIGNUP: '/neuraEdu/client/pages/signup.php',
-        DASHBOARD: '/neuraEdu/client/index.php',
+        LOGIN: '/pages/login.php',
+        SIGNUP: '/pages/signup.php',
+        DASHBOARD: '/index.php',
     },
     
     // ==================== HELPER FUNCTIONS ====================
