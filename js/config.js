@@ -4,7 +4,7 @@
 const CONFIG = {
     // ==================== API CONFIGURATION ====================
     // Sirf yahan change karo agar server change ho
-    API_BASE_URL: 'http://localhost:8000',
+    API_BASE_URL: 'https://docker-server-c38j.onrender.com',
     
     // API Endpoints
     ENDPOINTS: {  
