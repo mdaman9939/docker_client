@@ -768,7 +768,7 @@
     if (typeof CONFIG === 'undefined') {
         window.CONFIG = {
             API_BASE_URL: 'https://docker-server-c38j.onrender.com',
-            PAGES: { LOGIN: '/neuraEdu/client/pages/login.php', DASHBOARD: '/index.php' }
+            PAGES: { LOGIN: '/pages/login.php', DASHBOARD: '/index.php' }
         };
     }
 
