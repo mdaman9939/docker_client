@@ -997,7 +997,7 @@
 (function() {
     console.log("=== Admin Manage Websites ===");
 
-    const API_BASE_URL = 'http://127.0.0.1:8000';
+    const API_BASE_URL = 'https://docker-server-c38j.onrender.com';
 
     // DOM Elements
     const sectionElement = document.getElementById('manage-website-section');
