@@ -1051,7 +1051,7 @@
 // Script remains the same as your existing code
 document.addEventListener('DOMContentLoaded', function() {
 
-    const API_BASE_URL = 'http://127.0.0.1:8000';
+    const API_BASE_URL = 'https://docker-server-c38j.onrender.com';
     let allWebsites = [];
     let currentCategoryFilter = 'all';
     let currentClassFilter = 'all';
